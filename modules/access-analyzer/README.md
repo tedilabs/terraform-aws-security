@@ -45,6 +45,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_arn"></a> [arn](#output\_arn) | The Amazon Resource Name (ARN) of this Analyzer. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of this Analyzer. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the Analyzer. |
 | <a name="output_type"></a> [type](#output\_type) | The type of Analyzer. |
