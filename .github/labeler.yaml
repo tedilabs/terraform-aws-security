@@ -1,3 +1,5 @@
 # Modules
 ":floppy_disk: access-analyzer":
 - modules/access-analyzer/**/*
+":floppy_disk: config-recorder":
+- modules/config-recorder/**/*
