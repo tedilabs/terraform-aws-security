@@ -1,0 +1,5644 @@
+{
+  "fsx-resources-protected-by-backup-plan": {
+    "id": "FSX_RESOURCES_PROTECTED_BY_BACKUP_PLAN",
+    "default_name": "fsx-resources-protected-by-backup-plan",
+    "description": "Checks if Amazon FSx File Systems are protected by a backup plan. The rule is NON_COMPLIANT if the Amazon FSx File System is not covered by a backup plan.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "resourceTags": {
+          "type": "String",
+          "description": "Tags of Amazon FSx File Systems for the rule to check, in JSON format."
+        },
+        "resourceId": {
+          "type": "String",
+          "description": "ID of the Amazon FSx File System for the rule to check."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": []
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
+  "backup-recovery-point-manual-deletion-disabled": {
+    "id": "BACKUP_RECOVERY_POINT_MANUAL_DELETION_DISABLED",
+    "default_name": "backup-recovery-point-manual-deletion-disabled",
+    "description": "Checks if a backup vault has an attached resource-based policy which prevents deletion of recovery points. The rule is NON_COMPLIANT if the Backup Vault does not have resource-based policies or has policies without a suitable 'Deny' statement.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "principalArnList": {
+          "type": "CSV",
+          "description": "Comma-separated list of AWS Identity and Access Management (IAM) Amazon Resource Names (ARNs) for the rule to NOT check."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Backup::BackupVault"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
+  "dynamodb-resources-protected-by-backup-plan": {
+    "id": "DYNAMODB_RESOURCES_PROTECTED_BY_BACKUP_PLAN",
+    "default_name": "dynamodb-resources-protected-by-backup-plan",
+    "description": "Checks if Amazon DynamoDB tables are protected by a backup plan. The rule is NON_COMPLIANT if the DynamoDB Table is not covered by a backup plan.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "resourceTags": {
+          "type": "String",
+          "description": "Tags for DynamoDB tables for the rule to check, in JSON format."
+        },
+        "resourceId": {
+          "type": "String",
+          "description": "Name of DynamoDB table for the rule to check."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": [
+          "AWS::DynamoDB::Table"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
+  "efs-resources-protected-by-backup-plan": {
+    "id": "EFS_RESOURCES_PROTECTED_BY_BACKUP_PLAN",
+    "default_name": "efs-resources-protected-by-backup-plan",
+    "description": "Checks if Amazon Elastic File System (Amazon EFS) File Systems are protected by a backup plan. The rule is NON_COMPLIANT if the EFS File System is not covered by a backup plan.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "resourceTags": {
+          "type": "String",
+          "description": "Tags for EFS File Systems for the rule to check, in JSON format."
+        },
+        "resourceId": {
+          "type": "String",
+          "description": "ID of the EFS File System for the rule to check."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": [
+          "AWS::EFS::FileSystem"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
+  "backup-recovery-point-encrypted": {
+    "id": "BACKUP_RECOVERY_POINT_ENCRYPTED",
+    "default_name": "backup-recovery-point-encrypted",
+    "description": "Checks if a recovery point is encrypted. The rule is NON_COMPLIANT if the recovery point is not encrypted.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Backup::RecoveryPoint"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
+  "ec2-resources-protected-by-backup-plan": {
+    "id": "EC2_RESOURCES_PROTECTED_BY_BACKUP_PLAN",
+    "default_name": "ec2-resources-protected-by-backup-plan",
+    "description": "Checks if Amazon Elastic Compute Cloud (Amazon EC2) instances are protected by a backup plan. The rule is NON_COMPLIANT if the Amazon EC2 instance is not covered by a backup plan.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "resourceTags": {
+          "type": "String",
+          "description": "Tags for Amazon EC2 instances for the rule to check, in JSON format."
+        },
+        "resourceId": {
+          "type": "String",
+          "description": "ID of Amazon EC2 instance for the rule to check."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
+  "rds-resources-protected-by-backup-plan": {
+    "id": "RDS_RESOURCES_PROTECTED_BY_BACKUP_PLAN",
+    "default_name": "rds-resources-protected-by-backup-plan",
+    "description": "Checks if Amazon Relational Database Service (Amazon RDS) instances are protected by a backup plan. The rule is NON_COMPLIANT if the Amazon RDS Database instance is not covered by a backup plan.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "resourceTags": {
+          "type": "String",
+          "description": "Tags for Amazon RDS instances for the rule to check, in JSON format."
+        },
+        "resourceId": {
+          "type": "String",
+          "description": "ID of Amazon RDS instance for the rule to check."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBInstance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
+  "backup-plan-min-frequency-and-min-retention-check": {
+    "id": "BACKUP_PLAN_MIN_FREQUENCY_AND_MIN_RETENTION_CHECK",
+    "default_name": "backup-plan-min-frequency-and-min-retention-check",
+    "description": "Checks if a backup plan has a backup rule that satisfies the required frequency and retention period. The rule is NON_COMPLIANT if recovery points are not created at least as often as the specified frequency or expire before the specified period.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "requiredFrequencyValue": {
+          "type": "int",
+          "description": "Numerical value for required backup frequency. Maximum of 24 for hours, 31 for days.",
+          "defaultValue": "1"
+        },
+        "requiredRetentionDays": {
+          "type": "int",
+          "description": "Required retention period in days.",
+          "defaultValue": "35"
+        },
+        "requiredFrequencyUnit": {
+          "type": "String",
+          "description": "Unit of time for required backup frequency. Accepted values: 'hours', 'days'.",
+          "defaultValue": "days"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Backup::BackupPlan"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
+  "ebs-resources-protected-by-backup-plan": {
+    "id": "EBS_RESOURCES_PROTECTED_BY_BACKUP_PLAN",
+    "default_name": "ebs-resources-protected-by-backup-plan",
+    "description": "Checks if Amazon Elastic Block Store (Amazon EBS) volumes are protected by a backup plan. The rule is NON_COMPLIANT if the Amazon EBS volume is not covered by a backup plan.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "resourceTags": {
+          "type": "String",
+          "description": "Tags for Amazon EBS volumes for the rule to check, in JSON format."
+        },
+        "resourceId": {
+          "type": "String",
+          "description": "ID of Amazon EBS volume for the rule to check."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Volume"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
+  "aurora-resources-protected-by-backup-plan": {
+    "id": "AURORA_RESOURCES_PROTECTED_BY_BACKUP_PLAN",
+    "default_name": "aurora-resources-protected-by-backup-plan",
+    "description": "Checks if Amazon Aurora DB clusters are protected by a backup plan. The rule is NON_COMPLIANT if the Amazon Relational Database Service (Amazon RDS) Database Cluster is not protected by a backup plan.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "resourceTags": {
+          "type": "String",
+          "description": "Tags of Aurora DB clusters for the rule to check, in JSON format."
+        },
+        "resourceId": {
+          "type": "String",
+          "description": "ID of Aurora DB cluster for the rule to check."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBCluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
+  "backup-recovery-point-minimum-retention-check": {
+    "id": "BACKUP_RECOVERY_POINT_MINIMUM_RETENTION_CHECK",
+    "default_name": "backup-recovery-point-minimum-retention-check",
+    "description": "Checks if a recovery point expires no earlier than after the specified period. The rule is NON_COMPLIANT if the recovery point has a retention point that is less than the required retention period.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "requiredRetentionDays": {
+          "type": "int",
+          "description": "Required retention period in days.",
+          "defaultValue": "35"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Backup::RecoveryPoint"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
+  "s3-account-level-public-access-blocks-periodic": {
+    "id": "S3_ACCOUNT_LEVEL_PUBLIC_ACCESS_BLOCKS_PERIODIC",
+    "default_name": "s3-account-level-public-access-blocks-periodic",
+    "description": "Checks if the required public access block settings are configured from account level.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "IgnorePublicAcls": {
+          "type": "String",
+          "description": "IgnorePublicAcls is enforced or not, default True"
+        },
+        "BlockPublicPolicy": {
+          "type": "String",
+          "description": "BlockPublicPolicy is enforced or not, default True"
+        },
+        "BlockPublicAcls": {
+          "type": "String",
+          "description": "BlockPublicAcls is enforced or not, default True"
+        },
+        "RestrictPublicBuckets": {
+          "type": "String",
+          "description": "RestrictPublicBuckets is enforced or not, default True"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "S3",
+      "PUBLIC",
+      "ACCESS",
+      "BLOCKS"
+    ]
+  },
+  "ssm-document-not-public": {
+    "id": "SSM_DOCUMENT_NOT_PUBLIC",
+    "default_name": "ssm-document-not-public",
+    "description": "Checks if AWS Systems Manager documents owned by the account are public. This rule is NON_COMPLIANT if SSM documents with owner 'Self' are public.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "SSM",
+      "SYSTEMS",
+      "MANAGER",
+      "SYSTEMS MANAGER",
+      "DOCUMENT",
+      "RUNBOOK",
+      "PUBLIC",
+      "PERIODIC"
+    ]
+  },
+  "api-gw-associated-with-waf": {
+    "id": "API_GW_ASSOCIATED_WITH_WAF",
+    "default_name": "api-gw-associated-with-waf",
+    "description": "Checks if an Amazon API Gateway API stage is using an AWS WAF Web ACL. This rule is NON_COMPLIANT if an AWS WAF Web ACL is not used or if a used AWS Web ACL does not match what is listed in the rule parameter.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "WebAclArns": {
+          "type": "CSV",
+          "description": "Comma-separated list of web ACL Amazon Resource Names (ARNs)."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ApiGateway::Stage"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "API",
+      "GateWay",
+      "Stage",
+      "WAF",
+      "WAFv2"
+    ]
+  },
+  "ec2-instance-profile-attached": {
+    "id": "EC2_INSTANCE_PROFILE_ATTACHED",
+    "default_name": "ec2-instance-profile-attached",
+    "description": "Checks if an Amazon Elastic Compute Cloud (Amazon EC2) instance has an Identity and Access Management (IAM) profile attached to it. This rule is NON_COMPLIANT if no IAM profile is attached to the Amazon EC2 instance.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "IamInstanceProfileArnList": {
+          "type": "CSV",
+          "description": "Comma-separated list of IAM profile Amazon Resource Names (ARNs) that can be attached to Amazon EC2 instances."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2",
+      "INSTANCE",
+      "PROFILE"
+    ]
+  },
+  "ecs-task-definition-user-for-host-mode-check": {
+    "id": "ECS_TASK_DEFINITION_USER_FOR_HOST_MODE_CHECK",
+    "default_name": "ecs-task-definition-user-for-host-mode-check",
+    "description": "Checks whether an Amazon ECS task definition with host networking mode has containers definitions regarding 'privileged' or 'user'. The rule is NON_COMPLIANT for task definitions with host network mode, privileged=false or empty and user= root or empty.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "SkipInactiveTaskDefinitions": {
+          "type": "boolean",
+          "description": "This rule will evaluate all Amazon ECS Task Definitions if the value is 'false'. The rule does not evaluate INACTIVE ECS Task Definitions if the value is 'true'."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ECS::TaskDefinition"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ECS",
+      "TaskDefinition",
+      "HostModeCheck"
+    ]
+  },
+  "elasticsearch-logs-to-cloudwatch": {
+    "id": "ELASTICSEARCH_LOGS_TO_CLOUDWATCH",
+    "default_name": "elasticsearch-logs-to-cloudwatch",
+    "description": "Checks if Amazon OpenSearch Service domains are configured to send logs to Amazon CloudWatch Logs. The rule is COMPLIANT if a log is enabled for an Amazon ES domain. This rule is NON_COMPLIANT if logging is not configured.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "logTypes": {
+          "type": "CSV",
+          "description": "Comma-separated list of logs that are enabled. Valid values are 'search', 'index', 'error'."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Elasticsearch::Domain"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Elasticsearch",
+      "CloudWatch",
+      "Logs"
+    ]
+  },
+  "no-unrestricted-route-to-igw": {
+    "id": "NO_UNRESTRICTED_ROUTE_TO_IGW",
+    "default_name": "no-unrestricted-route-to-igw",
+    "description": "Checks if there are public routes in the route table to an Internet Gateway (IGW). The rule is NON_COMPLIANT if a route to an IGW has a destination CIDR block of '0.0.0.0/0' or '::/0' or if a destination CIDR block does not match the rule parameter.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "routeTableIds": {
+          "type": "CSV",
+          "description": "Comma-separated list of route table IDs that can have routes to an Internet Gateway with a destination CIDR block of '0.0.0.0/0' or '::/0'."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::RouteTable"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Internet",
+      "Gateway",
+      "Public",
+      "Route"
+    ]
+  },
+  "rds-cluster-multi-az-enabled": {
+    "id": "RDS_CLUSTER_MULTI_AZ_ENABLED",
+    "default_name": "rds-cluster-multi-az-enabled",
+    "description": "Checks if Multi-AZ replication is enabled on Amazon Aurora clusters managed by Amazon Relational Database Service (Amazon RDS). This rule is NON_COMPLIANT if an Amazon RDS instance is not configured with Multi-AZ.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBCluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS",
+      "DBCluster",
+      "Multi-AZ"
+    ]
+  },
+  "redshift-enhanced-vpc-routing-enabled": {
+    "id": "REDSHIFT_ENHANCED_VPC_ROUTING_ENABLED",
+    "default_name": "redshift-enhanced-vpc-routing-enabled",
+    "description": "Checks if Amazon Redshift cluster has 'enhancedVpcRouting' enabled. The rule is NON_COMPLIANT if 'enhancedVpcRouting' is not enabled or if the configuration.enhancedVpcRouting field is 'false'. ",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Redshift::Cluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Redshift",
+      "Cluster",
+      "EnhancedVPCRouting"
+    ]
+  },
+  "rds-automatic-minor-version-upgrade-enabled": {
+    "id": "RDS_AUTOMATIC_MINOR_VERSION_UPGRADE_ENABLED",
+    "default_name": "rds-automatic-minor-version-upgrade-enabled",
+    "description": "Checks if Amazon Relational Database Service (RDS) database instances are configured for automatic minor version upgrades. The rule is NON_COMPLIANT if the value of 'autoMinorVersionUpgrade' is false.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBInstance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS",
+      "Auto",
+      "minor",
+      "version",
+      "upgrade"
+    ]
+  },
+  "secretsmanager-secret-periodic-rotation": {
+    "id": "SECRETSMANAGER_SECRET_PERIODIC_ROTATION",
+    "default_name": "secretsmanager-secret-periodic-rotation",
+    "description": "Checks if AWS Secrets Manager secrets have been rotated in the past 90 days by examining 'LastRotatedDate' value of the secret.  If 'LastRotatedDate' doesn't exist then this rule will check for the creation date of the secret.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "maxDaysSinceRotation": {
+          "type": "int",
+          "description": "The number of days in which a secret can remain unchanged. "
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "SecretsManager",
+      "Secret",
+      "Periodic",
+      "Rotation"
+    ]
+  },
+  "iam-inline-policy-blocked-kms-actions": {
+    "id": "IAM_INLINE_POLICY_BLOCKED_KMS_ACTIONS",
+    "default_name": "iam-inline-policy-blocked-kms-actions",
+    "description": "Checks that the inline policies attached to your IAM users, roles, and groups do not allow blocked actions on all AWS Key Management Service (KMS) keys. The rule is NON_COMPLIANT if any blocked action is allowed on all KMS keys in an inline policy.",
+    "parameters": {
+      "required": {
+        "blockedActionsPatterns": {
+          "type": "CSV",
+          "description": "Comma-separated list of blocked KMS action patterns, for example, kms:*, kms:Decrypt, kms:ReEncrypt*."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::IAM::Group",
+          "AWS::IAM::Role",
+          "AWS::IAM::User"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "IAM",
+      "Zelkova"
+    ]
+  },
+  "api-gw-xray-enabled": {
+    "id": "API_GW_XRAY_ENABLED",
+    "default_name": "api-gw-xray-enabled",
+    "description": "Checks if AWS X-Ray tracing is enabled on Amazon API Gateway REST APIs. The rule is COMPLIANT if X-Ray tracing is enabled and NON_COMPLIANT otherwise.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ApiGateway::Stage"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "API",
+      "Gateway",
+      "Rest",
+      "X-Ray",
+      "Tracing"
+    ]
+  },
+  "autoscaling-launch-config-public-ip-disabled": {
+    "id": "AUTOSCALING_LAUNCH_CONFIG_PUBLIC_IP_DISABLED",
+    "default_name": "autoscaling-launch-config-public-ip-disabled",
+    "description": "Checks if Amazon EC2 Auto Scaling groups have public IP addresses enabled through Launch Configurations. This rule is NON_COMPLIANT if the Launch Configuration for an Auto Scaling group has AssociatePublicIpAddress set to 'true'.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::AutoScaling::LaunchConfiguration"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Auto",
+      "Scaling",
+      "launch",
+      "configuration",
+      "public",
+      "IP"
+    ]
+  },
+  "elastic-beanstalk-managed-updates-enabled": {
+    "id": "ELASTIC_BEANSTALK_MANAGED_UPDATES_ENABLED",
+    "default_name": "elastic-beanstalk-managed-updates-enabled",
+    "description": "Checks if managed platform updates in an AWS Elastic Beanstalk environment is enabled. The rule is NON_COMPLIANT if the value for ?ManagedActionsEnabled? is set to false or if a parameter is provided whose value does not match the existing configurations.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "UpdateLevel": {
+          "type": "String",
+          "description": "Indicates whether update levels are set to 'minor' version updates or a 'patch' version updates."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticBeanstalk::Environment"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Elastic",
+      "Beanstalk",
+      "Managed",
+      "Updates"
+    ]
+  },
+  "rds-cluster-iam-authentication-enabled": {
+    "id": "RDS_CLUSTER_IAM_AUTHENTICATION_ENABLED",
+    "default_name": "rds-cluster-iam-authentication-enabled",
+    "description": "Checks if an Amazon RDS Cluster has AWS Identity and Access Management (IAM) authentication enabled. The rule is NON_COMPLIANT if an RDS Cluster does not have IAM authentication enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBCluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS",
+      "IAM",
+      "Authentication"
+    ]
+  },
+  "redshift-cluster-kms-enabled": {
+    "id": "REDSHIFT_CLUSTER_KMS_ENABLED",
+    "default_name": "redshift-cluster-kms-enabled",
+    "description": "Checks if Amazon RedShift clusters are using a specified AWS Key Management Service key for encryption. The rule is NON_COMPLIANT if the cluster is not encrypted or encrypted with another key.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "kmsKeyArns": {
+          "type": "CSV",
+          "description": "Comma-separated list of KMS Key Amazon Resource Names (ARNs) used in Amazon RedShift clusters for encryption."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Redshift::Cluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Redshift",
+      "Cluster",
+      "Kms",
+      "EncryptionEnabled"
+    ]
+  },
+  "secretsmanager-secret-unused": {
+    "id": "SECRETSMANAGER_SECRET_UNUSED",
+    "default_name": "secretsmanager-secret-unused",
+    "description": "Checks if AWS Secrets Manager secrets have been accessed in the past 90 days. This rule is NON_COMPLIANT if a secret has not been accessed in 90 days.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "unusedForDays": {
+          "type": "int",
+          "description": "The number of days in which a secret can remain unused. Valid value is a positive integer."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "SecretsManager",
+      "Secret",
+      "Unused"
+    ]
+  },
+  "vpc-network-acl-unused-check": {
+    "id": "VPC_NETWORK_ACL_UNUSED_CHECK",
+    "default_name": "vpc-network-acl-unused-check",
+    "description": "Checks if there are unused Network Access Control Lists (NACLs). The rule is NON_COMPLIANT if an NACL is not associated with a subnet.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::NetworkAcl"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "NetworkAcl",
+      "NACL",
+      "unused"
+    ]
+  },
+  "iam-customer-policy-blocked-kms-actions": {
+    "id": "IAM_CUSTOMER_POLICY_BLOCKED_KMS_ACTIONS",
+    "default_name": "iam-customer-policy-blocked-kms-actions",
+    "description": "Checks that the managed AWS Identity and Access Management (IAM) policies that you create do not allow blocked actions on all AWS KMS keys. The rule is NON_COMPLIANT if any blocked action is allowed on all AWS KMS keys by the managed IAM policy.",
+    "parameters": {
+      "required": {
+        "blockedActionsPatterns": {
+          "type": "CSV",
+          "description": "Comma-separated list of blocked KMS action patterns, for example, kms:*, kms:Decrypt, kms:ReEncrypt*."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::IAM::Policy"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "IAM Policy",
+      "Zelkova"
+    ]
+  },
+  "api-gw-ssl-enabled": {
+    "id": "API_GW_SSL_ENABLED",
+    "default_name": "api-gw-ssl-enabled",
+    "description": "Checks if a REST API stage uses an Secure Sockets Layer (SSL) certificate. This rule is NON_COMPLIANT if the REST API stage does not have an associated SSL certificate.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "CertificateIDs": {
+          "type": "CSV",
+          "description": "Comma-separated list of client certificate IDs configured on a REST API stage."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ApiGateway::Stage"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "API",
+      "REST",
+      "ClientCertificate",
+      "Stage"
+    ]
+  },
+  "aurora-mysql-backtracking-enabled": {
+    "id": "AURORA_MYSQL_BACKTRACKING_ENABLED",
+    "default_name": "aurora-mysql-backtracking-enabled",
+    "description": "Checks if an Amazon Aurora MySQL cluster has backtracking enabled. This rule is NON_COMPLIANT if the Aurora cluster uses MySQL and it does not have backtracking enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "BacktrackWindowInHours": {
+          "type": "double",
+          "description": "Amount of time in hours (up to 72) to backtrack your Aurora MySQL cluster."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBCluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Aurora",
+      "MySQL",
+      "RDSCluster",
+      "Backtracking"
+    ]
+  },
+  "beanstalk-enhanced-health-reporting-enabled": {
+    "id": "BEANSTALK_ENHANCED_HEALTH_REPORTING_ENABLED",
+    "default_name": "beanstalk-enhanced-health-reporting-enabled",
+    "description": "checks for Elastic Beanstalk environment is configured for 'enhanced' health reporting and NON_COMPLIANT if configured for 'basic' health reporting",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticBeanstalk::Environment"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ElasticBeanstalk",
+      "Environment",
+      "EnhancedHealthReporting"
+    ]
+  },
+  "ec2-instance-multiple-eni-check": {
+    "id": "EC2_INSTANCE_MULTIPLE_ENI_CHECK",
+    "default_name": "ec2-instance-multiple-eni-check",
+    "description": "Checks if Amazon Elastic Compute Cloud (Amazon EC2) uses multiple ENIs (Elastic Network Interfaces) or Elastic Fabric Adapters (EFAs). This rule is NON_COMPLIANT an Amazon EC2 instance use multiple network interfaces.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "NetworkInterfaceIds": {
+          "type": "CSV",
+          "description": "Comma-separated list of network instance IDs"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2",
+      "Instance",
+      "ENI",
+      "EFA",
+      "Network",
+      "Interface"
+    ]
+  },
+  "elbv2-acm-certificate-required": {
+    "id": "ELBV2_ACM_CERTIFICATE_REQUIRED",
+    "default_name": "elbv2-acm-certificate-required",
+    "description": "Checks if Application Load Balancers and Network Load Balancers are configured to use certificates from Amazon Certificate Manager (ACM). This rule is NON_COMPLIANT if at least 1 load balancer is configured without a certificate from ACM.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "AcmCertificatesAllowed": {
+          "type": "CSV",
+          "description": "Comma-separated list of certificate Amazon Resource Names (ARNs)."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "ELBV2",
+      "ACM"
+    ]
+  },
+  "iam-policy-no-statements-with-full-access": {
+    "id": "IAM_POLICY_NO_STATEMENTS_WITH_FULL_ACCESS",
+    "default_name": "iam-policy-no-statements-with-full-access",
+    "description": "Checks if AWS Identity and Access Management (IAM) policies grant permissions to all actions on individual AWS resources. The rule is NON_COMPLIANT if the managed IAM policy allows full access to at least 1 AWS service.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::IAM::Policy"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "IAM",
+      "Policy",
+      "FullAccess",
+      "Service"
+    ]
+  },
+  "s3-bucket-level-public-access-prohibited": {
+    "id": "S3_BUCKET_LEVEL_PUBLIC_ACCESS_PROHIBITED",
+    "default_name": "s3-bucket-level-public-access-prohibited",
+    "description": "Checks if Amazon Simple Storage Service (Amazon S3) buckets are publicly accessible. This rule is NON_COMPLIANT if an Amazon S3 bucket is not listed in the excludedPublicBuckets parameter and bucket level settings are public.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "excludedPublicBuckets": {
+          "type": "CSV",
+          "description": "Comma-separated list of known allowed public Amazon S3 bucket names."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3",
+      "Bucket",
+      "PublicAccess"
+    ]
+  },
+  "secretsmanager-using-cmk": {
+    "id": "SECRETSMANAGER_USING_CMK",
+    "default_name": "secretsmanager-using-cmk",
+    "description": "Checks if all secrets in AWS Secrets Manager are encrypted using an AWS Key Management Service (AWS KMS) customer master key (CMK). This rule is NON_COMPLIANT if a secret is encrypted using the default AWS KMS key",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "kmsKeyArns": {
+          "type": "CSV",
+          "description": "Comma-separated list of KMS key Amazon Resource Names (ARNs) to check if the keys are used in the encryption."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::SecretsManager::Secret"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "SecretsManager",
+      "CMK"
+    ]
+  },
+  "account-part-of-organizations": {
+    "id": "ACCOUNT_PART_OF_ORGANIZATIONS",
+    "default_name": "account-part-of-organizations",
+    "description": "Rule checks whether AWS account is part of AWS Organizations. The rule is NON_COMPLIANT if the AWS account is not part of AWS Organizations or AWS Organizations master account ID does not match rule parameter MasterAccountId.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "MasterAccountId": {
+          "type": "String",
+          "description": "The master account ID for an AWS account."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "Organizations",
+      "Account"
+    ]
+  },
+  "alb-http-drop-invalid-header-enabled": {
+    "id": "ALB_HTTP_DROP_INVALID_HEADER_ENABLED",
+    "default_name": "alb-http-drop-invalid-header-enabled",
+    "description": "Checks if rule evaluates AWS Application Load Balancers (ALB) to ensure they are configured to drop http headers. The rule is NON_COMPLIANT if the value of routing.http.drop_invalid_header_fields.enabled is set to false.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancingV2::LoadBalancer"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ELBv2",
+      "http headers"
+    ]
+  },
+  "alb-waf-enabled": {
+    "id": "ALB_WAF_ENABLED",
+    "default_name": "alb-waf-enabled",
+    "description": "Checks if Web Application Firewall (WAF) is enabled on Application Load Balancers (ALBs). This rule is NON_COMPLIANT if key: waf.enabled is set to false.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "wafWebAclIds": {
+          "type": "CSV",
+          "description": "Comma separated list of web ACL ID (for WAF) or web ACL ARN (for WAFV2) checking for ALB association."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancingV2::LoadBalancer"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Application LoadBalancer",
+      "WAF",
+      "Webacl"
+    ]
+  },
+  "cloudtrail-security-trail-enabled": {
+    "id": "CLOUDTRAIL_SECURITY_TRAIL_ENABLED",
+    "default_name": "cloudtrail-security-trail-enabled",
+    "description": "Checks that there is at least one AWS CloudTrail trail defined with security best practices.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "CloudTrail",
+      "Security"
+    ]
+  },
+  "cw-loggroup-retention-period-check": {
+    "id": "CW_LOGGROUP_RETENTION_PERIOD_CHECK",
+    "default_name": "cw-loggroup-retention-period-check",
+    "description": "Checks whether Amazon CloudWatch LogGroup retention period is set to specific number of days. The rule is NON_COMPLIANT if the retention period is not set or is less than the configured retention period.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "LogGroupNames": {
+          "type": "CSV",
+          "description": "A comma-separated list of Log Group names to check the retention period."
+        },
+        "MinRetentionTime": {
+          "type": "int",
+          "description": "Specify the retention time. Valid values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653. The default retention period is 365 days."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "Logs",
+      "CloudWatch",
+      "LogGroup"
+    ]
+  },
+  "dynamodb-in-backup-plan": {
+    "id": "DYNAMODB_IN_BACKUP_PLAN",
+    "default_name": "dynamodb-in-backup-plan",
+    "description": "Checks whether Amazon DynamoDB table is present in AWS Backup Plans. The rule is NON_COMPLIANT if Amazon DynamoDB tables are not present in any AWS Backup plan.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "DynamoDB",
+      "Backup"
+    ]
+  },
+  "ebs-in-backup-plan": {
+    "id": "EBS_IN_BACKUP_PLAN",
+    "default_name": "ebs-in-backup-plan",
+    "description": "Check if Amazon Elastic Block Store (Amazon EBS) volumes are added in backup plans of AWS Backup. The rule is NON_COMPLIANT if Amazon EBS volumes are not included in backup plans.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "EBS",
+      "BACKUP"
+    ]
+  },
+  "ec2-imdsv2-check": {
+    "id": "EC2_IMDSV2_CHECK",
+    "default_name": "ec2-imdsv2-check",
+    "description": "Checks whether your Amazon Elastic Compute Cloud (Amazon EC2) instance metadata version is configured with Instance Metadata Service Version 2 (IMDSv2). The rule is NON_COMPLIANT if the HttpTokens is set to optional.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2",
+      "IMDSv2",
+      "metadata"
+    ]
+  },
+  "efs-in-backup-plan": {
+    "id": "EFS_IN_BACKUP_PLAN",
+    "default_name": "efs-in-backup-plan",
+    "description": "Checks whether Amazon Elastic File System (Amazon EFS) file systems are added in the backup plans of AWS Backup. The rule is NON_COMPLIANT if EFS file systems are not included in the backup plans.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "EFS",
+      "BACKUP"
+    ]
+  },
+  "eks-endpoint-no-public-access": {
+    "id": "EKS_ENDPOINT_NO_PUBLIC_ACCESS",
+    "default_name": "eks-endpoint-no-public-access",
+    "description": "Checks whether Amazon Elastic Kubernetes Service (Amazon EKS) endpoint is not publicly accessible. The rule is NON_COMPLIANT if the endpoint is publicly accessible.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "EKS"
+    ]
+  },
+  "eks-secrets-encrypted": {
+    "id": "EKS_SECRETS_ENCRYPTED",
+    "default_name": "eks-secrets-encrypted",
+    "description": "Checks whether Amazon Elastic Kubernetes Service clusters are configured to have Kubernetes secrets encrypted using AWS Key Management Service (KMS) keys. This rule is NON_COMPLIANT if an EKS cluster does not have an encryptionConfig.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "kmsKeyArns": {
+          "type": "CSV",
+          "description": "Comma separated list of Amazon Resource Name (ARN) of the KMS key that should be used for encrypted secrets in an EKS cluster."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "EKS"
+    ]
+  },
+  "elasticsearch-node-to-node-encryption-check": {
+    "id": "ELASTICSEARCH_NODE_TO_NODE_ENCRYPTION_CHECK",
+    "default_name": "elasticsearch-node-to-node-encryption-check",
+    "description": "Check that Amazon OpenSearch Service nodes are encrypted end to end. The rule is NON_COMPLIANT if the node-to-node encryption is disabled on the domain.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Elasticsearch::Domain"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Elasticsearch Encryption"
+    ]
+  },
+  "elb-cross-zone-load-balancing-enabled": {
+    "id": "ELB_CROSS_ZONE_LOAD_BALANCING_ENABLED",
+    "default_name": "elb-cross-zone-load-balancing-enabled",
+    "description": "Checks if cross-zone load balancing is enabled for the Classic Load Balancers (CLBs). This rule is NON_COMPLIANT if cross-zone load balancing is not enabled for a CLB.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancing::LoadBalancer"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "LoadBalancer",
+      "ElasticLoadBalancing",
+      "ClassicLoadBalancer",
+      "Cross Zone Load Balancing"
+    ]
+  },
+  "elb-tls-https-listeners-only": {
+    "id": "ELB_TLS_HTTPS_LISTENERS_ONLY",
+    "default_name": "elb-tls-https-listeners-only",
+    "description": "Checks whether your Classic Load Balancer's listeners are configured with SSL or HTTPS",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancing::LoadBalancer"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": null
+  },
+  "iam-no-inline-policy-check": {
+    "id": "IAM_NO_INLINE_POLICY_CHECK",
+    "default_name": "iam-no-inline-policy-check",
+    "description": "Checks that inline policy feature is not in use. The rule is NON_COMPLIANT if an AWS Identity and Access Management (IAM) user, IAM role or IAM group has any inline policy.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::IAM::User",
+          "AWS::IAM::Role",
+          "AWS::IAM::Group"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "IAM",
+      "Role",
+      "User",
+      "Group",
+      "Inline Policy"
+    ]
+  },
+  "rds-cluster-deletion-protection-enabled": {
+    "id": "RDS_CLUSTER_DELETION_PROTECTION_ENABLED",
+    "default_name": "rds-cluster-deletion-protection-enabled",
+    "description": "Checks if an Amazon Relational Database Service (Amazon RDS) cluster has deletion protection enabled. This rule is NON_COMPLIANT if an RDS cluster does not have deletion protection enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBCluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS",
+      "DBCluster",
+      "Deletion Protection"
+    ]
+  },
+  "rds-instance-deletion-protection-enabled": {
+    "id": "RDS_INSTANCE_DELETION_PROTECTION_ENABLED",
+    "default_name": "rds-instance-deletion-protection-enabled",
+    "description": "Checks if an Amazon Relational Database Service (Amazon RDS) instance has deletion protection enabled. This rule is NON_COMPLIANT if an Amazon RDS instance does not have deletion protection enabled i.e deletionProtection is set to false.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "databaseEngines": {
+          "type": "CSV",
+          "description": "Comma-separated list of RDS database engines to include in the evaluation of the rule."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBInstance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS",
+      "DBInstance",
+      "Deletion Protection"
+    ]
+  },
+  "rds-instance-iam-authentication-enabled": {
+    "id": "RDS_INSTANCE_IAM_AUTHENTICATION_ENABLED",
+    "default_name": "rds-instance-iam-authentication-enabled",
+    "description": "Checks if an Amazon Relational Database Service (Amazon RDS) instance has AWS Identity and Access Management (IAM) authentication enabled. This rule is NON_COMPLIANT if an Amazon RDS instance does not have AWS IAM authentication enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBInstance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS",
+      "IAM Authentication"
+    ]
+  },
+  "rds-in-backup-plan": {
+    "id": "RDS_IN_BACKUP_PLAN",
+    "default_name": "rds-in-backup-plan",
+    "description": "Checks whether Amazon RDS database is present in back plans of AWS Backup. The rule is NON_COMPLIANT if Amazon RDS databases are not included in any AWS Backup plan.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "RDS",
+      "Backup"
+    ]
+  },
+  "rds-logging-enabled": {
+    "id": "RDS_LOGGING_ENABLED",
+    "default_name": "rds-logging-enabled",
+    "description": "Checks that respective logs of Amazon Relational Database Service (Amazon RDS) are enabled. The rule is NON_COMPLIANT if any log types are not enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "additionalLogs": {
+          "type": "StringMap",
+          "description": "Comma-separated list of engine names and log type names."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBInstance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS",
+      "Database Logs"
+    ]
+  },
+  "redshift-backup-enabled": {
+    "id": "REDSHIFT_BACKUP_ENABLED",
+    "default_name": "redshift-backup-enabled",
+    "description": "Checks that Amazon Redshift automated snapshots are enabled for clusters.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "MinRetentionPeriod": {
+          "type": "int",
+          "description": "Minimum value for the retention period. Minimum value is 1."
+        },
+        "MaxRetentionPeriod": {
+          "type": "int",
+          "description": "Maximum value for the retention period. Maximum value is 35."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Redshift::Cluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Redshift",
+      "Backup"
+    ]
+  },
+  "wafv2-logging-enabled": {
+    "id": "WAFV2_LOGGING_ENABLED",
+    "default_name": "wafv2-logging-enabled",
+    "description": "Checks whether logging is enabled on AWS Web Application Firewall (WAFV2) regional and global web access control list (ACLs). The rule is NON_COMPLIANT if the logging is enabled but the logging destination does not match the value of the parameter.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "KinesisFirehoseDeliveryStreamArns": {
+          "type": "CSV",
+          "description": "Comma separated list of Kinesis Firehose delivery stream ARNs"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "WAFv2",
+      "Logging",
+      "WebACL"
+    ]
+  },
+  "subnet-auto-assign-public-ip-disabled": {
+    "id": "SUBNET_AUTO_ASSIGN_PUBLIC_IP_DISABLED",
+    "default_name": "subnet-auto-assign-public-ip-disabled",
+    "description": "Checks if Amazon Virtual Private Cloud (Amazon VPC) subnets are assigned a public IP address. This rule is NON_COMPLIANT if Amazon VPC has subnets that are assigned a public IP address.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Subnet"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2",
+      "VPC",
+      "AWS subnet",
+      "MapPublicIpOnLaunch"
+    ]
+  },
+  "dynamodb-pitr-enabled": {
+    "id": "DYNAMODB_PITR_ENABLED",
+    "default_name": "dynamodb-pitr-enabled",
+    "description": "Check that point in time recovery is enabled for Amazon DynamoDB tables.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::DynamoDB::Table"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "DynamoDB"
+    ]
+  },
+  "dynamodb-table-encrypted-kms": {
+    "id": "DYNAMODB_TABLE_ENCRYPTED_KMS",
+    "default_name": "dynamodb-table-encrypted-kms",
+    "description": "Checks whether Amazon DynamoDB table is encrypted with AWS Key Management Service (KMS). The rule is NON_COMPLIANT if Amazon DynamoDB table is not encrypted with AWS KMS.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "kmsKeyArns": {
+          "type": "CSV",
+          "description": "Comma separated list of AWS KMS key ARNs allowed for encrypting Amazon DynamoDB Tables."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::DynamoDB::Table"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "DynamoDB",
+      "Kms"
+    ]
+  },
+  "ec2-ebs-encryption-by-default": {
+    "id": "EC2_EBS_ENCRYPTION_BY_DEFAULT",
+    "default_name": "ec2-ebs-encryption-by-default",
+    "description": "Check that Amazon Elastic Block Store (EBS) encryption is enabled by default. The rule is NON_COMPLIANT if the encryption is not enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "EC2",
+      "EBS"
+    ]
+  },
+  "rds-snapshot-encrypted": {
+    "id": "RDS_SNAPSHOT_ENCRYPTED",
+    "default_name": "rds-snapshot-encrypted",
+    "description": "Checks whether Amazon Relational Database Service (Amazon RDS) DB snapshots are encrypted. The rule is NON_COMPLIANT, if the Amazon RDS DB snapshots are not encrypted.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBSnapshot",
+          "AWS::RDS::DBClusterSnapshot"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS",
+      "Snapshots"
+    ]
+  },
+  "redshift-require-tls-ssl": {
+    "id": "REDSHIFT_REQUIRE_TLS_SSL",
+    "default_name": "redshift-require-tls-ssl",
+    "description": "Checks whether Amazon Redshift clusters require TLS/SSL encryption to connect to SQL clients. The rule is NON_COMPLIANT if any Amazon Redshift cluster has parameter require_SSL not set to true.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Redshift::Cluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Redshift",
+      "SSL"
+    ]
+  },
+  "s3-bucket-default-lock-enabled": {
+    "id": "S3_BUCKET_DEFAULT_LOCK_ENABLED",
+    "default_name": "s3-bucket-default-lock-enabled",
+    "description": "Checks whether Amazon S3 bucket has lock enabled, by default. The rule is NON_COMPLIANT if the lock is not enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "mode": {
+          "type": "String",
+          "description": "mode: (optional): A mode parameter with valid values of GOVERNANCE or COMPLIANCE."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3"
+    ]
+  },
+  "securityhub-enabled": {
+    "id": "SECURITYHUB_ENABLED",
+    "default_name": "securityhub-enabled",
+    "description": "Checks that AWS Security Hub is enabled for an AWS Account. The rule is NON_COMPLIANT if AWS Security Hub is not enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "SECURITY HUB"
+    ]
+  },
+  "sns-encrypted-kms": {
+    "id": "SNS_ENCRYPTED_KMS",
+    "default_name": "sns-encrypted-kms",
+    "description": "Checks whether Amazon SNS topic is encrypted with AWS Key Management Service (AWS KMS). The rule is NON_COMPLIANT if the Amazon SNS topic is not encrypted with AWS KMS.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "kmsKeyIds": {
+          "type": "CSV",
+          "description": "Comma separated list of AWS KMS key ARNs allowed for encrypting Amazon SNS Topic."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::SNS::Topic"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "SNS",
+      "Kms"
+    ]
+  },
+  "s3-default-encryption-kms": {
+    "id": "S3_DEFAULT_ENCRYPTION_KMS",
+    "default_name": "s3-default-encryption-kms",
+    "description": "Checks whether the Amazon S3 buckets are encrypted with AWS Key Management Service(AWS KMS). The rule is NON_COMPLIANT if the Amazon S3 bucket is not encrypted with AWS KMS key.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "kmsKeyArns": {
+          "type": "CSV",
+          "description": "Comma separated list of AWS KMS key ARNs allowed for encrypting Amazon S3 Buckets."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3",
+      "Kms"
+    ]
+  },
+  "secretsmanager-rotation-enabled-check": {
+    "id": "SECRETSMANAGER_ROTATION_ENABLED_CHECK",
+    "default_name": "secretsmanager-rotation-enabled-check",
+    "description": "Checks whether AWS Secret Manager secret has rotation enabled. If the maximumAllowedRotationFrequency parameter is specified, the rotation frequency of the secret is compared with the maximum allowed frequency.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "maximumAllowedRotationFrequency": {
+          "type": "int",
+          "description": "Maximum allowed rotation frequency of the secret in days."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::SecretsManager::Secret"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "secretsmanager",
+      "secret"
+    ]
+  },
+  "secretsmanager-scheduled-rotation-success-check": {
+    "id": "SECRETSMANAGER_SCHEDULED_ROTATION_SUCCESS_CHECK",
+    "default_name": "secretsmanager-scheduled-rotation-success-check",
+    "description": "Checks and verifies whether AWS Secret Manager secret rotation has rotated successfully as per the rotation schedule.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::SecretsManager::Secret"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "secretsmanager",
+      "secret"
+    ]
+  },
+  "ec2-stopped-instance": {
+    "id": "EC2_STOPPED_INSTANCE",
+    "default_name": "ec2-stopped-instance",
+    "description": "Checks whether there are instances stopped for more than the allowed number of days.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "AllowedDays": {
+          "type": "int",
+          "description": "Number of days the instance can be stopped for before it becomes non-compliant. The default number of days is 30.",
+          "defaultValue": "30"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "api-gw-cache-enabled-and-encrypted": {
+    "id": "API_GW_CACHE_ENABLED_AND_ENCRYPTED",
+    "default_name": "api-gw-cache-enabled-and-encrypted",
+    "description": "Checks that all methods in Amazon API Gateway stages have cache enabled and cache encrypted. The rule is NON_COMPLIANT if any method in Amazon API Gateway stage is not configured to cache or the cache is not encrypted.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ApiGateway::Stage"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "API Gateway",
+      "REST API"
+    ]
+  },
+  "elasticache-redis-cluster-automatic-backup-check": {
+    "id": "ELASTICACHE_REDIS_CLUSTER_AUTOMATIC_BACKUP_CHECK",
+    "default_name": "elasticache-redis-cluster-automatic-backup-check",
+    "description": "The rule is NON_COMPLIANT if SnapshotRetentionLimit for Redis cluster is less than the SnapshotRetentionPeriod parameter, i.e from 0 to 15 as the default is 15.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "snapshotRetentionPeriod": {
+          "type": "int",
+          "description": "Minimum snapshot retention period in days for Redis cluster. Default is 15 days.",
+          "defaultValue": "15"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "ElastiCache",
+      "Periodic"
+    ]
+  },
+  "emr-master-no-public-ip": {
+    "id": "EMR_MASTER_NO_PUBLIC_IP",
+    "default_name": "emr-master-no-public-ip",
+    "description": "Checks whether Amazon Elastic MapReduce (EMR) clusters' master nodes have public IPs. The rule is NON_COMPLIANT if the master node has a public IP.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": []
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "EMR"
+    ]
+  },
+  "guardduty-non-archived-findings": {
+    "id": "GUARDDUTY_NON_ARCHIVED_FINDINGS",
+    "default_name": "guardduty-non-archived-findings",
+    "description": "Checks whether Amazon GuardDuty has findings that are non archived. The rule is NON_COMPLIANT if Amazon GuardDuty has non archived low/medium/high severity findings older than the specified number in the daysLowSev/daysMediumSev/daysHighSev parameter.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "daysLowSev": {
+          "type": "int",
+          "description": "The number of days Amazon GuardDuty low severity findings are allowed to stay non archived. The default is 30 days.",
+          "defaultValue": "30"
+        },
+        "daysMediumSev": {
+          "type": "int",
+          "description": "The number of days Amazon GuardDuty medium severity findings are allowed to stay non archived. The default is 7 days.",
+          "defaultValue": "7"
+        },
+        "daysHighSev": {
+          "type": "int",
+          "description": "The number of days Amazon GuardDuty high severity findings are allowed to stay non archived. The default is 1 day.",
+          "defaultValue": "1"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "GuardDuty",
+      "GuardDuty Findings"
+    ]
+  },
+  "rds-enhanced-monitoring-enabled": {
+    "id": "RDS_ENHANCED_MONITORING_ENABLED",
+    "default_name": "rds-enhanced-monitoring-enabled",
+    "description": "Checks whether enhanced monitoring is enabled for Amazon Relational Database Service (Amazon RDS) instances.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "monitoringInterval": {
+          "type": "int",
+          "description": "An integer value in seconds between points when enhanced monitoring metrics are collected for the database instance. The valid values are 1, 5, 10, 15, 30, and 60."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBInstance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS",
+      "ENHANCED",
+      "MONITORING"
+    ]
+  },
+  "s3-account-level-public-access-blocks": {
+    "id": "S3_ACCOUNT_LEVEL_PUBLIC_ACCESS_BLOCKS",
+    "default_name": "s3-account-level-public-access-blocks",
+    "description": "Checks whether the required public access block settings are configured from account level. The rule is NON_COMPLIANT when the public access block settings are not configured from account level.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "IgnorePublicAcls": {
+          "type": "String",
+          "description": "IgnorePublicAcls is enforced or not, default True",
+          "defaultValue": "True"
+        },
+        "BlockPublicPolicy": {
+          "type": "String",
+          "description": "BlockPublicPolicy is enforced or not, default True",
+          "defaultValue": "True"
+        },
+        "BlockPublicAcls": {
+          "type": "String",
+          "description": "BlockPublicAcls is enforced or not, default True",
+          "defaultValue": "True"
+        },
+        "RestrictPublicBuckets": {
+          "type": "String",
+          "description": "RestrictPublicBuckets is enforced or not, default True",
+          "defaultValue": "True"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::AccountPublicAccessBlock"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3"
+    ]
+  },
+  "sagemaker-endpoint-configuration-kms-key-configured": {
+    "id": "SAGEMAKER_ENDPOINT_CONFIGURATION_KMS_KEY_CONFIGURED",
+    "default_name": "sagemaker-endpoint-configuration-kms-key-configured",
+    "description": "Checks whether AWS Key Management Service (KMS) key is configured for an Amazon SageMaker endpoint configuration. The rule is NON_COMPLIANT if 'KmsKeyId' is not specified for the Amazon SageMaker endpoint configuration.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "kmsKeyArns": {
+          "type": "String",
+          "description": "Comma-separated list of specific AWS KMS key ARNs allowed for an Amazon SageMaker endpoint configuration."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "SageMaker Endpoint Config",
+      "KMS Key"
+    ]
+  },
+  "service-vpc-endpoint-enabled": {
+    "id": "SERVICE_VPC_ENDPOINT_ENABLED",
+    "default_name": "service-vpc-endpoint-enabled",
+    "description": "Checks whether Service Endpoint for the service provided in rule parameter is created for each Amazon VPC. The rule returns NON_COMPLIANT if an Amazon VPC doesn't have a VPC endpoint created for the service.",
+    "parameters": {
+      "required": {
+        "serviceName": {
+          "type": "String",
+          "description": "The short name or suffix for the service. Note: To get a list of available service names or valid suffix list, use DescribeVpcEndpointServices."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "VPC",
+      "VPCEndpoint",
+      "VPCServiceEndpoint"
+    ]
+  },
+  "sagemaker-notebook-instance-kms-key-configured": {
+    "id": "SAGEMAKER_NOTEBOOK_INSTANCE_KMS_KEY_CONFIGURED",
+    "default_name": "sagemaker-notebook-instance-kms-key-configured",
+    "description": "Check whether an AWS Key Management Service (KMS) key is configured for an Amazon SageMaker notebook instance. The rule is NON_COMPLIANT if 'KmsKeyId' is not specified for the Amazon SageMaker notebook instance.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "kmsKeyArns": {
+          "type": "String",
+          "description": "Comma-separated list of AWS KMS key ARNs allowed for an Amazon SageMaker notebook instance."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "SageMaker Notebook Instance",
+      "KMS Key"
+    ]
+  },
+  "sagemaker-notebook-no-direct-internet-access": {
+    "id": "SAGEMAKER_NOTEBOOK_NO_DIRECT_INTERNET_ACCESS",
+    "default_name": "sagemaker-notebook-no-direct-internet-access",
+    "description": "Checks whether direct internet access is disabled for an Amazon SageMaker notebook instance. The rule is NON_COMPLIANT if Amazon SageMaker notebook instances are internet-enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "SageMaker Notebook Instance"
+    ]
+  },
+  "cloudwatch-log-group-encrypted": {
+    "id": "CLOUDWATCH_LOG_GROUP_ENCRYPTED",
+    "default_name": "cloudwatch-log-group-encrypted",
+    "description": "Checks whether a log group in Amazon CloudWatch Logs is encrypted. The rule is NON_COMPLIANT if CloudWatch Logs has log group without encryption enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "KmsKeyId": {
+          "type": "String",
+          "description": "Amazon Resource Name (ARN) of AWS Key Management Service (KMS) key that is used to encrypt the CloudWatch Logs log group."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "CloudWatch",
+      "KMS"
+    ]
+  },
+  "ebs-snapshot-public-restorable-check": {
+    "id": "EBS_SNAPSHOT_PUBLIC_RESTORABLE_CHECK",
+    "default_name": "ebs-snapshot-public-restorable-check",
+    "description": "Checks whether Amazon Elastic Block Store (Amazon EBS) snapshots are not publicly restorable. The rule is NON_COMPLIANT if one or more snapshots with RestorableByUserIds field are set to all, that is, Amazon EBS snapshots are public.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "EC2",
+      "EBS"
+    ]
+  },
+  "ec2-instance-no-public-ip": {
+    "id": "EC2_INSTANCE_NO_PUBLIC_IP",
+    "default_name": "ec2-instance-no-public-ip",
+    "description": "Checks whether Amazon Elastic Compute Cloud (Amazon EC2) instances have a public IP association. The rule is NON_COMPLIANT if the publicIp field is present in the Amazon EC2 instance configuration item. This rule applies only to IPv4.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2",
+      "PublicIP",
+      "Instance"
+    ]
+  },
+  "ec2-security-group-attached-to-eni": {
+    "id": "EC2_SECURITY_GROUP_ATTACHED_TO_ENI",
+    "default_name": "ec2-security-group-attached-to-eni",
+    "description": "Checks that non-default security groups are attached to Amazon Elastic Compute Cloud (EC2) instances or an elastic network interfaces (ENIs). The rule returns NON_COMPLIANT if the security group is not associated with an EC2 instance or an ENI. ",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::SecurityGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "VPC",
+      "Security Group"
+    ]
+  },
+  "efs-encrypted-check": {
+    "id": "EFS_ENCRYPTED_CHECK",
+    "default_name": "efs-encrypted-check",
+    "description": "Checks whether Amazon EFS are configured to encrypt file data using AWS KMS. The rule is NON_COMPLIANT if the Encrypted key is set to False on DescribeFileSystems or, if specified, KmsKeyId key on DescribeFileSystems is not matching KmsKeyId parameter.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "KmsKeyId": {
+          "type": "String",
+          "description": "Amazon Resource Name (ARN) of the KMS key that is used to encrypt the EFS file system."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "EFS",
+      "KMS"
+    ]
+  },
+  "elasticsearch-encrypted-at-rest": {
+    "id": "ELASTICSEARCH_ENCRYPTED_AT_REST",
+    "default_name": "elasticsearch-encrypted-at-rest",
+    "description": "Checks whether Amazon OpenSearch Service domains have encryption at rest configuration enabled. The rule is NON_COMPLIANT if EncryptionAtRestOptions field is not enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "ElasticSearch",
+      "Encryption"
+    ]
+  },
+  "elasticsearch-in-vpc-only": {
+    "id": "ELASTICSEARCH_IN_VPC_ONLY",
+    "default_name": "elasticsearch-in-vpc-only",
+    "description": "Checks whether Amazon OpenSearch Service domains are in Amazon Virtual Private Cloud (VPC). The rule is NON_COMPLIANT if ElasticSearch Service domain endpoint is public.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "Elasticsearch"
+    ]
+  },
+  "redshift-cluster-public-access-check": {
+    "id": "REDSHIFT_CLUSTER_PUBLIC_ACCESS_CHECK",
+    "default_name": "redshift-cluster-public-access-check",
+    "description": "Checks whether Amazon Redshift clusters are not publicly accessible. The rule is NON_COMPLIANT if the publiclyAccessible field is true in the cluster configuration item.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Redshift::Cluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Redshift",
+      "Cluster"
+    ]
+  },
+  "vpc-sg-open-only-to-authorized-ports": {
+    "id": "VPC_SG_OPEN_ONLY_TO_AUTHORIZED_PORTS",
+    "default_name": "vpc-sg-open-only-to-authorized-ports",
+    "description": "Checks whether any security groups with inbound 0.0.0.0/0 have TCP or UDP ports accessible. The rule is NON_COMPLIANT when a security group with inbound 0.0.0.0/0 has a port accessible which is not specified in the rule parameters.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "authorizedTcpPorts": {
+          "type": "String",
+          "description": " Comma-separated list of TCP ports authorized to be open to 0.0.0.0/0. Ranges are defined by dash, for example, \"443,1020-1025\"."
+        },
+        "authorizedUdpPorts": {
+          "type": "String",
+          "description": " Comma-separated list of UDP ports authorized to be open to 0.0.0.0/0. Ranges are defined by dash, for example, \"500,1020-1025\"."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::SecurityGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "VPC",
+      "Security Group"
+    ]
+  },
+  "dms-replication-not-public": {
+    "id": "DMS_REPLICATION_NOT_PUBLIC",
+    "default_name": "dms-replication-not-public",
+    "description": "Checks whether AWS Database Migration Service replication instances are public. The rule is NON_COMPLIANT if PubliclyAccessible field is True.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "DMS",
+      "Database Migration Service"
+    ]
+  },
+  "vpc-vpn-2-tunnels-up": {
+    "id": "VPC_VPN_2_TUNNELS_UP",
+    "default_name": "vpc-vpn-2-tunnels-up",
+    "description": "Checks that both VPN tunnels provided by AWS Site-to-Site VPN are in UP status. The rule returns NON_COMPLIANT if one or both tunnels are in DOWN status.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::VPNConnection"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2",
+      "VPC",
+      "VPN"
+    ]
+  },
+  "cloudtrail-s3-dataevents-enabled": {
+    "id": "CLOUDTRAIL_S3_DATAEVENTS_ENABLED",
+    "default_name": "cloudtrail-s3-dataevents-enabled",
+    "description": "Checks whether at least one AWS CloudTrail trail is logging Amazon S3 data events for all S3 buckets. The rule is NON_COMPLIANT if trails log data events for S3 buckets is not configured.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "S3BucketNames": {
+          "type": "String",
+          "description": "Comma-separated list of S3 bucket names for which data events logging should be enabled. Default behavior checks for all S3 buckets."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "S3",
+      "CloudTrail",
+      "Data Events",
+      "Event Selectors"
+    ]
+  },
+  "api-gw-endpoint-type-check": {
+    "id": "API_GW_ENDPOINT_TYPE_CHECK",
+    "default_name": "api-gw-endpoint-type-check",
+    "description": "Checks that Amazon API Gateway APIs are of type as specified in the rule parameter 'endpointConfigurationTypes'. The rule returns COMPLIANT if any of the RestApi endpoint types matches the endpointConfigurationTypes configured in the rule parameter.",
+    "parameters": {
+      "required": {
+        "endpointConfigurationTypes": {
+          "type": "String",
+          "description": "Comma-separated list of allowed endpointConfigurationTypes. Allowed values are REGIONAL, PRIVATE and EDGE."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ApiGateway::RestApi"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "API Gateway",
+      "REST API"
+    ]
+  },
+  "alb-http-to-https-redirection-check": {
+    "id": "ALB_HTTP_TO_HTTPS_REDIRECTION_CHECK",
+    "default_name": "alb-http-to-https-redirection-check",
+    "description": "Checks whether HTTP to HTTPS redirection is configured on all HTTP listeners of Application Load Balancers. The rule is NON_COMPLIANT if one or more HTTP listeners of Application Load Balancer do not have HTTP to HTTPS redirection configured.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "EC2",
+      "ELB"
+    ]
+  },
+  "emr-kerberos-enabled": {
+    "id": "EMR_KERBEROS_ENABLED",
+    "default_name": "emr-kerberos-enabled",
+    "description": "The rule is NON_COMPLIANT if a security configuration is not attached to the cluster or the security configuration does not satisfy the specified rule parameters.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "TicketLifetimeInHours": {
+          "type": "int",
+          "description": "Period for which Kerberos ticket issued by cluster's KDC is valid."
+        },
+        "Realm": {
+          "type": "String",
+          "description": "Kereberos realm name of the other realm in the trust relationship."
+        },
+        "Domain": {
+          "type": "String",
+          "description": "Domain name of the other realm in the trust relationship."
+        },
+        "AdminServer": {
+          "type": "String",
+          "description": "Fully qualified domain of the admin server in the other realm of the trust relationship."
+        },
+        "KdcServer": {
+          "type": "String",
+          "description": "Fully qualified domain of the KDC server in the other realm of the trust relationship."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "EMR",
+      "Kerberos"
+    ]
+  },
+  "kms-cmk-not-scheduled-for-deletion": {
+    "id": "KMS_CMK_NOT_SCHEDULED_FOR_DELETION",
+    "default_name": "kms-cmk-not-scheduled-for-deletion",
+    "description": "Checks whether customer master keys (CMKs) are not scheduled for deletion in AWS Key Management Service (KMS). The rule is NON_COMPLAINT if CMKs are scheduled for deletion.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "kmsKeyIds": {
+          "type": "String",
+          "description": "(Optional) Comma-separated list of specific customer managed key IDs not to be scheduled for deletion. If you do not specify any keys, the rule checks all the keys."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": [
+          "AWS::KMS::Key"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "Kms"
+    ]
+  },
+  "api-gw-execution-logging-enabled": {
+    "id": "API_GW_EXECUTION_LOGGING_ENABLED",
+    "default_name": "api-gw-execution-logging-enabled",
+    "description": "Checks that all methods in Amazon API Gateway stage has logging enabled. The rule is NON_COMPLIANT if logging is not enabled. The rule is NON_COMPLIANT if loggingLevel is neither ERROR nor INFO.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "loggingLevel": {
+          "type": "String",
+          "description": "Comma-separated list of specific logging levels (for example, ERROR, INFO or ERROR,INFO).",
+          "defaultValue": "ERROR,INFO"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ApiGateway::Stage",
+          "AWS::ApiGatewayV2::Stage"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "API Gateway",
+      "Logging"
+    ]
+  },
+  "elb-deletion-protection-enabled": {
+    "id": "ELB_DELETION_PROTECTION_ENABLED",
+    "default_name": "elb-deletion-protection-enabled",
+    "description": "Checks whether an Elastic Load Balancer has deletion protection enabled. The rule is NON_COMPLIANT if deletion_protection.enabled is false.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancingV2::LoadBalancer"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ALB",
+      "NLB",
+      "Deletion protection"
+    ]
+  },
+  "internet-gateway-authorized-vpc-only": {
+    "id": "INTERNET_GATEWAY_AUTHORIZED_VPC_ONLY",
+    "default_name": "internet-gateway-authorized-vpc-only",
+    "description": "Checks that Internet gateways (IGWs) are only attached to an authorized Amazon Virtual Private Cloud (VPCs). The rule is NON_COMPLIANT if IGWs are not attached to an authorized VPC.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "AuthorizedVpcIds": {
+          "type": "String",
+          "description": "Comma-separated list of the authorized VPC IDs with attached IGWs. If parameter is not provided all attached IGWs will be NON_COMPLIANT."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::InternetGateway"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "VPC",
+      "Internet Gateway"
+    ]
+  },
+  "lambda-concurrency-check": {
+    "id": "LAMBDA_CONCURRENCY_CHECK",
+    "default_name": "lambda-concurrency-check",
+    "description": "Checks whether the AWS Lambda function is configured with function-level concurrent execution limit. The rule is NON_COMPLIANT if the Lambda function is not configured with function-level concurrent execution limit.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "ConcurrencyLimitLow": {
+          "type": "String",
+          "description": "Minimum concurrency execution limit"
+        },
+        "ConcurrencyLimitHigh": {
+          "type": "String",
+          "description": "Maximum concurrency execution limit"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Lambda::Function"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Lambda"
+    ]
+  },
+  "lambda-dlq-check": {
+    "id": "LAMBDA_DLQ_CHECK",
+    "default_name": "lambda-dlq-check",
+    "description": "Checks whether an AWS Lambda function is configured with a dead-letter queue. The rule is NON_COMPLIANT if the Lambda function is not configured with a dead-letter queue.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "dlqArns": {
+          "type": "String",
+          "description": "Comma-separated list of Amazon SQS and Amazon SNS ARNs that must be configured as the Lambda function dead-letter queue target."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Lambda::Function"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "SNS",
+      "Lambda",
+      "SQS",
+      "DLQ"
+    ]
+  },
+  "lambda-inside-vpc": {
+    "id": "LAMBDA_INSIDE_VPC",
+    "default_name": "lambda-inside-vpc",
+    "description": "Checks whether an AWS Lambda function is in an Amazon Virtual Private Cloud. The rule is NON_COMPLIANT if the Lambda function is not in a VPC.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "subnetIds": {
+          "type": "String",
+          "description": "Comma-separated list of Subnet IDs that Lambda functions can be associated with."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Lambda::Function"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "VPC",
+      "Lambda"
+    ]
+  },
+  "iam-policy-in-use": {
+    "id": "IAM_POLICY_IN_USE",
+    "default_name": "iam-policy-in-use",
+    "description": "Checks whether the IAM policy ARN is attached to an IAM user, or a group with one or more IAM users, or an IAM role with one or more trusted entity.",
+    "parameters": {
+      "required": {
+        "policyARN": {
+          "type": "String",
+          "description": "An IAM policy ARN to be checked."
+        }
+      },
+      "optional": {
+        "policyUsageType": {
+          "type": "String",
+          "description": "Specify whether you expect the policy to be attached to an IAM user, group or role. Valid values are IAM_USER, IAM_GROUP, IAM_ROLE, or ANY. Default value is ANY."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "IAM",
+      "Periodic"
+    ]
+  },
+  "fms-shield-resource-policy-check": {
+    "id": "FMS_SHIELD_RESOURCE_POLICY_CHECK",
+    "default_name": "fms-shield-resource-policy-check",
+    "description": "Checks whether an Application Load Balancer, Amazon CloudFront distributions, Elastic Load Balancer or Elastic IP has AWS Shield protection. It also checks if they have web ACL associated for Application Load Balancer and Amazon CloudFront distributions.",
+    "parameters": {
+      "required": {
+        "webACLId": {
+          "type": "String",
+          "description": "The WebACLId of the web ACL."
+        },
+        "resourceTypes": {
+          "type": "String",
+          "description": "The resource scope which this config rule will be applied to."
+        }
+      },
+      "optional": {
+        "resourceTags": {
+          "type": "String",
+          "description": "The resource tags that the rule should be associated with (for example, { \"tagKey1\" : [\"tagValue1\"], \"tagKey2\" : [\"tagValue2\", \"tagValue3\"] })."
+        },
+        "excludeResourceTags": {
+          "type": "boolean",
+          "description": "If true, exclude the resources that match the resourceTags. If false, include all the resources that match the resourceTags."
+        },
+        "fmsManagedToken": {
+          "type": "String",
+          "description": "A token generated by AWS Firewall Manager when creating the rule in your account. AWS Config ignores this parameter when you create this rule."
+        },
+        "fmsRemediationEnabled": {
+          "type": "boolean",
+          "description": "If true, AWS Firewall Manager will update NON_COMPLIANT resources according to FMS policy. AWS Config ignores this parameter when you create this rule."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancingV2::LoadBalancer",
+          "AWS::WAFRegional::WebACL",
+          "AWS::EC2::EIP",
+          "AWS::ElasticLoadBalancing::LoadBalancer",
+          "AWS::ShieldRegional::Protection"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "FM",
+      "FMS",
+      "WebACL"
+    ]
+  },
+  "iam-user-mfa-enabled": {
+    "id": "IAM_USER_MFA_ENABLED",
+    "default_name": "iam-user-mfa-enabled",
+    "description": "Checks whether the AWS Identity and Access Management users have multi-factor authentication (MFA) enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "IAM",
+      "Periodic"
+    ]
+  },
+  "s3-bucket-policy-grantee-check": {
+    "id": "S3_BUCKET_POLICY_GRANTEE_CHECK",
+    "default_name": "s3-bucket-policy-grantee-check",
+    "description": "Checks that the access granted by the Amazon S3 bucket is restricted to any of the AWS principals, federated users, service principals, IP addresses, or VPCs that you provide. The rule is COMPLIANT if a bucket policy is not present.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "awsPrincipals": {
+          "type": "CSV",
+          "description": "Comma-separated list of principals such as IAM User ARNs, IAM Role ARNs and AWS accounts, for example 'arn:aws:iam::111122223333:user/Alice, arn:aws:iam::444455556666:role/Bob, 123456789012'."
+        },
+        "servicePrincipals": {
+          "type": "CSV",
+          "description": "Comma-separated list of service principals, for example 'cloudtrail.amazonaws.com, lambda.amazonaws.com'."
+        },
+        "federatedUsers": {
+          "type": "CSV",
+          "description": "Comma-separated list of identity providers for web identity federation such as Amazon Cognito and SAML identity providers. For example 'cognito-identity.amazonaws.com, arn:aws:iam::111122223333:saml-provider/my-provider'."
+        },
+        "ipAddresses": {
+          "type": "CSV",
+          "description": "Comma-separated list of CIDR formatted IP addresses, for example '10.0.0.1, 192.168.1.0/24, 2001:db8::/32'."
+        },
+        "vpcIds": {
+          "type": "CSV",
+          "description": "Comma-separated list of Amazon Virtual Private Clouds (Amazon VPC) IDs, for example 'vpc-1234abc0, vpc-ab1234c0'."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3",
+      "Zelkova"
+    ]
+  },
+  "codepipeline-deployment-count-check": {
+    "id": "CODEPIPELINE_DEPLOYMENT_COUNT_CHECK",
+    "default_name": "codepipeline-deployment-count-check",
+    "description": "Checks whether the first deployment stage of the AWS Codepipeline performs more than one deployment. Optionally checks if each of the subsequent remaining stages deploy to more than the specified number of deployments (deploymentLimit).",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "deploymentLimit": {
+          "type": "int",
+          "description": "The maximum number of deployments each stage can perform."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CodePipeline::Pipeline"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CodePipeline"
+    ]
+  },
+  "codepipeline-region-fanout-check": {
+    "id": "CODEPIPELINE_REGION_FANOUT_CHECK",
+    "default_name": "codepipeline-region-fanout-check",
+    "description": "Checks whether each stage in the AWS CodePipeline deploys to more regions than N times the number of regions the pipeline has deployed to in all previous stages, where N is regionFanoutFactor. The first deployment stage can deploy to only one region.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "regionFanoutFactor": {
+          "type": "int",
+          "description": "regionFanoutFactor * the number of regions the AWS CodePipeline has deployed to in all previous stages is the maximum number of regions any stage can deploy to.",
+          "defaultValue": "3"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CodePipeline::Pipeline"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CodePipeline"
+    ]
+  },
+  "access-keys-rotated": {
+    "id": "ACCESS_KEYS_ROTATED",
+    "default_name": "access-keys-rotated",
+    "description": "Checks whether the active access keys are rotated within the number of days specified in maxAccessKeyAge. The rule is non-compliant if the access keys have not been rotated for more than maxAccessKeyAge number of days.",
+    "parameters": {
+      "required": {
+        "maxAccessKeyAge": {
+          "type": "int",
+          "description": "Maximum number of days without rotation. Default 90.",
+          "defaultValue": "90"
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "IAM",
+      "Periodic"
+    ]
+  },
+  "mfa-enabled-for-iam-console-access": {
+    "id": "MFA_ENABLED_FOR_IAM_CONSOLE_ACCESS",
+    "default_name": "mfa-enabled-for-iam-console-access",
+    "description": "Checks whether AWS Multi-Factor Authentication (MFA) is enabled for all AWS Identity and Access Management (IAM) users that use a console password. The rule is compliant if MFA is enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "IAM",
+      "Periodic"
+    ]
+  },
+  "cmk-backing-key-rotation-enabled": {
+    "id": "CMK_BACKING_KEY_ROTATION_ENABLED",
+    "default_name": "cmk-backing-key-rotation-enabled",
+    "description": "Checks that key rotation is enabled for each key and matches to the key ID of the customer created customer master key (CMK). The rule is compliant, if the key rotation is enabled for specific key object.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "kms",
+      "Periodic"
+    ]
+  },
+  "iam-role-managed-policy-check": {
+    "id": "IAM_ROLE_MANAGED_POLICY_CHECK",
+    "default_name": "iam-role-managed-policy-check",
+    "description": "Checks that the AWS Identity and Access Management (IAM) role is attached to all AWS managed policies specified in the list of managed policies. The rule is non-compliant if the IAM role is not attached to the AWS managed policy.",
+    "parameters": {
+      "required": {
+        "managedPolicyArns": {
+          "type": "CSV",
+          "description": "Comma-separated list of AWS managed policy ARNs."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::IAM::Role"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "IAM"
+    ]
+  },
+  "cloud-trail-cloud-watch-logs-enabled": {
+    "id": "CLOUD_TRAIL_CLOUD_WATCH_LOGS_ENABLED",
+    "default_name": "cloud-trail-cloud-watch-logs-enabled",
+    "description": "Checks whether AWS CloudTrail trails are configured to send logs to Amazon CloudWatch logs. The trail is non-compliant if the CloudWatchLogsLogGroupArn property of the trail is empty.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "expectedDeliveryWindowAge": {
+          "type": "int",
+          "description": "Maximum age in hours of the most recent delivery to CloudWatch logs that satisfies compliance."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "CloudTrail",
+      "Periodic"
+    ]
+  },
+  "multi-region-cloudtrail-enabled": {
+    "id": "MULTI_REGION_CLOUD_TRAIL_ENABLED",
+    "default_name": "multi-region-cloudtrail-enabled",
+    "description": "Checks that there is at least one multi-region AWS CloudTrail. The rule is non-compliant if the trails do not match input parameters",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "s3BucketName": {
+          "type": "String",
+          "description": "Name of Amazon S3 bucket for AWS CloudTrail to deliver log files to."
+        },
+        "snsTopicArn": {
+          "type": "String",
+          "description": "Amazon SNS topic ARN for AWS CloudTrail to use for notifications."
+        },
+        "cloudWatchLogsLogGroupArn": {
+          "type": "String",
+          "description": "Amazon CloudWatch log group ARN for AWS CloudTrail to send data to."
+        },
+        "includeManagementEvents": {
+          "type": "boolean",
+          "description": "Event selector to include management events for the AWS CloudTrail."
+        },
+        "readWriteType": {
+          "type": "String",
+          "description": "Type of events to record. Valid values are ReadOnly, WriteOnly and ALL."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "CloudTrail",
+      "Periodic"
+    ]
+  },
+  "iam-user-unused-credentials-check": {
+    "id": "IAM_USER_UNUSED_CREDENTIALS_CHECK",
+    "default_name": "iam-user-unused-credentials-check",
+    "description": "Checks whether your AWS Identity and Access Management (IAM) users have passwords or active access keys that have not been used within the specified number of days you provided.",
+    "parameters": {
+      "required": {
+        "maxCredentialUsageAge": {
+          "type": "int",
+          "description": "Maximum number of days a credential cannot be used. The default value is 90 days.",
+          "defaultValue": "90"
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "IAM",
+      "Periodic"
+    ]
+  },
+  "iam-policy-no-statements-with-admin-access": {
+    "id": "IAM_POLICY_NO_STATEMENTS_WITH_ADMIN_ACCESS",
+    "default_name": "iam-policy-no-statements-with-admin-access",
+    "description": "Checks whether the default version of AWS Identity and Access Management (IAM) policies do not have administrator access. If any statement has \"Effect\": \"Allow\" with \"Action\": \"*\" over \"Resource\": \"*\", the rule is non-compliant.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::IAM::Policy"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "IAM"
+    ]
+  },
+  "vpc-flow-logs-enabled": {
+    "id": "VPC_FLOW_LOGS_ENABLED",
+    "default_name": "vpc-flow-logs-enabled",
+    "description": "Checks whether Amazon Virtual Private Cloud flow logs are found and enabled for Amazon VPC.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "trafficType": {
+          "type": "String",
+          "description": "TrafficType of flow logs"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "root-account-hardware-mfa-enabled": {
+    "id": "ROOT_ACCOUNT_HARDWARE_MFA_ENABLED",
+    "default_name": "root-account-hardware-mfa-enabled",
+    "description": "Checks whether your AWS account is enabled to use multi-factor authentication (MFA) hardware device to sign in with root credentials.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "IAM",
+      "Periodic"
+    ]
+  },
+  "cloud-trail-encryption-enabled": {
+    "id": "CLOUD_TRAIL_ENCRYPTION_ENABLED",
+    "default_name": "cloud-trail-encryption-enabled",
+    "description": "Checks whether AWS CloudTrail is configured to use the server side encryption (SSE) AWS Key Management Service (AWS KMS) customer master key (CMK) encryption. The rule is compliant if the KmsKeyId is defined.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "CloudTrail",
+      "Periodic"
+    ]
+  },
+  "cloud-trail-log-file-validation-enabled": {
+    "id": "CLOUD_TRAIL_LOG_FILE_VALIDATION_ENABLED",
+    "default_name": "cloud-trail-log-file-validation-enabled",
+    "description": "Checks whether AWS CloudTrail creates a signed digest file with logs. AWS recommends that the file validation must be enabled on all trails. The rule is noncompliant if the validation is not enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "CloudTrail",
+      "Periodic"
+    ]
+  },
+  "dynamodb-table-encryption-enabled": {
+    "id": "DYNAMODB_TABLE_ENCRYPTION_ENABLED",
+    "default_name": "dynamodb-table-encryption-enabled",
+    "description": "Checks whether the Amazon DynamoDB tables are encrypted and checks their status. The rule is compliant if the status is enabled or enabling.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::DynamoDB::Table"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "DynamoDb"
+    ]
+  },
+  "elb-logging-enabled": {
+    "id": "ELB_LOGGING_ENABLED",
+    "default_name": "elb-logging-enabled",
+    "description": "Checks whether the Application Load Balancers and the Classic Load Balancers have logging enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "s3BucketNames": {
+          "type": "CSV",
+          "description": "Comma-separated list of Amazon S3 bucket names for Amazon ELB to deliver the log files."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancing::LoadBalancer",
+          "AWS::ElasticLoadBalancingV2::LoadBalancer"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ElasticLoadBalancing",
+      "ELB"
+    ]
+  },
+  "ec2-instance-managed-by-systems-manager": {
+    "id": "EC2_INSTANCE_MANAGED_BY_SSM",
+    "default_name": "ec2-instance-managed-by-systems-manager",
+    "description": "Checks whether the Amazon EC2 instances in your account are managed by AWS Systems Manager.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance",
+          "AWS::SSM::ManagedInstanceInventory"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2",
+      "SystemsManager"
+    ]
+  },
+  "ec2-managedinstance-association-compliance-status-check": {
+    "id": "EC2_MANAGEDINSTANCE_ASSOCIATION_COMPLIANCE_STATUS_CHECK",
+    "default_name": "ec2-managedinstance-association-compliance-status-check",
+    "description": "Checks whether the compliance status of the AWS Systems Manager association compliance is COMPLIANT or NON_COMPLIANT after the association execution on the instance. The rule is compliant if the field status is COMPLIANT.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::SSM::AssociationCompliance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "SystemsManager",
+      "StateManager"
+    ]
+  },
+  "ec2-managedinstance-patch-compliance-status-check": {
+    "id": "EC2_MANAGEDINSTANCE_PATCH_COMPLIANCE_STATUS_CHECK",
+    "default_name": "ec2-managedinstance-patch-compliance-status-check",
+    "description": "Checks whether the compliance status of the AWS Systems Manager patch compliance is COMPLIANT or NON_COMPLIANT after the patch installation on the instance. The rule is compliant if the field status is COMPLIANT.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::SSM::PatchCompliance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "SystemsManager",
+      "PatchManager"
+    ]
+  },
+  "guardduty-enabled-centralized": {
+    "id": "GUARDDUTY_ENABLED_CENTRALIZED",
+    "default_name": "guardduty-enabled-centralized",
+    "description": "Checks whether GuardDuty is enabled. You can optionally verify that the results are centralized in a specific AWS Account.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "CentralMonitoringAccount": {
+          "type": "String",
+          "description": "Comma separated list of AWS Accounts (12-digit) where Amazon GuardDuty results are allowed to be centralized.",
+          "defaultValue": ""
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "GuardDuty"
+    ]
+  },
+  "rds-snapshots-public-prohibited": {
+    "id": "RDS_SNAPSHOTS_PUBLIC_PROHIBITED",
+    "default_name": "rds-snapshots-public-prohibited",
+    "description": "Checks if Amazon Relational Database Service (Amazon RDS) snapshots are public. The rule is non-compliant if any existing and new Amazon RDS snapshots are public.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBSnapshot",
+          "AWS::RDS::DBClusterSnapshot"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS"
+    ]
+  },
+  "s3-bucket-blacklisted-actions-prohibited": {
+    "id": "S3_BUCKET_BLACKLISTED_ACTIONS_PROHIBITED",
+    "default_name": "s3-bucket-blacklisted-actions-prohibited",
+    "description": "Checks that the S3 bucket policy does not allow blacklisted bucket-level and object-level actions for principals from other AWS Accounts. The rule is non-compliant if any blacklisted actions are allowed by the S3 bucket policy.",
+    "parameters": {
+      "required": {
+        "blacklistedActionPattern": {
+          "type": "CSV",
+          "description": "Comma-separated list of blacklisted action patterns, for example, s3:GetBucket* and s3:DeleteObject."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3",
+      "Zelkova"
+    ]
+  },
+  "s3-bucket-policy-not-more-permissive": {
+    "id": "S3_BUCKET_POLICY_NOT_MORE_PERMISSIVE",
+    "default_name": "s3-bucket-policy-not-more-permissive",
+    "description": "Verifies that your Amazon S3 bucket policies do not allow other inter-account permissions than the control S3 bucket policy that you provide.",
+    "parameters": {
+      "required": {
+        "controlPolicy": {
+          "type": "String",
+          "description": "Amazon S3 bucket policy that defines an upper bound on the permissions of your S3 buckets. The policy can be a maximum of 1024 characters long."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3",
+      "Zelkova"
+    ]
+  },
+  "iam-root-access-key-check": {
+    "id": "IAM_ROOT_ACCESS_KEY_CHECK",
+    "default_name": "iam-root-access-key-check",
+    "description": "Checks whether the root user access key is available. The rule is compliant if the user access key does not exist.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "IAM",
+      "Periodic"
+    ]
+  },
+  "vpc-default-security-group-closed": {
+    "id": "VPC_DEFAULT_SECURITY_GROUP_CLOSED",
+    "default_name": "vpc-default-security-group-closed",
+    "description": "Checks that the default security group of any Amazon Virtual Private Cloud (VPC) does not allow inbound or outbound traffic. The rule is non-compliant if the default security group has one or more inbound or outbound traffic.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::SecurityGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "VPC"
+    ]
+  },
+  "rds-instance-public-access-check": {
+    "id": "RDS_INSTANCE_PUBLIC_ACCESS_CHECK",
+    "default_name": "rds-instance-public-access-check",
+    "description": "Checks whether the Amazon Relational Database Service (RDS) instances are not publicly accessible. The rule is non-compliant if the publiclyAccessible field is true in the instance configuration item.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBInstance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": []
+  },
+  "iam-policy-blacklisted-check": {
+    "id": "IAM_POLICY_BLACKLISTED_CHECK",
+    "default_name": "iam-policy-blacklisted-check",
+    "description": "Checks that none of your IAM users, groups, or roles (excluding exceptionList) have the specified policies attached.",
+    "parameters": {
+      "required": {
+        "policyArns": {
+          "type": "CSV",
+          "description": "Comma separated list of IAM policy arns which should not be attached to any IAM entity.",
+          "defaultValue": "arn:aws:iam::aws:policy/AdministratorAccess"
+        }
+      },
+      "optional": {
+        "exceptionList": {
+          "type": "CSV",
+          "description": "Comma separated list of resourcetypes and list of resource name pairs. (for example, users:[user1;user2], groups:[group1;group2], roles:[role1;role2;role3])."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::IAM::User",
+          "AWS::IAM::Group",
+          "AWS::IAM::Role"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "IAM"
+    ]
+  },
+  "lambda-function-settings-check": {
+    "id": "LAMBDA_FUNCTION_SETTINGS_CHECK",
+    "default_name": "lambda-function-settings-check",
+    "description": "Checks that the AWS Lambda function settings for runtime, role, timeout, and memory size match the expected values.",
+    "parameters": {
+      "required": {
+        "runtime": {
+          "type": "CSV",
+          "description": "Comma-separated list of AWS Lambda runtime values"
+        }
+      },
+      "optional": {
+        "role": {
+          "type": "String",
+          "description": "Name or ARN of the AWS Lambda execution role"
+        },
+        "timeout": {
+          "type": "int",
+          "description": "AWS Lambda function timeout in seconds",
+          "defaultValue": "3"
+        },
+        "memorySize": {
+          "type": "int",
+          "description": "AWS Lambda function size in megabytes",
+          "defaultValue": "128"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Lambda::Function"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Lambda"
+    ]
+  },
+  "s3-bucket-replication-enabled": {
+    "id": "S3_BUCKET_REPLICATION_ENABLED",
+    "default_name": "s3-bucket-replication-enabled",
+    "description": "Checks whether the Amazon S3 buckets have cross-region replication enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3"
+    ]
+  },
+  "cloudformation-stack-drift-detection-check": {
+    "id": "CLOUDFORMATION_STACK_DRIFT_DETECTION_CHECK",
+    "default_name": "cloudformation-stack-drift-detection-check",
+    "description": "Checks whether your CloudFormation stacks' actual configuration differs, or has drifted, from its expected configuration.",
+    "parameters": {
+      "required": {
+        "cloudformationRoleArn": {
+          "type": "String",
+          "description": "The AWS CloudFormation role ARN with IAM policy permissions to detect drift for AWS CloudFormation Stacks"
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CloudFormation::Stack"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "CloudFormation"
+    ]
+  },
+  "fms-webacl-resource-policy-check": {
+    "id": "FMS_WEBACL_RESOURCE_POLICY_CHECK",
+    "default_name": "fms-webacl-resource-policy-check",
+    "description": "Checks whether the web ACL is associated with Application Load Balancers, API Gateway stage or CloudFront distributions. When AWS Firewall Manager creates this rule, the FMS policy owner specifies the webACLId in the FMS policy.",
+    "parameters": {
+      "required": {
+        "webACLId": {
+          "type": "String",
+          "description": "The WebACLId of the web ACL."
+        }
+      },
+      "optional": {
+        "resourceTags": {
+          "type": "String",
+          "description": "The resource tags (ApplicationLoadBalancer, ApiGatewayStage and CloudFront distributions) that the rule should be associated with. (for example, { \"tagKey1\" : [\"tagValue1\"], \"tagKey2\" : [\"tagValue2\", \"tagValue3\"] })"
+        },
+        "excludeResourceTags": {
+          "type": "boolean",
+          "description": "If true, exclude resources that match resourceTags."
+        },
+        "fmsManagedToken": {
+          "type": "String",
+          "description": "A token generated by AWS Firewall Manager when creating the rule in customer account. AWS Config ignores this parameter when customer creates this rule."
+        },
+        "fmsRemediationEnabled": {
+          "type": "boolean",
+          "description": "If true, AWS Firewall Manager will update non-compliant resources according to FMS policy. AWS Config ignores this parameter when customer creates this rule."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ApiGateway::Stage",
+          "AWS::ElasticLoadBalancingV2::LoadBalancer",
+          "AWS::WAFRegional::WebACL"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "FM",
+      "FMS",
+      "WebACL"
+    ]
+  },
+  "fms-webacl-rulegroup-association-check": {
+    "id": "FMS_WEBACL_RULEGROUP_ASSOCIATION_CHECK",
+    "default_name": "fms-webacl-rulegroup-association-check",
+    "description": "Checks whether the RuleGroupId and WafOverrideAction pairs are associated with the WebACL at highest priority. When AWS Firewall manager creates this rule, the FMS policy owner specifies the ruleGroups in the policy and can optionally enable remediation.",
+    "parameters": {
+      "required": {
+        "ruleGroups": {
+          "type": "String",
+          "description": "Comma-separated list of RuleGroupIds and WafOverrideAction pairs. (for example, ruleGroupId-1:NONE, ruleGroupId2:COUNT)"
+        }
+      },
+      "optional": {
+        "fmsManagedToken": {
+          "type": "String",
+          "description": "A token generated by AWS Firewall Manager when creating the rule in customer account. AWS Config ignores this parameter when customer creates this rule."
+        },
+        "fmsRemediationEnabled": {
+          "type": "boolean",
+          "description": "If true, AWS Firewall Manager will update non-compliant resources according to FMS policy. AWS Config ignores this parameter when customer creates this rule."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::WAFRegional::WebACL"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "FM",
+      "FMS",
+      "WebACL"
+    ]
+  },
+  "lambda-function-public-access-prohibited": {
+    "id": "LAMBDA_FUNCTION_PUBLIC_ACCESS_PROHIBITED",
+    "default_name": "lambda-function-public-access-prohibited",
+    "description": "Checks whether the Lambda function policy prohibits public access.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Lambda::Function"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Lambda",
+      "Zelkova"
+    ]
+  },
+  "codebuild-project-envvar-awscred-check": {
+    "id": "CODEBUILD_PROJECT_ENVVAR_AWSCRED_CHECK",
+    "default_name": "codebuild-project-envvar-awscred-check",
+    "description": "Checks whether the project contains environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY. The rule is NON_COMPLIANT when the project environment variables contains plaintext credentials.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CodeBuild::Project"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CodeBuild"
+    ]
+  },
+  "codebuild-project-source-repo-url-check": {
+    "id": "CODEBUILD_PROJECT_SOURCE_REPO_URL_CHECK",
+    "default_name": "codebuild-project-source-repo-url-check",
+    "description": "Checks whether the GitHub or Bitbucket source repository URL contains either personal access tokens or user name and password. The rule is complaint with the usage of OAuth to grant authorization for accessing GitHub or Bitbucket repositories.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CodeBuild::Project"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CodeBuild"
+    ]
+  },
+  "elb-acm-certificate-required": {
+    "id": "ELB_ACM_CERTIFICATE_REQUIRED",
+    "default_name": "elb-acm-certificate-required",
+    "description": "This rule checks whether the Elastic Load Balancer(s) uses SSL certificates provided by AWS Certificate Manager. You must use an SSL or HTTPS listener with your Elastic Load Balancer to use this rule.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancing::LoadBalancer"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ElasticLoadBalancing"
+    ]
+  },
+  "elb-custom-security-policy-ssl-check": {
+    "id": "ELB_CUSTOM_SECURITY_POLICY_SSL_CHECK",
+    "default_name": "elb-custom-security-policy-ssl-check",
+    "description": "Checks whether your Classic Load Balancer SSL listeners are using a custom policy. The rule is only applicable if there are SSL listeners for the Classic Load Balancer.",
+    "parameters": {
+      "required": {
+        "sslProtocolsAndCiphers": {
+          "type": "String",
+          "description": "Comma separated list of ciphers and protocols."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancing::LoadBalancer"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ElasticLoadBalancing"
+    ]
+  },
+  "elb-predefined-security-policy-ssl-check": {
+    "id": "ELB_PREDEFINED_SECURITY_POLICY_SSL_CHECK",
+    "default_name": "elb-predefined-security-policy-ssl-check",
+    "description": "Checks whether your Classic Load Balancer SSL listeners are using a predefined policy. The rule is only applicable if there are SSL listeners for the Classic Load Balancer.",
+    "parameters": {
+      "required": {
+        "predefinedPolicyName": {
+          "type": "String",
+          "description": "Name of the predefined policy."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancing::LoadBalancer"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ElasticLoadBalancing"
+    ]
+  },
+  "iam-group-has-users-check": {
+    "id": "IAM_GROUP_HAS_USERS_CHECK",
+    "default_name": "iam-group-has-users-check",
+    "description": "Checks whether IAM groups have at least one IAM user.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::IAM::Group"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": null
+  },
+  "s3-bucket-server-side-encryption-enabled": {
+    "id": "S3_BUCKET_SERVER_SIDE_ENCRYPTION_ENABLED",
+    "default_name": "s3-bucket-server-side-encryption-enabled",
+    "description": "Checks that your Amazon S3 bucket either has S3 default encryption enabled or that the S3 bucket policy explicitly denies put-object requests without server side encryption.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3",
+      "Zelkova"
+    ]
+  },
+  "autoscaling-group-elb-healthcheck-required": {
+    "id": "AUTOSCALING_GROUP_ELB_HEALTHCHECK_REQUIRED",
+    "default_name": "autoscaling-group-elb-healthcheck-required",
+    "description": "Checks whether your Auto Scaling groups that are associated with a load balancer are using Elastic Load Balancing health checks.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::AutoScaling::AutoScalingGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "AutoScaling"
+    ]
+  },
+  "dynamodb-autoscaling-enabled": {
+    "id": "DYNAMODB_AUTOSCALING_ENABLED",
+    "default_name": "dynamodb-autoscaling-enabled",
+    "description": "This rule checks whether Auto Scaling is enabled on your DynamoDB tables. Optionally you can set the read and write capacity units for the table.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "minProvisionedReadCapacity": {
+          "type": "int",
+          "description": "Minimum provisioned capacity."
+        },
+        "maxProvisionedReadCapacity": {
+          "type": "int",
+          "description": "Maximum provisioned capacity."
+        },
+        "targetReadUtilization": {
+          "type": "double",
+          "description": "Target utilization of read capacity"
+        },
+        "minProvisionedWriteCapacity": {
+          "type": "int",
+          "description": "Minimum provisioned capacity."
+        },
+        "maxProvisionedWriteCapacity": {
+          "type": "int",
+          "description": "Maximum provisioned capacity."
+        },
+        "targetWriteUtilization": {
+          "type": "double",
+          "description": "Target utilization of write capacity"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": [
+          "AWS::DynamoDB::Table"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "DynamoDb",
+      "Periodic"
+    ]
+  },
+  "s3-bucket-public-read-prohibited": {
+    "id": "S3_BUCKET_PUBLIC_READ_PROHIBITED",
+    "default_name": "s3-bucket-public-read-prohibited",
+    "description": "Checks that your Amazon S3 buckets do not allow public read access. The rule checks the Block Public Access settings, the bucket policy, and the bucket access control list (ACL).",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "S3",
+      "Zelkova"
+    ]
+  },
+  "s3-bucket-public-write-prohibited": {
+    "id": "S3_BUCKET_PUBLIC_WRITE_PROHIBITED",
+    "default_name": "s3-bucket-public-write-prohibited",
+    "description": "Checks that your Amazon S3 buckets do not allow public write access. The rule checks the Block Public Access settings, the bucket policy, and the bucket access control list (ACL).",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "S3",
+      "Zelkova"
+    ]
+  },
+  "cloudformation-stack-notification-check": {
+    "id": "CLOUDFORMATION_STACK_NOTIFICATION_CHECK",
+    "default_name": "cloudformation-stack-notification-check",
+    "description": "Checks whether your CloudFormation stacks are sending event notifications to an SNS topic. Optionally checks whether specified SNS topics are used.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "snsTopic1": {
+          "type": "String",
+          "description": "SNS Topic ARN."
+        },
+        "snsTopic2": {
+          "type": "String",
+          "description": "SNS Topic ARN."
+        },
+        "snsTopic3": {
+          "type": "String",
+          "description": "SNS Topic ARN."
+        },
+        "snsTopic4": {
+          "type": "String",
+          "description": "SNS Topic ARN."
+        },
+        "snsTopic5": {
+          "type": "String",
+          "description": "SNS Topic ARN."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CloudFormation::Stack"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CloudFormation"
+    ]
+  },
+  "cloudwatch-alarm-action-check": {
+    "id": "CLOUDWATCH_ALARM_ACTION_CHECK",
+    "default_name": "cloudwatch-alarm-action-check",
+    "description": "Checks whether CloudWatch alarms have at least one alarm action, one INSUFFICIENT_DATA action, or one OK action enabled. Optionally, checks whether any of the actions matches one of the specified ARNs.",
+    "parameters": {
+      "required": {
+        "alarmActionRequired": {
+          "type": "String",
+          "description": "Alarms have at least one action.",
+          "defaultValue": "true"
+        },
+        "insufficientDataActionRequired": {
+          "type": "String",
+          "description": "Alarms have at least one action when the alarm transitions to the INSUFFICIENT_DATA state from any other state.",
+          "defaultValue": "true"
+        },
+        "okActionRequired": {
+          "type": "String",
+          "description": "Alarms have at least one action when the alarm transitions to an OK state from any other state.",
+          "defaultValue": "false"
+        }
+      },
+      "optional": {
+        "action1": {
+          "type": "String",
+          "description": "The action to execute, specified as an ARN."
+        },
+        "action2": {
+          "type": "String",
+          "description": "The action to execute, specified as an ARN."
+        },
+        "action3": {
+          "type": "String",
+          "description": "The action to execute, specified as an ARN."
+        },
+        "action4": {
+          "type": "String",
+          "description": "The action to execute, specified as an ARN."
+        },
+        "action5": {
+          "type": "String",
+          "description": "The action to execute, specified as an ARN."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CloudWatch::Alarm"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CloudWatch"
+    ]
+  },
+  "cloudwatch-alarm-resource-check": {
+    "id": "CLOUDWATCH_ALARM_RESOURCE_CHECK",
+    "default_name": "cloudwatch-alarm-resource-check",
+    "description": "Checks whether the specified resource type has a CloudWatch alarm for the specified metric. For resource type, you can specify EBS volumes, EC2 instances, RDS clusters, or S3 buckets.",
+    "parameters": {
+      "required": {
+        "resourceType": {
+          "type": "String",
+          "description": "AWS resource type. The value can be one of the following: AWS::EC2::Volume, AWS::EC2::Instance, AWS::RDS::DBCluster, or AWS::S3::Bucket."
+        },
+        "metricName": {
+          "type": "String",
+          "description": "The name for the metric associated with the alarm (for example, 'CPUUtilization' for EC2 instances)."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "CloudWatch"
+    ]
+  },
+  "cloudwatch-alarm-settings-check": {
+    "id": "CLOUDWATCH_ALARM_SETTINGS_CHECK",
+    "default_name": "cloudwatch-alarm-settings-check",
+    "description": "Checks whether CloudWatch alarms with the given metric name have the specified settings.",
+    "parameters": {
+      "required": {
+        "metricName": {
+          "type": "String",
+          "description": "The name for the metric associated with the alarm."
+        }
+      },
+      "optional": {
+        "threshold": {
+          "type": "int",
+          "description": "The value against which the specified statistic is compared."
+        },
+        "evaluationPeriods": {
+          "type": "int",
+          "description": "The number of periods over which data is compared to the specified threshold."
+        },
+        "period": {
+          "type": "int",
+          "description": "The period, in seconds, during which the specified statistic is applied.",
+          "defaultValue": "300"
+        },
+        "comparisonOperator": {
+          "type": "String",
+          "description": "The operation for comparing the specified statistic and threshold (for example, 'GreaterThanThreshold')."
+        },
+        "statistic": {
+          "type": "String",
+          "description": "The statistic for the metric associated with the alarm (for example, 'Average' or 'Sum')."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CloudWatch::Alarm"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CloudWatch"
+    ]
+  },
+  "acm-certificate-expiration-check": {
+    "id": "ACM_CERTIFICATE_EXPIRATION_CHECK",
+    "default_name": "acm-certificate-expiration-check",
+    "description": "Checks whether ACM Certificates in your account are marked for expiration within the specified number of days. Certificates provided by ACM are automatically renewed. ACM does not automatically renew certificates that you import.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "daysToExpiration": {
+          "type": "int",
+          "description": "Specify the number of days before the rule flags the ACM Certificate as noncompliant.",
+          "defaultValue": "14"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ACM::Certificate"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "ACM"
+    ]
+  },
+  "iam-user-group-membership-check": {
+    "id": "IAM_USER_GROUP_MEMBERSHIP_CHECK",
+    "default_name": "iam-user-group-membership-check",
+    "description": "Checks whether IAM users are members of at least one IAM group.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "groupNames": {
+          "type": "String",
+          "description": "Comma separated list of IAM groups in which IAM users must be members."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::IAM::User"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "IAM"
+    ]
+  },
+  "ec2-instance-detailed-monitoring-enabled": {
+    "id": "EC2_INSTANCE_DETAILED_MONITORING_ENABLED",
+    "default_name": "ec2-instance-detailed-monitoring-enabled",
+    "description": "Checks whether detailed monitoring is enabled for EC2 instances.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "ec2-managedinstance-inventory-blacklisted": {
+    "id": "EC2_MANAGEDINSTANCE_INVENTORY_BLACKLISTED",
+    "default_name": "ec2-managedinstance-inventory-blacklisted",
+    "description": "Checks whether instances managed by Amazon EC2 Systems Manager are configured to collect blacklisted inventory types.",
+    "parameters": {
+      "required": {
+        "inventoryNames": {
+          "type": "CSV",
+          "description": "Comma separated list of Systems Manager inventory types (for example, 'AWS:Network, AWS:WindowsUpdate')."
+        }
+      },
+      "optional": {
+        "platformType": {
+          "type": "String",
+          "description": "Platform type (for example, 'Linux')."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::SSM::ManagedInstanceInventory"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "SystemsManager"
+    ]
+  },
+  "ec2-volume-inuse-check": {
+    "id": "EC2_VOLUME_INUSE_CHECK",
+    "default_name": "ec2-volume-inuse-check",
+    "description": "Checks whether EBS volumes are attached to EC2 instances.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "deleteOnTermination": {
+          "type": "boolean",
+          "description": "EBS volumes are marked for deletion when an instance is terminated."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Volume"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "iam-user-no-policies-check": {
+    "id": "IAM_USER_NO_POLICIES_CHECK",
+    "default_name": "iam-user-no-policies-check",
+    "description": "Checks that none of your IAM users have policies attached. IAM users must inherit permissions from IAM groups or roles.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::IAM::User"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "IAM"
+    ]
+  },
+  "s3-bucket-ssl-requests-only": {
+    "id": "S3_BUCKET_SSL_REQUESTS_ONLY",
+    "default_name": "s3-bucket-ssl-requests-only",
+    "description": "Checks whether S3 buckets have policies that require requests to use Secure Socket Layer (SSL).",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3",
+      "Zelkova"
+    ]
+  },
+  "ec2-managedinstance-applications-blacklisted": {
+    "id": "EC2_MANAGEDINSTANCE_APPLICATIONS_BLACKLISTED",
+    "default_name": "ec2-managedinstance-applications-blacklisted",
+    "description": "Checks that none of the specified applications are installed on the instance. Optionally, specify the version. Newer versions will not be blacklisted. Optionally, specify the platform to apply the rule only to instances running that platform.",
+    "parameters": {
+      "required": {
+        "applicationNames": {
+          "type": "CSV",
+          "description": "Comma-separated list of application names. Optionally, specify versions appended with ':' (for example, 'Chrome:0.5.3, Firefox')."
+        }
+      },
+      "optional": {
+        "platformType": {
+          "type": "String",
+          "description": "Platform type (for example, 'Linux')."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::SSM::ManagedInstanceInventory"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "SystemsManager"
+    ]
+  },
+  "ec2-managedinstance-applications-required": {
+    "id": "EC2_MANAGEDINSTANCE_APPLICATIONS_REQUIRED",
+    "default_name": "ec2-managedinstance-applications-required",
+    "description": "Checks whether all of the specified applications are installed on the instance. Optionally, specify the minimum acceptable version. Optionally, specify the platform to apply the rule only to instances running that platform.",
+    "parameters": {
+      "required": {
+        "applicationNames": {
+          "type": "CSV",
+          "description": "Comma-separated list of application names. Optionally, specify versions appended with ':' (for example, 'Chrome:0.5.3, Firefox')."
+        }
+      },
+      "optional": {
+        "platformType": {
+          "type": "String",
+          "description": "Platform type (for example, 'Linux')."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::SSM::ManagedInstanceInventory"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "SystemsManager"
+    ]
+  },
+  "ec2-managedinstance-platform-check": {
+    "id": "EC2_MANAGEDINSTANCE_PLATFORM_CHECK",
+    "default_name": "ec2-managedinstance-platform-check",
+    "description": "Checks whether EC2 managed instances have the desired configurations.",
+    "parameters": {
+      "required": {
+        "platformType": {
+          "type": "String",
+          "description": "Platform type (for example, 'Linux')."
+        }
+      },
+      "optional": {
+        "platformVersion": {
+          "type": "String",
+          "description": "Platform version (for example, '2016.09')."
+        },
+        "agentVersion": {
+          "type": "String",
+          "description": "Agent version (for example, '2.0.433.0')."
+        },
+        "platformName": {
+          "type": "String",
+          "description": "The version of the platform (for example, '2016.09')"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::SSM::ManagedInstanceInventory"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "SystemsManager"
+    ]
+  },
+  "redshift-cluster-configuration-check": {
+    "id": "REDSHIFT_CLUSTER_CONFIGURATION_CHECK",
+    "default_name": "redshift-cluster-configuration-check",
+    "description": "Checks whether Amazon Redshift clusters have the specified settings.",
+    "parameters": {
+      "required": {
+        "clusterDbEncrypted": {
+          "type": "boolean",
+          "description": "Database encryption is enabled.",
+          "defaultValue": "true"
+        },
+        "loggingEnabled": {
+          "type": "boolean",
+          "description": "Audit logging is enabled.",
+          "defaultValue": "true"
+        }
+      },
+      "optional": {
+        "nodeTypes": {
+          "type": "CSV",
+          "description": "Specify node type.",
+          "defaultValue": "dc1.large"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Redshift::Cluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Redshift"
+    ]
+  },
+  "redshift-cluster-maintenancesettings-check": {
+    "id": "REDSHIFT_CLUSTER_MAINTENANCESETTINGS_CHECK",
+    "default_name": "redshift-cluster-maintenancesettings-check",
+    "description": "Checks whether Amazon Redshift clusters have the specified maintenance settings.",
+    "parameters": {
+      "required": {
+        "allowVersionUpgrade": {
+          "type": "boolean",
+          "description": "Allow version upgrade is enabled.",
+          "defaultValue": "true"
+        }
+      },
+      "optional": {
+        "preferredMaintenanceWindow": {
+          "type": "String",
+          "description": "Scheduled maintenance window for clusters (for example, Mon:09:30-Mon:10:00)."
+        },
+        "automatedSnapshotRetentionPeriod": {
+          "type": "int",
+          "description": "Number of days to retain automated snapshots.",
+          "defaultValue": "1"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Redshift::Cluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "Redshift"
+    ]
+  },
+  "s3-bucket-logging-enabled": {
+    "id": "S3_BUCKET_LOGGING_ENABLED",
+    "default_name": "s3-bucket-logging-enabled",
+    "description": "Checks whether logging is enabled for your S3 buckets.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "targetBucket": {
+          "type": "String",
+          "description": "Target S3 bucket for storing server access logs."
+        },
+        "targetPrefix": {
+          "type": "String",
+          "description": "Prefix of the S3 bucket for storing server access logs."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3"
+    ]
+  },
+  "s3-bucket-versioning-enabled": {
+    "id": "S3_BUCKET_VERSIONING_ENABLED",
+    "default_name": "s3-bucket-versioning-enabled",
+    "description": "Checks whether versioning is enabled for your S3 buckets.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "isMfaDeleteEnabled": {
+          "type": "String",
+          "description": "MFA delete is enabled for your S3 buckets."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3"
+    ]
+  },
+  "dynamodb-throughput-limit-check": {
+    "id": "DYNAMODB_THROUGHPUT_LIMIT_CHECK",
+    "default_name": "dynamodb-throughput-limit-check",
+    "description": "Checks whether provisioned DynamoDB throughput is approaching the maximum limit for your account.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "accountRCUThresholdPercentage": {
+          "type": "int",
+          "description": "Percentage of provisioned read capacity units for your account. When this value is reached, the rule is marked as noncompliant.",
+          "defaultValue": "80"
+        },
+        "accountWCUThresholdPercentage": {
+          "type": "int",
+          "description": "Percentage of provisioned write capacity units for your account. When this value is reached, the rule is marked as noncompliant.",
+          "defaultValue": "80"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "DynamoDb",
+      "Periodic"
+    ]
+  },
+  "approved-amis-by-id": {
+    "id": "APPROVED_AMIS_BY_ID",
+    "default_name": "approved-amis-by-id",
+    "description": "Checks whether running instances are using specified AMIs.",
+    "parameters": {
+      "required": {
+        "amiIds": {
+          "type": "CSV",
+          "description": "Specify AMI IDs (comma separated list of up to 10)."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "approved-amis-by-tag": {
+    "id": "APPROVED_AMIS_BY_TAG",
+    "default_name": "approved-amis-by-tag",
+    "description": "Checks whether running instances are using specified AMIs.",
+    "parameters": {
+      "required": {
+        "amisByTagKeyAndValue": {
+          "type": "StringMap",
+          "description": "Specify AMIs by tag (comma separated list up to 10; for example, 'tag-key:tag-value').",
+          "defaultValue": "tag-key:tag-value,other-tag-key"
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "db-instance-backup-enabled": {
+    "id": "DB_INSTANCE_BACKUP_ENABLED",
+    "default_name": "db-instance-backup-enabled",
+    "description": "Checks whether RDS DB instances have backups enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "backupRetentionPeriod": {
+          "type": "int",
+          "description": "Retention period for backups."
+        },
+        "backupRetentionMinimum": {
+          "type": "int",
+          "description": "Minimum retention period for backups."
+        },
+        "preferredBackupWindow": {
+          "type": "String",
+          "description": "Time range in which backups are created."
+        },
+        "checkReadReplicas": {
+          "type": "boolean",
+          "description": "Checks whether RDS DB instances have backups enabled for read replicas."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBInstance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS"
+    ]
+  },
+  "desired-instance-type": {
+    "id": "DESIRED_INSTANCE_TYPE",
+    "default_name": "desired-instance-type",
+    "description": "Checks whether your EC2 instances are of the specified instance types.",
+    "parameters": {
+      "required": {
+        "instanceType": {
+          "type": "CSV",
+          "description": "Comma separated list of EC2 instance types (for example, 't2.small, m4.large')."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "ebs-optimized-instance": {
+    "id": "EBS_OPTIMIZED_INSTANCE",
+    "default_name": "ebs-optimized-instance",
+    "description": "Checks whether EBS optimization is enabled for your EC2 instances that can be EBS-optimized.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "iam-password-policy": {
+    "id": "IAM_PASSWORD_POLICY",
+    "default_name": "iam-password-policy",
+    "description": "Checks whether the account password policy for IAM users meets the specified requirements.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "RequireUppercaseCharacters": {
+          "type": "boolean",
+          "description": "Require at least one uppercase character in password.",
+          "defaultValue": "true"
+        },
+        "RequireLowercaseCharacters": {
+          "type": "boolean",
+          "description": "Require at least one lowercase character in password.",
+          "defaultValue": "true"
+        },
+        "RequireSymbols": {
+          "type": "boolean",
+          "description": "Require at least one symbol in password.",
+          "defaultValue": "true"
+        },
+        "RequireNumbers": {
+          "type": "boolean",
+          "description": "Require at least one number in password.",
+          "defaultValue": "true"
+        },
+        "MinimumPasswordLength": {
+          "type": "int",
+          "description": "Password minimum length.",
+          "defaultValue": "14"
+        },
+        "PasswordReusePrevention": {
+          "type": "int",
+          "description": "Number of passwords before allowing reuse.",
+          "defaultValue": "24"
+        },
+        "MaxPasswordAge": {
+          "type": "int",
+          "description": "Number of days before password expiration.",
+          "defaultValue": "90"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "IAM",
+      "Periodic"
+    ]
+  },
+  "rds-multi-az-support": {
+    "id": "RDS_MULTI_AZ_SUPPORT",
+    "default_name": "rds-multi-az-support",
+    "description": "Checks whether high availability is enabled for your RDS DB instances.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBInstance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS"
+    ]
+  },
+  "rds-storage-encrypted": {
+    "id": "RDS_STORAGE_ENCRYPTED",
+    "default_name": "rds-storage-encrypted",
+    "description": "Checks whether storage encryption is enabled for your RDS DB instances.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "kmsKeyId": {
+          "type": "String",
+          "description": "KMS key ID or ARN used to encrypt the stosrage."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBInstance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS"
+    ]
+  },
+  "cloudtrail-enabled": {
+    "id": "CLOUD_TRAIL_ENABLED",
+    "default_name": "cloudtrail-enabled",
+    "description": "Checks whether AWS CloudTrail is enabled in your AWS account.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "s3BucketName": {
+          "type": "String",
+          "description": "Name of S3 bucket for CloudTrail to deliver log files to."
+        },
+        "snsTopicArn": {
+          "type": "String",
+          "description": "SNS topic ARN for CloudTrail to use for notifications."
+        },
+        "cloudWatchLogsLogGroupArn": {
+          "type": "String",
+          "description": "CloudWatch log group ARN for CloudTrail to send data to."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "CloudTrail",
+      "Periodic"
+    ]
+  },
+  "desired-instance-tenancy": {
+    "id": "DESIRED_INSTANCE_TENANCY",
+    "default_name": "desired-instance-tenancy",
+    "description": "Checks instances for specified tenancy.",
+    "parameters": {
+      "required": {
+        "tenancy": {
+          "type": "String",
+          "description": "Desired tenancy of the instances. Valid values are DEDICATED, HOST and DEFAULT."
+        }
+      },
+      "optional": {
+        "imageId": {
+          "type": "CSV",
+          "description": "The rule evaluates instances launched only from AMIs with the specified IDs. Separate multiple AMI IDs with commas."
+        },
+        "hostId": {
+          "type": "CSV",
+          "description": "The IDs of the EC2 Dedicated Hosts on which the instances are meant to be launched. Separate multiple Host IDs with commas."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "eip-attached": {
+    "id": "EIP_ATTACHED",
+    "default_name": "eip-attached",
+    "description": "Checks whether all EIP addresses allocated to a VPC are attached to EC2 instances or in-use ENIs.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::EIP"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "encrypted-volumes": {
+    "id": "ENCRYPTED_VOLUMES",
+    "default_name": "encrypted-volumes",
+    "description": "Checks whether EBS volumes that are in an attached state are encrypted.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "kmsId": {
+          "type": "String",
+          "description": "ID or ARN of the KMS key that is used to encrypt the volume."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Volume"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "restricted-ssh": {
+    "id": "INCOMING_SSH_DISABLED",
+    "default_name": "restricted-ssh",
+    "description": "Checks whether security groups that are in use disallow unrestricted incoming SSH traffic.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::SecurityGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "ec2-instances-in-vpc": {
+    "id": "INSTANCES_IN_VPC",
+    "default_name": "ec2-instances-in-vpc",
+    "description": "Checks whether your EC2 instances belong to a virtual private cloud (VPC).",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "vpcId": {
+          "type": "String",
+          "description": "VPC ID that contains these EC2 instances."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "required-tags": {
+    "id": "REQUIRED_TAGS",
+    "default_name": "required-tags",
+    "description": "Checks whether your resources have the tags that you specify.",
+    "parameters": {
+      "required": {
+        "tag1Key": {
+          "type": "String",
+          "description": "Key of the required tag.",
+          "defaultValue": "CostCenter"
+        }
+      },
+      "optional": {
+        "tag1Value": {
+          "type": "CSV",
+          "description": "Optional value of the required tag. Separate multiple values with commas."
+        },
+        "tag2Key": {
+          "type": "String",
+          "description": "Key of a second required tag."
+        },
+        "tag2Value": {
+          "type": "CSV",
+          "description": "Optional value of the second required tag. Separate multiple values with commas."
+        },
+        "tag3Key": {
+          "type": "String",
+          "description": "Key of a third required tag."
+        },
+        "tag3Value": {
+          "type": "CSV",
+          "description": "Optional value of the third required tag. Separate multiple values with commas."
+        },
+        "tag4Key": {
+          "type": "String",
+          "description": "Key of a fourth required tag."
+        },
+        "tag4Value": {
+          "type": "CSV",
+          "description": "Optional value of the fourth required tag. Separate multiple values with commas."
+        },
+        "tag5Key": {
+          "type": "String",
+          "description": "Key of a fifth required tag."
+        },
+        "tag5Value": {
+          "type": "CSV",
+          "description": "Optional value of the fifth required tag. Separate multiple values with commas."
+        },
+        "tag6Key": {
+          "type": "String",
+          "description": "Key of a sixth required tag."
+        },
+        "tag6Value": {
+          "type": "CSV",
+          "description": "Optional value of the sixth required tag. Separate multiple values with commas."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ACM::Certificate",
+          "AWS::AutoScaling::AutoScalingGroup",
+          "AWS::CloudFormation::Stack",
+          "AWS::CodeBuild::Project",
+          "AWS::DynamoDB::Table",
+          "AWS::EC2::CustomerGateway",
+          "AWS::EC2::Instance",
+          "AWS::EC2::InternetGateway",
+          "AWS::EC2::NetworkAcl",
+          "AWS::EC2::NetworkInterface",
+          "AWS::EC2::RouteTable",
+          "AWS::EC2::SecurityGroup",
+          "AWS::EC2::Subnet",
+          "AWS::EC2::Volume",
+          "AWS::EC2::VPC",
+          "AWS::EC2::VPNConnection",
+          "AWS::EC2::VPNGateway",
+          "AWS::ElasticLoadBalancing::LoadBalancer",
+          "AWS::ElasticLoadBalancingV2::LoadBalancer",
+          "AWS::RDS::DBInstance",
+          "AWS::RDS::DBSecurityGroup",
+          "AWS::RDS::DBSnapshot",
+          "AWS::RDS::DBSubnetGroup",
+          "AWS::RDS::EventSubscription",
+          "AWS::Redshift::Cluster",
+          "AWS::Redshift::ClusterParameterGroup",
+          "AWS::Redshift::ClusterSecurityGroup",
+          "AWS::Redshift::ClusterSnapshot",
+          "AWS::Redshift::ClusterSubnetGroup",
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "AWS"
+    ]
+  },
+  "restricted-common-ports": {
+    "id": "RESTRICTED_INCOMING_TRAFFIC",
+    "default_name": "restricted-common-ports",
+    "description": "Checks whether security groups that are in use disallow unrestricted incoming TCP traffic to the specified ports.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "blockedPort1": {
+          "type": "int",
+          "description": "Blocked TCP port number.",
+          "defaultValue": "20"
+        },
+        "blockedPort2": {
+          "type": "int",
+          "description": "Blocked TCP port number.",
+          "defaultValue": "21"
+        },
+        "blockedPort3": {
+          "type": "int",
+          "description": "Blocked TCP port number.",
+          "defaultValue": "3389"
+        },
+        "blockedPort4": {
+          "type": "int",
+          "description": "Blocked TCP port number.",
+          "defaultValue": "3306"
+        },
+        "blockedPort5": {
+          "type": "int",
+          "description": "Blocked TCP port number.",
+          "defaultValue": "4333"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::SecurityGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2"
+    ]
+  },
+  "root-account-mfa-enabled": {
+    "id": "ROOT_ACCOUNT_MFA_ENABLED",
+    "default_name": "root-account-mfa-enabled",
+    "description": "Checks whether the root user of your AWS account requires multi-factor authentication for console sign-in.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": null
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "IAM",
+      "Periodic"
+    ]
+  }
+}
