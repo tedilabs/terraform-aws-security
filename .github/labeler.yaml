@@ -3,3 +3,5 @@
 - modules/access-analyzer/**/*
 ":floppy_disk: config-recorder":
 - modules/config-recorder/**/*
+":floppy_disk: config-managed-rule":
+- modules/config-managed-rule/**/*

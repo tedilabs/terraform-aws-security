@@ -46,3 +46,6 @@
 - color: "fbca04"
   description: "This issue or pull request is related to config-recorder module."
   name: ":floppy_disk: config-recorder"
+- color: "fbca04"
+  description: "This issue or pull request is related to config-managed-rule module."
+  name: ":floppy_disk: config-managed-rule"
