@@ -58,17 +58,22 @@ output "trigger_by_change" {
   value = {
     enabled        = local.rule.trigger_by_change.enabled
     scope          = var.scope
-    resource_types = var.resource_types
-    resource_id    = var.resource_id
-    resource_tag   = var.resource_tag
+    resource_types = local.scope[var.scope].resource_types
+    resource_id    = local.scope[var.scope].resource_id
+    resource_tag = {
+      key   = local.scope[var.scope].tag_key
+      value = local.scope[var.scope].tag_value
+    }
   }
 }
 
 output "trigger_by_schedule" {
   description = "The information of trigger by schedule."
   value = {
-    enabled   = local.rule.trigger_by_schedule.enabled
-    frequency = coalesce(var.schedule_frequency, local.rule.trigger_by_schedule.max_frequency)
+    enabled = local.rule.trigger_by_schedule.enabled
+    frequency = (local.rule.trigger_by_schedule.enabled
+      ? local.frequency[coalesce(var.schedule_frequency, local.rule.trigger_by_schedule.max_frequency)]
+    : null)
   }
 }
 
