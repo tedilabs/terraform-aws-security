@@ -1,4 +1,2162 @@
 {
+  "virtualmachine-resources-protected-by-backup-plan": {
+    "id": "VIRTUALMACHINE_RESOURCES_PROTECTED_BY_BACKUP_PLAN",
+    "default_name": "virtualmachine-resources-protected-by-backup-plan",
+    "description": "Checks if AWS Backup-Gateway VirtualMachines are protected by a backup plan. The rule is NON_COMPLIANT if the Backup-Gateway VirtualMachine is not covered by a backup plan.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "resourceTags": {
+          "type": "String",
+          "description": "Tags for AWS Backup-Gateway VirtualMachines for the rule to check, in JSON format."
+        },
+        "resourceId": {
+          "type": "String",
+          "description": "ID of AWS Backup-Gateway VirtualMachine for the rule to check."
+        },
+        "crossRegionList": {
+          "type": "String",
+          "description": "Comma-separated list of destination regions for the cross-region backup copy to be kept"
+        },
+        "crossAccountList": {
+          "type": "String",
+          "description": "Comma-separated list of destination accounts for cross-account backup copy to be kept"
+        },
+        "maxRetentionDays": {
+          "type": "int",
+          "description": "The maximum retention period in days for the Backup Vault Lock"
+        },
+        "minRetentionDays": {
+          "type": "int",
+          "description": "The minimum retention period in days for the Backup Vault Lock"
+        },
+        "backupVaultLockCheck": {
+          "type": "String",
+          "description": "Accepted values: 'True' or 'False'. Enter 'True' for the rule to check if the resource is backed up in a locked vault"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": []
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
+  "ecr-private-lifecycle-policy-configured": {
+    "id": "ECR_PRIVATE_LIFECYCLE_POLICY_CONFIGURED",
+    "default_name": "ecr-private-lifecycle-policy-configured",
+    "description": "Checks if a private Amazon Elastic Container Registry (ECR) repository has at least one lifecycle policy configured. The rule is NON_COMPLIANT if no lifecycle policy is configured for the ECR private repository.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ECR::Repository"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ECR",
+      "ELASTIC",
+      "CONTAINER",
+      "REPOSITORY",
+      "PRIVATE",
+      "LIFECYCLE",
+      "POLICY"
+    ]
+  },
+  "redshift-default-db-name-check": {
+    "id": "REDSHIFT_DEFAULT_DB_NAME_CHECK",
+    "default_name": "redshift-default-db-name-check",
+    "description": "Checks if a Redshift cluster has changed its database name from the default value. The rule is NON_COMPLIANT if the database name for a Redshift cluster is set to “dev”, or if the optional parameter is provided and the database name does not match.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "validDatabaseNames": {
+          "type": "CSV",
+          "description": "Comma-separated list of database name(s) for Redshift clusters."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Redshift::Cluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "REDSHIFT",
+      "DB",
+      "DATABASE",
+      "CLUSTER"
+    ]
+  },
+  "efs-access-point-enforce-user-identity": {
+    "id": "EFS_ACCESS_POINT_ENFORCE_USER_IDENTITY",
+    "default_name": "efs-access-point-enforce-user-identity",
+    "description": "Checks if Amazon Elastic File System (Amazon EFS) access points are configured to enforce a user identity. The rule is NON_COMPLIANT if 'PosixUser' is not defined or if parameters are provided and there is no match in the corresponding parameter.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "approvedUids": {
+          "type": "CSV",
+          "description": "Comma-separated list of POSIX user ID that are approved for EFS access point user enforcement."
+        },
+        "approvedGids": {
+          "type": "CSV",
+          "description": "Comma-separated list of POSIX group IDs that are approved for EFS access point user enforcement."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EFS::AccessPoint"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EFS",
+      "FILE",
+      "SYSTEM",
+      "USER",
+      "POSIX",
+      "ACCESS",
+      "POINT",
+      "GROUP"
+    ]
+  },
+  "vpc-peering-dns-resolution-check": {
+    "id": "VPC_PEERING_DNS_RESOLUTION_CHECK",
+    "default_name": "vpc-peering-dns-resolution-check",
+    "description": "Checks if DNS resolution from accepter/requester VPC to private IP is enabled. The rule is NON_COMPLIANT if DNS resolution from accepter/requester VPC to private IP is not enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "vpcIds": {
+          "type": "CSV",
+          "description": "Comma-separated list of VPC IDs to be checked."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::VPCPeeringConnection"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "VPC",
+      "PEERING",
+      "CONNECTION",
+      "DNS",
+      "RESOLUTION"
+    ]
+  },
+  "elbv2-multiple-az": {
+    "id": "ELBV2_MULTIPLE_AZ",
+    "default_name": "elbv2-multiple-az",
+    "description": "Checks if an Elastic Load Balancer V2 (Application, Network, or Gateway Load Balancer) has registered instances from multiple Availability Zones (AZ's). The rule is NON_COMPLIANT if an Elastic Load Balancer V2 has instances registered in less than 2 AZ's.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "minAvailabilityZones": {
+          "type": "int",
+          "description": "Minimum number of expected AZ’s (between 2 and 10 inclusive)."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancingV2::LoadBalancer"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ELBV2",
+      "APPLICATION",
+      "NETWORK",
+      "GATEWAY",
+      "LOAD",
+      "BALANCER",
+      "AVAILABILITY",
+      "ZONE",
+      "VPC"
+    ]
+  },
+  "ec2-no-amazon-key-pair": {
+    "id": "EC2_NO_AMAZON_KEY_PAIR",
+    "default_name": "ec2-no-amazon-key-pair",
+    "description": "Checks if running Amazon Elastic Compute Cloud (EC2) instances are launched using amazon key pairs. The rule is NON_COMPLIANT if a running EC2 instance is launched with a key pair.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2",
+      "INSTANCE",
+      "AMAZON",
+      "KEY",
+      "PAIR"
+    ]
+  },
+  "ecs-fargate-latest-platform-version": {
+    "id": "ECS_FARGATE_LATEST_PLATFORM_VERSION",
+    "default_name": "ecs-fargate-latest-platform-version",
+    "description": "Checks if Amazon Elastic Container Service (ECS) Fargate Services is running on the latest Fargate platform version. The rule is NON_COMPLIANT if ECS Service platformVersion not set to LATEST.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ECS::Service"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ECS",
+      "FARGATE",
+      "PLATFORM",
+      "LATEST",
+      "VERSION",
+      "ELASTIC",
+      "CONTAINER",
+      "SERVICE"
+    ]
+  },
+  "kinesis-stream-encrypted": {
+    "id": "KINESIS_STREAM_ENCRYPTED",
+    "default_name": "kinesis-stream-encrypted",
+    "description": "Checks if Amazon Kinesis streams are encrypted at rest with server-side encryption. The rule is NON_COMPLIANT for a Kinesis stream if 'StreamEncryption' is not present.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Kinesis::Stream"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "KINESIS",
+      "STREAM",
+      "ENCRYPTION",
+      "DATA"
+    ]
+  },
+  "ec2-transit-gateway-auto-vpc-attach-disabled": {
+    "id": "EC2_TRANSIT_GATEWAY_AUTO_VPC_ATTACH_DISABLED",
+    "default_name": "ec2-transit-gateway-auto-vpc-attach-disabled",
+    "description": "Checks if Amazon Elastic Compute Cloud (Amazon EC2) Transit Gateways have 'AutoAcceptSharedAttachments' enabled. The rule is NON_COMPLIANT for a Transit Gateway if 'AutoAcceptSharedAttachments' is set to 'enable'.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::TransitGateway"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2",
+      "GATEWAY",
+      "TRANSIT",
+      "AUTO",
+      "ATTACH",
+      "DISABLE",
+      "VPC"
+    ]
+  },
+  "sns-topic-message-delivery-notification-enabled": {
+    "id": "SNS_TOPIC_MESSAGE_DELIVERY_NOTIFICATION_ENABLED",
+    "default_name": "sns-topic-message-delivery-notification-enabled",
+    "description": "Checks if Amazon Simple Notification Service (SNS) logging is enabled for the delivery status of notification messages sent to a topic for the endpoints. The rule is NON_COMPLIANT if the delivery status notification for messages is not enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::SNS::Topic"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "SNS",
+      "TOPIC",
+      "MESSAGE",
+      "DELIVERY",
+      "NOTIFICATION"
+    ]
+  },
+  "efs-access-point-enforce-root-directory": {
+    "id": "EFS_ACCESS_POINT_ENFORCE_ROOT_DIRECTORY",
+    "default_name": "efs-access-point-enforce-root-directory",
+    "description": "Checks if Amazon Elastic File System (Amazon EFS) access points are configured to enforce a root directory. The rule is NON_COMPLIANT if the value of 'Path' is set to '/' (default root directory of the file system).",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "approvedDirectories": {
+          "type": "CSV",
+          "description": "Comma-separated list of subdirectory paths that are approved for Amazon EFS access point root directory enforcement."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EFS::AccessPoint"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EFS",
+      "ACCESS",
+      "POINT",
+      "ROOT",
+      "DIRECTORY",
+      "PATH"
+    ]
+  },
+  "s3-event-notifications-enabled": {
+    "id": "S3_EVENT_NOTIFICATIONS_ENABLED",
+    "default_name": "s3-event-notifications-enabled",
+    "description": "Checks if Amazon S3 Events Notifications are enabled on an S3 bucket. The rule is NON_COMPLIANT if S3 Events Notifications are not set on a bucket, or if the event type or destination do not match the eventTypes and destinationArn parameters.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "destinationArn": {
+          "type": "String",
+          "description": "The Amazon Resource Name (ARN) of the destination for the event notification (Amazon SNS topic, AWS Lambda, Amazon SQS Queue)."
+        },
+        "eventTypes": {
+          "type": "CSV",
+          "description": "Comma-separated list of the preferred Amazon S3 event types"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3",
+      "BUCKET",
+      "EVENT",
+      "NOTIFICATION",
+      "DESTINATION"
+    ]
+  },
+  "cloudwatch-alarm-action-enabled-check": {
+    "id": "CLOUDWATCH_ALARM_ACTION_ENABLED_CHECK",
+    "default_name": "cloudwatch-alarm-action-enabled-check",
+    "description": "Checks if Amazon CloudWatch alarms actions are in enabled state. The rule is NON_COMPLIANT if the CloudWatch alarms actions are not in enabled state.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CloudWatch::Alarm"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CLOUDWATCH",
+      "ALARM",
+      "ACTION"
+    ]
+  },
+  "ec2-security-group-attached-to-eni-periodic": {
+    "id": "EC2_SECURITY_GROUP_ATTACHED_TO_ENI_PERIODIC",
+    "default_name": "ec2-security-group-attached-to-eni-periodic",
+    "description": "Checks if non-default security groups are attached to Elastic network interfaces (ENIs). The rule is NON_COMPLIANT if the security group is not associated with an elastic network interface (ENI).",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::SecurityGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "EC2",
+      "ENI",
+      "NETWORK",
+      "INTERFACE",
+      "SECURITY",
+      "GROUP",
+      "PERIODIC",
+      "DEFAULT"
+    ]
+  },
+  "codedeploy-lambda-allatonce-traffic-shift-disabled": {
+    "id": "CODEDEPLOY_LAMBDA_ALLATONCE_TRAFFIC_SHIFT_DISABLED",
+    "default_name": "codedeploy-lambda-allatonce-traffic-shift-disabled",
+    "description": "Checks if the deployment group for Lambda Compute Platform is not using the default deployment configuration. The rule is NON_COMPLIANT if the deployment group is using the deployment configuration 'CodeDeployDefault.LambdaAllAtOnce'.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CodeDeploy::DeploymentGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CodeDeploy"
+    ]
+  },
+  "codedeploy-auto-rollback-monitor-enabled": {
+    "id": "CODEDEPLOY_AUTO_ROLLBACK_MONITOR_ENABLED",
+    "default_name": "codedeploy-auto-rollback-monitor-enabled",
+    "description": "Checks if the deployment group is configured with automatic deployment rollback and deployment monitoring with alarms attached. The rule is NON_COMPLIANT if AutoRollbackConfiguration or AlarmConfiguration has not been configured or is not enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CodeDeploy::DeploymentGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CodeDeploy"
+    ]
+  },
+  "codedeploy-ec2-minimum-healthy-hosts-configured": {
+    "id": "CODEDEPLOY_EC2_MINIMUM_HEALTHY_HOSTS_CONFIGURED",
+    "default_name": "codedeploy-ec2-minimum-healthy-hosts-configured",
+    "description": "Checks if the deployment group for EC2/On-Premises Compute Platform is configured with a minimum healthy hosts fleet percentage or host count greater than or equal to the input threshold. The rule is NON_COMPLIANT if either is below the threshold.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "minimumHealthyHostsFleetPercent": {
+          "type": "int",
+          "description": "Minimum percentage of healthy hosts fleet during deployment. Default value is set to 66 percent.",
+          "defaultValue": "66"
+        },
+        "minimumHealthyHostsHostCount": {
+          "type": "int",
+          "description": "Minimum number of healthy hosts in fleet during deployment. Default value is set to 1.",
+          "defaultValue": "1"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CodeDeploy::DeploymentGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CodeDeploy"
+    ]
+  },
+  "waf-regional-webacl-not-empty": {
+    "id": "WAF_REGIONAL_WEBACL_NOT_EMPTY",
+    "default_name": "waf-regional-webacl-not-empty",
+    "description": "Checks if a WAF regional Web ACL contains any WAF rules or rule groups. The rule is NON_COMPLIANT if there are no WAF rules or rule groups present within a Web ACL.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::WAFRegional::WebACL"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "WAF",
+      "REGIONAL",
+      "WEBACL",
+      "RULES",
+      "GROUPS"
+    ]
+  },
+  "clb-multiple-az": {
+    "id": "CLB_MULTIPLE_AZ",
+    "default_name": "clb-multiple-az",
+    "description": "Checks if a Classic Load Balancer spans multiple Availability Zones (AZs). The rule is NON_COMPLIANT if a Classic Load Balancer spans less than 2 AZs or does not span number of AZs mentioned in the minAvailabilityZones parameter (if provided).",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "minAvailabilityZones": {
+          "type": "int",
+          "description": "Desired minimum number of expected AZs. Valid values are between 2 and 10, both inclusive. Default value is 2 if parameter is not specified."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancing::LoadBalancer"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CLB",
+      "ELB",
+      "LOAD",
+      "BALANCER",
+      "CLASSIC",
+      "AVAILABILITY",
+      "ZONE",
+      "MULTIPLE"
+    ]
+  },
+  "nacl-no-unrestricted-ssh-rdp": {
+    "id": "NACL_NO_UNRESTRICTED_SSH_RDP",
+    "default_name": "nacl-no-unrestricted-ssh-rdp",
+    "description": "Checks if default ports for SSH/RDP ingress traffic for network access control lists (NACLs) is unrestricted. The rule is NON_COMPLIANT if a NACL inbound entry allows a source CIDR block of '0.0.0.0/0' or '::/0' for ports 22 or 3389.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::NetworkAcl"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "NACL",
+      "SSH",
+      "RDP",
+      "RESTRICTED",
+      "NETWORK",
+      "ACL"
+    ]
+  },
+  "ec2-token-hop-limit-check": {
+    "id": "EC2_TOKEN_HOP_LIMIT_CHECK",
+    "default_name": "ec2-token-hop-limit-check",
+    "description": "Checks if an Amazon Elastic Compute Cloud (EC2) instance metadata has a specified token hop limit that is below the desired limit. The rule is NON_COMPLIANT for an instance if it has a hop limit value above the intended limit.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "tokenHopLimit": {
+          "type": "int",
+          "description": "The desired token hop limit. Valid values are between 1 and 64, both inclusive. Default value is 1 if parameter is not specified."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EC2::Instance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EC2",
+      "TOKEN",
+      "HOP",
+      "LIMIT",
+      "IMDSV2",
+      "INSTANCE",
+      "METADATA"
+    ]
+  },
+  "waf-regional-rule-not-empty": {
+    "id": "WAF_REGIONAL_RULE_NOT_EMPTY",
+    "default_name": "waf-regional-rule-not-empty",
+    "description": "Checks whether WAF regional rule contains conditions. This rule is COMPLIANT if the regional rule contains at least one condition and NON_COMPLIANT otherwise.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::WAFRegional::Rule"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "WAF",
+      "REGIONAL",
+      "RULE",
+      "CONDITION"
+    ]
+  },
+  "waf-regional-rulegroup-not-empty": {
+    "id": "WAF_REGIONAL_RULEGROUP_NOT_EMPTY",
+    "default_name": "waf-regional-rulegroup-not-empty",
+    "description": "Checks if WAF Regional rule groups contain any rules. The rule is NON_COMPLIANT if there are no rules present within a WAF Regional rule group.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::WAFRegional::RuleGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "WAF",
+      "RULE",
+      "GROUP",
+      "REGIONAL"
+    ]
+  },
+  "redshift-audit-logging-enabled": {
+    "id": "REDSHIFT_AUDIT_LOGGING_ENABLED",
+    "default_name": "redshift-audit-logging-enabled",
+    "description": "Checks if Amazon Redshift clusters are logging audits to a specific bucket. The rule is NON_COMPLIANT if audit logging is not enabled for a Redshift cluster or if the 'bucketNames' parameter is provided but the audit logging destination does not match.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "bucketNames": {
+          "type": "CSV",
+          "description": "Comma-separated list of Amazon S3 bucket names for storing audit logs."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Redshift::Cluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "REDSHIFT",
+      "AUDIT",
+      "LOGGING"
+    ]
+  },
+  "eks-cluster-oldest-supported-version": {
+    "id": "EKS_CLUSTER_OLDEST_SUPPORTED_VERSION",
+    "default_name": "eks-cluster-oldest-supported-version",
+    "description": "Checks if an Amazon Elastic Kubernetes Service (EKS) cluster is running the oldest supported version. The rule is NON_COMPLIANT if an EKS cluster is running oldest supported version (equal to the parameter 'oldestVersionSupported').",
+    "parameters": {
+      "required": {
+        "oldestVersionSupported": {
+          "type": "String",
+          "description": "Value of the oldest version of Kubernetes supported on AWS."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EKS::Cluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EKS",
+      "CLUSTER",
+      "VERSION",
+      "KUBERNETES"
+    ]
+  },
+  "autoscaling-launch-config-hop-limit": {
+    "id": "AUTOSCALING_LAUNCH_CONFIG_HOP_LIMIT",
+    "default_name": "autoscaling-launch-config-hop-limit",
+    "description": "Checks the number of network hops that the metadata token can travel. This rule is NON_COMPLIANT if the Metadata response hop limit is greater than 1.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::AutoScaling::LaunchConfiguration"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "AUTOSCALING",
+      "LAUNCH",
+      "CONFIG",
+      "CONFIGURATION",
+      "HOP",
+      "LIMIT"
+    ]
+  },
+  "codebuild-project-s3-logs-encrypted": {
+    "id": "CODEBUILD_PROJECT_S3_LOGS_ENCRYPTED",
+    "default_name": "codebuild-project-s3-logs-encrypted",
+    "description": "Checks if a AWS CodeBuild project configured with Amazon S3 Logs has encryption enabled for its logs. The rule is NON_COMPLIANT if ‘encryptionDisabled’ is set to ‘true’ in a S3LogsConfig of a CodeBuild project.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "exemptedProjects": {
+          "type": "CSV",
+          "description": "Comma-separated list of CodeBuild project names that are allowed to output unencrypted logs."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CodeBuild::Project"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CODE",
+      "BUILD",
+      "PROJECT",
+      "S3",
+      "NAME",
+      "LOGS",
+      "ENCRYPTION",
+      "CODEBUILD",
+      "EXEMPTED"
+    ]
+  },
+  "autoscaling-multiple-az": {
+    "id": "AUTOSCALING_MULTIPLE_AZ",
+    "default_name": "autoscaling-multiple-az",
+    "description": "Checks if the Auto Scaling group spans multiple Availability Zones. The rule is NON_COMPLIANT if the Auto Scaling group does not span multiple Availability Zones.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "minAvailabilityZones": {
+          "type": "int",
+          "description": "Minimum number of expected Availability zones."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::AutoScaling::AutoScalingGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ASG",
+      "AUTOSCALING",
+      "AVAILABILITY",
+      "ZONE"
+    ]
+  },
+  "redshift-default-admin-check": {
+    "id": "REDSHIFT_DEFAULT_ADMIN_CHECK",
+    "default_name": "redshift-default-admin-check",
+    "description": "Checks if an Amazon Redshift cluster has changed the admin username from its default value. The rule is NON_COMPLIANT if the admin username for a Redshift cluster is set to “awsuser” or if the username does not match what is listed in parameter.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "validAdminUserNames": {
+          "type": "CSV",
+          "description": "Comma-separated list of admin username(s) for Redshift clusters to use. Note: 'awsuser' is the default and not accepted."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Redshift::Cluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "REDSHIFT",
+      "USERNAME",
+      "CLUSTER",
+      "ADMIN",
+      "DEFAULT"
+    ]
+  },
+  "codebuild-project-logging-enabled": {
+    "id": "CODEBUILD_PROJECT_LOGGING_ENABLED",
+    "default_name": "codebuild-project-logging-enabled",
+    "description": "Checks if an AWS CodeBuild project environment has at least one log option enabled. The rule is NON_COMPLIANT if 'logsConfig' is not present or the status of all present log configurations is set to 'DISABLED'.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "s3BucketNames": {
+          "type": "String",
+          "description": "Comma-separated list of Amazon S3 bucket names that logs should be sent to if S3 logs are configured."
+        },
+        "cloudWatchGroupNames": {
+          "type": "String",
+          "description": "Comma-separated list of Amazon CloudWatch log group names that logs should be be sent to if CloudWatch logs are configured."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CodeBuild::Project"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CODE",
+      "BUILD",
+      "PROJECT",
+      "CODEBUILD",
+      "S3",
+      "CLOUDWATCH",
+      "LOGS"
+    ]
+  },
+  "codebuild-project-artifact-encryption": {
+    "id": "CODEBUILD_PROJECT_ARTIFACT_ENCRYPTION",
+    "default_name": "codebuild-project-artifact-encryption",
+    "description": "Checks if an AWS CodeBuild project has encryption enabled for all of its artifacts. The rule is NON_COMPLIANT if ‘encryptionDisabled’ is set to ‘true’ for any primary or secondary (if present) artifact configurations.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CodeBuild::Project"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CODEBUILD",
+      "ENCRYPTION",
+      "ARTIFACT"
+    ]
+  },
+  "codebuild-project-environment-privileged-check": {
+    "id": "CODEBUILD_PROJECT_ENVIRONMENT_PRIVILEGED_CHECK",
+    "default_name": "codebuild-project-environment-privileged-check",
+    "description": "Checks if an AWS CodeBuild project environment has privileged mode enabled. The rule is NON_COMPLIANT for a CodeBuild project if ‘privilegedMode’ is set to ‘true’.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "exemptedProjects": {
+          "type": "CSV",
+          "description": "Comma-separated list of CodeBuild project names that are allowed to have ‘privilegedMode’ with value ‘true’."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::CodeBuild::Project"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "CODE",
+      "BUILD",
+      "CODEBUILD",
+      "PROJECT",
+      "ENVIRONMENT",
+      "PRIVILEGED",
+      "MODE",
+      "EXEMPTED"
+    ]
+  },
+  "s3-lifecycle-policy-check": {
+    "id": "S3_LIFECYCLE_POLICY_CHECK",
+    "default_name": "s3-lifecycle-policy-check",
+    "description": "Checks if a lifecycle rule is configured for an Amazon Simple Storage Service (Amazon S3) bucket. The rule is NON_COMPLIANT if there is no active lifecycle configuration rules or the configuration does not match with the parameter values.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "targetTransitionDays": {
+          "type": "int",
+          "description": "Number of days after object creation when objects are transitioned to a specified storage class (for example, 30 days)."
+        },
+        "targetExpirationDays": {
+          "type": "int",
+          "description": "Number of days after object creation when objects are deleted (for example, 395 days)."
+        },
+        "targetTransitionStorageClass": {
+          "type": "String",
+          "description": "Destination storage class type (for example, Amazon S3 Standard-Infrequent Access (S3 Standard-IA). For more information, see https: //docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html."
+        },
+        "targetPrefix": {
+          "type": "String",
+          "description": "Amazon S3 Object prefix to identify one or more objects."
+        },
+        "bucketNames": {
+          "type": "CSV",
+          "description": "Comma-separated list of Amazon S3 bucket names that have lifecycle policy enabled."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3",
+      "LIFECYCLE",
+      "POLICY"
+    ]
+  },
+  "alb-desync-mode-check": {
+    "id": "ALB_DESYNC_MODE_CHECK",
+    "default_name": "alb-desync-mode-check",
+    "description": "Checks if an Application Load Balancer (ALB) is configured with a user defined desync mitigation mode. The rule is NON_COMPLIANT if ALB desync mitigation mode does not match with the user defined desync mitigation mode.",
+    "parameters": {
+      "required": {
+        "desyncMode": {
+          "type": "CSV",
+          "description": "Comma-separated list, in which customers can choose max 2 values among - 'defensive', 'strictest', and 'monitor'."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancingV2::LoadBalancer"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "LOADBALANCER",
+      "ALB",
+      "DESYNC",
+      "MITIGATION",
+      "MODE",
+      "LOAD",
+      "BALANCER"
+    ]
+  },
+  "clb-desync-mode-check": {
+    "id": "CLB_DESYNC_MODE_CHECK",
+    "default_name": "clb-desync-mode-check",
+    "description": "Checks if Classic Load Balancers (CLB) are configured with a user defined Desync mitigation mode. The rule is NON_COMPLIANT if CLB Desync mitigation mode does not match with user defined Desync mitigation mode.",
+    "parameters": {
+      "required": {
+        "desyncMode": {
+          "type": "CSV",
+          "description": "Comma-separated list of values. You can select a max of two. Valid values include 'Defensive', 'Strictest', and 'Monitor'."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ElasticLoadBalancing::LoadBalancer"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "LOADBALANCER",
+      "CLB",
+      "DESYNC"
+    ]
+  },
+  "autoscaling-launchconfig-requires-imdsv2": {
+    "id": "AUTOSCALING_LAUNCHCONFIG_REQUIRES_IMDSV2",
+    "default_name": "autoscaling-launchconfig-requires-imdsv2",
+    "description": "Checks whether only IMDSv2 is enabled. This rule is NON_COMPLIANT if the Metadata version is not included in the launch configuration or if both Metadata V1 and V2 are enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::AutoScaling::LaunchConfiguration"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "AUTOSCALING",
+      "LAUNCH",
+      "CONFIGURATION",
+      "CONFIG",
+      "IMDSV2",
+      "HTTP",
+      "TOKENS"
+    ]
+  },
+  "netfw-policy-rule-group-associated": {
+    "id": "NETFW_POLICY_RULE_GROUP_ASSOCIATED",
+    "default_name": "netfw-policy-rule-group-associated",
+    "description": "Check AWS Network Firewall policy is associated with stateful OR stateless rule groups. This rule is NON_COMPLIANT if no stateful or stateless rule groups are associated with the Network Firewall policy else COMPLIANT if any one of the rule group exists.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::NetworkFirewall::FirewallPolicy"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "NETWORK",
+      "FIREWALL",
+      "POLICY",
+      "STATEFUL",
+      "STATELESS",
+      "RULE",
+      "GROUP",
+      "NETFW"
+    ]
+  },
+  "netfw-policy-default-action-full-packets": {
+    "id": "NETFW_POLICY_DEFAULT_ACTION_FULL_PACKETS",
+    "default_name": "netfw-policy-default-action-full-packets",
+    "description": "Checks if an AWS Network Firewall policy is configured with a user defined default stateless action for full packets. This rule is NON_COMPLIANT if default stateless action for full packets does not match with user defined default stateless action.",
+    "parameters": {
+      "required": {
+        "statelessDefaultActions": {
+          "type": "CSV",
+          "description": "Comma-separated list of values. You can select a max of two. Valid values include 'aws:pass', 'aws:drop', and 'aws:forward_to_sfe'."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::NetworkFirewall::FirewallPolicy"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "NETFW",
+      "NETWORK",
+      "FIREWALL",
+      "POLICY",
+      "DEFAULT",
+      "ACTION",
+      "FULL",
+      "PACKETS"
+    ]
+  },
+  "opensearch-node-to-node-encryption-check": {
+    "id": "OPENSEARCH_NODE_TO_NODE_ENCRYPTION_CHECK",
+    "default_name": "opensearch-node-to-node-encryption-check",
+    "description": "Check that Amazon OpenSearch Service nodes are encrypted end to end. The rule is NON_COMPLIANT if the node-to-node encryption is not enabled on the domain",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::OpenSearch::Domain"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "OPENSEARCH",
+      "ENCRYPTED",
+      "ENCRYPTION",
+      "NODE",
+      "DOMAIN"
+    ]
+  },
+  "ecs-task-definition-memory-hard-limit": {
+    "id": "ECS_TASK_DEFINITION_MEMORY_HARD_LIMIT",
+    "default_name": "ecs-task-definition-memory-hard-limit",
+    "description": "Checks if Amazon Elastic Container Service (ECS) task definitions have a set memory limit for its container definitions. The rule is NON_COMPLIANT for a task definition if the ‘memory’ parameter is absent for one container definition.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ECS::TaskDefinition"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ECS",
+      "TASK",
+      "DEFINITION",
+      "MEMORY",
+      "CONTAINER"
+    ]
+  },
+  "ecs-task-definition-nonroot-user": {
+    "id": "ECS_TASK_DEFINITION_NONROOT_USER",
+    "default_name": "ecs-task-definition-nonroot-user",
+    "description": "Checks if ECSTaskDefinitions specify a user for Amazon Elastic Container Service (Amazon ECS) EC2 launch type containers to run on. The rule is NON_COMPLIANT if the ‘user’ parameter is not present or set to ‘root’.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ECS::TaskDefinition"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ECS",
+      "TASK",
+      "DEFINITION",
+      "NONROOT",
+      "ROOT",
+      "USER"
+    ]
+  },
+  "autoscaling-multiple-instance-types": {
+    "id": "AUTOSCALING_MULTIPLE_INSTANCE_TYPES",
+    "default_name": "autoscaling-multiple-instance-types",
+    "description": "Checks if an Amazon Elastic Compute Cloud (Amazon EC2) Auto Scaling group uses multiple instance types. This rule is NON_COMPLIANT if the Amazon EC2 Auto Scaling group has only one instance type defined.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::AutoScaling::AutoScalingGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ASG",
+      "AUTOSCALING",
+      "GROUP",
+      "MULTIPLE",
+      "MIXED",
+      "POLICY",
+      "INSTANCE",
+      "TYPE"
+    ]
+  },
+  "ecs-containers-readonly-access": {
+    "id": "ECS_CONTAINERS_READONLY_ACCESS",
+    "default_name": "ecs-containers-readonly-access",
+    "description": "Checks if Amazon Elastic Container Service (Amazon ECS) Containers only have read-only access to its root filesystems. The rule is NON_COMPLIANT if the readonlyRootFilesystem parameter in the container definition of ECSTaskDefinitions is set to ‘false’.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ECS::TaskDefinition"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ECS",
+      "CONTAINER",
+      "TASK",
+      "DEFINITION",
+      "READONLY",
+      "ROOTFILESYSTEM"
+    ]
+  },
+  "ecs-task-definition-pid-mode-check": {
+    "id": "ECS_TASK_DEFINITION_PID_MODE_CHECK",
+    "default_name": "ecs-task-definition-pid-mode-check",
+    "description": "Checks if ECSTaskDefinitions are configured to share a host’s process namespace with its Amazon Elastic Container Service (Amazon ECS) containers. The rule is NON_COMPLIANT if the pidMode parameter is set to ‘host’.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ECS::TaskDefinition"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ECS",
+      "TASK",
+      "DEFINITION",
+      "PID",
+      "CONTAINER",
+      "HOST",
+      "NAMESPACE"
+    ]
+  },
+  "opensearch-audit-logging-enabled": {
+    "id": "OPENSEARCH_AUDIT_LOGGING_ENABLED",
+    "default_name": "opensearch-audit-logging-enabled",
+    "description": "Checks if Amazon OpenSearch Service domains have audit logging enabled. The rule is NON_COMPLIANT if an OpenSearch Service domain does not have audit logging enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "cloudWatchLogsLogGroupArnList": {
+          "type": "CSV",
+          "description": "Comma-separated list of Amazon CloudWatch Logs log groups that should be configured for audit logs."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::OpenSearch::Domain"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "OPENSEARCH",
+      "DOMAIN",
+      "AUDIT",
+      "LOGS",
+      "SEARCH",
+      "LOGGING"
+    ]
+  },
+  "opensearch-https-required": {
+    "id": "OPENSEARCH_HTTPS_REQUIRED",
+    "default_name": "opensearch-https-required",
+    "description": "Checks whether connections to OpenSearch domains are using HTTPS. The rule is NON_COMPLIANT if the Amazon OpenSearch domain 'EnforceHTTPS' is not 'true' or is 'true' and 'TLSSecurityPolicy' is not in 'tlsPolicies'.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "tlsPolicies": {
+          "type": "CSV",
+          "description": "Comma-separated list of TLS security policies to check against the Amazon OpensSearch domain."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::OpenSearch::Domain"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "OPENSEARCH",
+      "ENCRYPTED",
+      "ENCRYPTION",
+      "HTTPS",
+      "DOMAIN",
+      "TLS"
+    ]
+  },
+  "eks-cluster-supported-version": {
+    "id": "EKS_CLUSTER_SUPPORTED_VERSION",
+    "default_name": "eks-cluster-supported-version",
+    "description": "Checks if an Amazon Elastic Kubernetes Service (EKS) cluster is running a supported Kubernetes version. This rule is NON_COMPLIANT if an EKS cluster is running an unsupported version (less than the parameter 'oldestVersionSupported').",
+    "parameters": {
+      "required": {
+        "oldestVersionSupported": {
+          "type": "String",
+          "description": "Value of the oldest version of Kubernetes supported on AWS."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::EKS::Cluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "EKS",
+      "CLUSTER",
+      "VERSION",
+      "KUBERNETES"
+    ]
+  },
+  "lambda-vpc-multi-az-check": {
+    "id": "LAMBDA_VPC_MULTI_AZ_CHECK",
+    "default_name": "lambda-vpc-multi-az-check",
+    "description": "Checks if Lambda has more than 1 availability zone associated. The rule is NON_COMPLIANT if only 1 availability zone is associated with the Lambda or the number of availability zones associated is less than number specified in the optional parameter.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "availabilityZones": {
+          "type": "int",
+          "description": "Number of expected Availability zones."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::Lambda::Function"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "LAMBDA",
+      "AVAILABILITY",
+      "ZONE",
+      "FUNCTION",
+      "VPC"
+    ]
+  },
+  "ecs-container-insights-enabled": {
+    "id": "ECS_CONTAINER_INSIGHTS_ENABLED",
+    "default_name": "ecs-container-insights-enabled",
+    "description": "Checks if Amazon Elastic Container Service clusters have container insights enabled. The rule is NON_COMPLIANT if container insights are not enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ECS::Cluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ECS",
+      "CONTAINER",
+      "INSIGHTS",
+      "CLUSTER",
+      "ELASTIC"
+    ]
+  },
+  "rds-cluster-default-admin-check": {
+    "id": "RDS_CLUSTER_DEFAULT_ADMIN_CHECK",
+    "default_name": "rds-cluster-default-admin-check",
+    "description": "Checks if an Amazon Relational Database Service (Amazon RDS) database cluster has changed the admin username from its default value. The rule is NON_COMPLIANT if the admin username is set to the default value.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "validAdminUserNames": {
+          "type": "CSV",
+          "description": "Comma-separated list of admin username(s) that Amazon RDS clusters can use. Cannot include 'postgres' or 'admin' as valid username(s) as these are default values."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBCluster"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS",
+      "USERNAME",
+      "ADMIN",
+      "ADMINISTRATOR",
+      "DATABASE",
+      "DEFAULT",
+      "POSTGRES",
+      "AURORA",
+      "CLUSTER",
+      "MYSQL"
+    ]
+  },
+  "s3-bucket-acl-prohibited": {
+    "id": "S3_BUCKET_ACL_PROHIBITED",
+    "default_name": "s3-bucket-acl-prohibited",
+    "description": "Checks if Amazon Simple Storage Service (Amazon S3) Buckets allow user permissions through access control lists (ACLs). The rule is NON_COMPLIANT if ACLs are configured for user access in Amazon S3 Buckets.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3",
+      "BUCKET",
+      "ACL",
+      "ACCESS",
+      "CONTROL"
+    ]
+  },
+  "ecr-private-tag-immutability-enabled": {
+    "id": "ECR_PRIVATE_TAG_IMMUTABILITY_ENABLED",
+    "default_name": "ecr-private-tag-immutability-enabled",
+    "description": "Checks if a private Amazon Elastic Container Registry (ECR) repository has tag immutability enabled. This rule is NON_COMPLIANT if tag immutability is not enabled for the private ECR repository.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ECR::Repository"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ECR",
+      "REPOSITORY",
+      "IMAGE",
+      "TAG",
+      "IMMUTABILITY",
+      "CONTAINER",
+      "REGISTRY",
+      "PRIVATE"
+    ]
+  },
+  "netfw-stateless-rule-group-not-empty": {
+    "id": "NETFW_STATELESS_RULE_GROUP_NOT_EMPTY",
+    "default_name": "netfw-stateless-rule-group-not-empty",
+    "description": "Checks if a Stateless Network Firewall Rule Group contains rules. The rule is NON_COMPLIANT if there are no rules in a Stateless Network Firewall Rule Group.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::NetworkFirewall::RuleGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "STATELESS",
+      "NETWORK",
+      "FIREWALL",
+      "RULE",
+      "GROUP",
+      "NETFW"
+    ]
+  },
+  "opensearch-data-node-fault-tolerance": {
+    "id": "OPENSEARCH_DATA_NODE_FAULT_TOLERANCE",
+    "default_name": "opensearch-data-node-fault-tolerance",
+    "description": "Checks if Amazon OpenSearch Service domains are configured with at least three data nodes and zoneAwarenessEnabled is true. The rule is NON_COMPLIANT for an OpenSearch domain if 'instanceCount' is less than 3 or 'zoneAwarenessEnabled' is set to 'false'.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::OpenSearch::Domain"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "OPENSEARCH",
+      "DATA",
+      "NODE",
+      "INSTANCE",
+      "FAULT",
+      "TOLERANCE",
+      "HIGH",
+      "AVAILABILITY"
+    ]
+  },
+  "opensearch-encrypted-at-rest": {
+    "id": "OPENSEARCH_ENCRYPTED_AT_REST",
+    "default_name": "opensearch-encrypted-at-rest",
+    "description": "Checks if Amazon OpenSearch Service domains have encryption at rest configuration enabled. The rule is NON_COMPLIANT if EncryptionAtRestOptions field is not enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::OpenSearch::Domain"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "OPENSEARCH",
+      "DOMAIN",
+      "ENCRYPTED",
+      "ENCRYPTION",
+      "REST"
+    ]
+  },
+  "rds-instance-default-admin-check": {
+    "id": "RDS_INSTANCE_DEFAULT_ADMIN_CHECK",
+    "default_name": "rds-instance-default-admin-check",
+    "description": "Checks if an Amazon Relational Database Service (Amazon RDS) database has changed the admin username from its default value. This rule will only run on RDS database instances. The rule is NON_COMPLIANT if the admin username is set to the default value.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "validAdminUserNames": {
+          "type": "CSV",
+          "description": "Comma-separated list of admin username(s) that Amazon RDS instances can use. (Cannot include 'postgres' or 'admin' as valid username(s) as these are default values.)"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::RDS::DBInstance"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "RDS",
+      "USERNAME",
+      "ADMIN",
+      "ADMINISTRATOR",
+      "DATABASE",
+      "DEFAULT",
+      "POSTGRES",
+      "AURORA",
+      "INSTANCE",
+      "POSTGRESQL"
+    ]
+  },
+  "opensearch-access-control-enabled": {
+    "id": "OPENSEARCH_ACCESS_CONTROL_ENABLED",
+    "default_name": "opensearch-access-control-enabled",
+    "description": "Checks if Amazon OpenSearch Service domains have fine-grained access control enabled. The rule is NON_COMPLIANT if AdvancedSecurityOptions is not enabled for the OpenSearch Service domain.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::OpenSearch::Domain"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "OPENSEARCH",
+      "DOMAIN",
+      "ACCESS",
+      "CONTROL",
+      "ENABLED"
+    ]
+  },
+  "ecs-containers-nonprivileged": {
+    "id": "ECS_CONTAINERS_NONPRIVILEGED",
+    "default_name": "ecs-containers-nonprivileged",
+    "description": "Checks if the privileged parameter in the container definition of ECSTaskDefinitions is set to ‘true’. The rule is NON_COMPLIANT if the privileged parameter is ‘true’.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ECS::TaskDefinition"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ECS",
+      "CONTAINER",
+      "TASK",
+      "DEFINITION",
+      "PRIVILEGED",
+      "USER"
+    ]
+  },
+  "autoscaling-capacity-rebalancing": {
+    "id": "AUTOSCALING_CAPACITY_REBALANCING",
+    "default_name": "autoscaling-capacity-rebalancing",
+    "description": "Checks if Capacity Rebalancing is enabled for Amazon EC2 Auto Scaling groups that use multiple instance types. The rule is NON_COMPLIANT if capacity Rebalancing is not enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::AutoScaling::AutoScalingGroup"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "AUTOSCALING",
+      "GROUP",
+      "CAPACITY",
+      "REBALANCING"
+    ]
+  },
+  "netfw-policy-default-action-fragment-packets": {
+    "id": "NETFW_POLICY_DEFAULT_ACTION_FRAGMENT_PACKETS",
+    "default_name": "netfw-policy-default-action-fragment-packets",
+    "description": "Checks if an AWS Network Firewall policy is configured with a user defined stateless default action for fragmented packets. The rule is NON_COMPLIANT if stateless default action for fragmented packets does not match with user defined default action.",
+    "parameters": {
+      "required": {
+        "statelessFragmentDefaultActions": {
+          "type": "CSV",
+          "description": "Comma-separated list of values. You can select a max of two. Valid values include 'aws:pass', 'aws:drop', and 'aws:forward_to_sfe'."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::NetworkFirewall::FirewallPolicy"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "NETFW",
+      "NETWORK",
+      "FIREWALL",
+      "POLICY",
+      "DEFAULT",
+      "ACTION",
+      "FRAGMENT",
+      "PACKETS"
+    ]
+  },
+  "s3-version-lifecycle-policy-check": {
+    "id": "S3_VERSION_LIFECYCLE_POLICY_CHECK",
+    "default_name": "s3-version-lifecycle-policy-check",
+    "description": "Checks if Amazon Simple Storage Service (Amazon S3) version enabled buckets have lifecycle policy configured. The rule is NON_COMPLIANT if Amazon S3 lifecycle policy is not enabled.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "bucketNames": {
+          "type": "CSV",
+          "description": "Comma-separated list of Amazon S3 bucket names that have lifecycle policy enabled."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "S3",
+      "VERSION",
+      "VERSIONING",
+      "LIFECYCLE",
+      "POLICY"
+    ]
+  },
+  "ecr-private-image-scanning-enabled": {
+    "id": "ECR_PRIVATE_IMAGE_SCANNING_ENABLED",
+    "default_name": "ecr-private-image-scanning-enabled",
+    "description": "Checks if a private Amazon Elastic Container Registry (ECR) repository has image scanning enabled. The rule is NON_COMPLIANT if image scanning is not enabled for the private ECR repository.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ECR::Repository"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ECR",
+      "CONTAINER",
+      "REGISTRY",
+      "REPOSITORY",
+      "IMAGE",
+      "SCAN",
+      "ONPUSH",
+      "PRIVATE"
+    ]
+  },
+  "opensearch-in-vpc-only": {
+    "id": "OPENSEARCH_IN_VPC_ONLY",
+    "default_name": "opensearch-in-vpc-only",
+    "description": "Checks if Amazon OpenSearch Service domains are in an Amazon Virtual Private Cloud (VPC). The rule is NON_COMPLIANT if an OpenSearch Service domain endpoint is public.",
+    "parameters": {
+      "required": {},
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::OpenSearch::Domain"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "OPENSEARCH",
+      "DOMAIN",
+      "VPC"
+    ]
+  },
+  "opensearch-logs-to-cloudwatch": {
+    "id": "OPENSEARCH_LOGS_TO_CLOUDWATCH",
+    "default_name": "opensearch-logs-to-cloudwatch",
+    "description": "Checks if Amazon OpenSearch Service domains are configured to send logs to Amazon CloudWatch Logs. The rule is NON_COMPLIANT if logging is not configured.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "logTypes": {
+          "type": "CSV",
+          "description": "Comma-separated list of logs that are enabled. Valid values are 'search', 'index', 'error'."
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::OpenSearch::Domain"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "OPENSEARCH",
+      "LOGS",
+      "CLOUDWATCH",
+      "SEARCH",
+      "INDEX",
+      "ERROR"
+    ]
+  },
+  "ecs-no-environment-secrets": {
+    "id": "ECS_NO_ENVIRONMENT_SECRETS",
+    "default_name": "ecs-no-environment-secrets",
+    "description": "Checks if secrets are passed as container environment variables. The rule is NON_COMPLIANT if 1 or more environment variable key matches a key listed in the 'secretKeys' parameter (excluding environmental variables from other locations such as Amazon S3).",
+    "parameters": {
+      "required": {
+        "secretKeys": {
+          "type": "CSV",
+          "description": "Comma-separated list of key names to search for in the environment variables of container definitions within Task Definitions. Extra spaces will be removed."
+        }
+      },
+      "optional": {}
+    },
+    "trigger_by_change": {
+      "enabled": true,
+      "scope": {
+        "resource_types": [
+          "AWS::ECS::TaskDefinition"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": false,
+      "max_frequency": null
+    },
+    "labels": [
+      "ECS",
+      "FARGATE",
+      "EC2",
+      "TASK",
+      "DEFINITION",
+      "SSM",
+      "ENVIRONMENT",
+      "VARIABLES",
+      "CONTAINER"
+    ]
+  },
+  "s3-resources-protected-by-backup-plan": {
+    "id": "S3_RESOURCES_PROTECTED_BY_BACKUP_PLAN",
+    "default_name": "s3-resources-protected-by-backup-plan",
+    "description": "Checks if Amazon Simple Storage Service (Amazon S3) buckets are protected by a backup plan. The rule is NON_COMPLIANT if the Amazon S3 bucket is not covered by a backup plan.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "resourceTags": {
+          "type": "String",
+          "description": "Tags for Amazon S3 buckets for the rule to check, in JSON format."
+        },
+        "resourceId": {
+          "type": "String",
+          "description": "Name of Amazon S3 bucket for the rule to check."
+        },
+        "crossRegionList": {
+          "type": "String",
+          "description": "Comma-separated list of destination regions for the cross-region backup copy to be kept"
+        },
+        "crossAccountList": {
+          "type": "String",
+          "description": "Comma-separated list of destination accounts for cross-account backup copy to be kept"
+        },
+        "maxRetentionDays": {
+          "type": "int",
+          "description": "The maximum retention period in days for the Backup Vault Lock"
+        },
+        "minRetentionDays": {
+          "type": "int",
+          "description": "The minimum retention period in days for the Backup Vault Lock"
+        },
+        "backupVaultLockCheck": {
+          "type": "String",
+          "description": "Accepted values: 'True' or 'False'. Enter 'True' for the rule to check if the resource is backed up in a locked vault"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": [
+          "AWS::S3::Bucket"
+        ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
   "fsx-resources-protected-by-backup-plan": {
     "id": "FSX_RESOURCES_PROTECTED_BY_BACKUP_PLAN",
     "default_name": "fsx-resources-protected-by-backup-plan",
@@ -13,6 +2171,26 @@
         "resourceId": {
           "type": "String",
           "description": "ID of the Amazon FSx File System for the rule to check."
+        },
+        "crossRegionList": {
+          "type": "String",
+          "description": "Comma-separated list of destination regions for the cross-region backup copy to be kept"
+        },
+        "crossAccountList": {
+          "type": "String",
+          "description": "Comma-separated list of destination accounts for cross-account backup copy to be kept"
+        },
+        "maxRetentionDays": {
+          "type": "int",
+          "description": "The maximum retention period in days for the Backup Vault Lock"
+        },
+        "minRetentionDays": {
+          "type": "int",
+          "description": "The minimum retention period in days for the Backup Vault Lock"
+        },
+        "backupVaultLockCheck": {
+          "type": "String",
+          "description": "Accepted values: 'True' or 'False'. Enter 'True' for the rule to check if the resource is backed up in a locked vault"
         }
       }
     },
@@ -73,6 +2251,26 @@
         "resourceId": {
           "type": "String",
           "description": "Name of DynamoDB table for the rule to check."
+        },
+        "crossRegionList": {
+          "type": "String",
+          "description": "Comma-separated list of destination regions for the cross-region backup copy to be kept"
+        },
+        "crossAccountList": {
+          "type": "String",
+          "description": "Comma-separated list of destination accounts for cross-account backup copy to be kept"
+        },
+        "maxRetentionDays": {
+          "type": "int",
+          "description": "The maximum retention period in days for the Backup Vault Lock"
+        },
+        "minRetentionDays": {
+          "type": "int",
+          "description": "The minimum retention period in days for the Backup Vault Lock"
+        },
+        "backupVaultLockCheck": {
+          "type": "String",
+          "description": "Accepted values: 'True' or 'False'. Enter 'True' for the rule to check if the resource is backed up in a locked vault"
         }
       }
     },
@@ -106,6 +2304,26 @@
         "resourceId": {
           "type": "String",
           "description": "ID of the EFS File System for the rule to check."
+        },
+        "crossRegionList": {
+          "type": "String",
+          "description": "Comma-separated list of destination regions for the cross-region backup copy to be kept"
+        },
+        "crossAccountList": {
+          "type": "String",
+          "description": "Comma-separated list of destination accounts for cross-account backup copy to be kept"
+        },
+        "maxRetentionDays": {
+          "type": "int",
+          "description": "The maximum retention period in days for the Backup Vault Lock"
+        },
+        "minRetentionDays": {
+          "type": "int",
+          "description": "The minimum retention period in days for the Backup Vault Lock"
+        },
+        "backupVaultLockCheck": {
+          "type": "String",
+          "description": "Accepted values: 'True' or 'False'. Enter 'True' for the rule to check if the resource is backed up in a locked vault"
         }
       }
     },
@@ -163,6 +2381,26 @@
         "resourceId": {
           "type": "String",
           "description": "ID of Amazon EC2 instance for the rule to check."
+        },
+        "crossRegionList": {
+          "type": "String",
+          "description": "Comma-separated list of destination regions for the cross-region backup copy to be kept"
+        },
+        "crossAccountList": {
+          "type": "String",
+          "description": "Comma-separated list of destination accounts for cross-account backup copy to be kept"
+        },
+        "maxRetentionDays": {
+          "type": "int",
+          "description": "The maximum retention period in days for the Backup Vault Lock"
+        },
+        "minRetentionDays": {
+          "type": "int",
+          "description": "The minimum retention period in days for the Backup Vault Lock"
+        },
+        "backupVaultLockCheck": {
+          "type": "String",
+          "description": "Accepted values: 'True' or 'False'. Enter 'True' for the rule to check if the resource is backed up in a locked vault"
         }
       }
     },
@@ -172,6 +2410,57 @@
         "resource_types": [
           "AWS::EC2::Instance"
         ]
+      }
+    },
+    "trigger_by_schedule": {
+      "enabled": true,
+      "max_frequency": "24h"
+    },
+    "labels": [
+      "AWSBackup"
+    ]
+  },
+  "storagegateway-resources-protected-by-backup-plan": {
+    "id": "STORAGEGATEWAY_RESOURCES_PROTECTED_BY_BACKUP_PLAN",
+    "default_name": "storagegateway-resources-protected-by-backup-plan",
+    "description": "Checks if AWS Storage Gateway volumes are protected by a backup plan. The rule is NON_COMPLIANT if the Storage Gateway volume is not covered by a backup plan.",
+    "parameters": {
+      "required": {},
+      "optional": {
+        "resourceTags": {
+          "type": "String",
+          "description": "Tags for Storage Gateway Volumes for the rule to check, in JSON format."
+        },
+        "resourceId": {
+          "type": "String",
+          "description": "ID of Storage Gateway volume for the rule to check."
+        },
+        "crossRegionList": {
+          "type": "String",
+          "description": "Comma-separated list of destination regions for the cross-region backup copy to be kept"
+        },
+        "crossAccountList": {
+          "type": "String",
+          "description": "Comma-separated list of destination accounts for cross-account backup copy to be kept"
+        },
+        "maxRetentionDays": {
+          "type": "int",
+          "description": "The maximum retention period in days for the Backup Vault Lock"
+        },
+        "minRetentionDays": {
+          "type": "int",
+          "description": "The minimum retention period in days for the Backup Vault Lock"
+        },
+        "backupVaultLockCheck": {
+          "type": "String",
+          "description": "Accepted values: 'True' or 'False'. Enter 'True' for the rule to check if the resource is backed up in a locked vault"
+        }
+      }
+    },
+    "trigger_by_change": {
+      "enabled": false,
+      "scope": {
+        "resource_types": []
       }
     },
     "trigger_by_schedule": {
@@ -196,6 +2485,26 @@
         "resourceId": {
           "type": "String",
           "description": "ID of Amazon RDS instance for the rule to check."
+        },
+        "crossRegionList": {
+          "type": "String",
+          "description": "Comma-separated list of destination regions for the cross-region backup copy to be kept"
+        },
+        "crossAccountList": {
+          "type": "String",
+          "description": "Comma-separated list of destination accounts for cross-account backup copy to be kept"
+        },
+        "maxRetentionDays": {
+          "type": "int",
+          "description": "The maximum retention period in days for the Backup Vault Lock"
+        },
+        "minRetentionDays": {
+          "type": "int",
+          "description": "The minimum retention period in days for the Backup Vault Lock"
+        },
+        "backupVaultLockCheck": {
+          "type": "String",
+          "description": "Accepted values: 'True' or 'False'. Enter 'True' for the rule to check if the resource is backed up in a locked vault"
         }
       }
     },
@@ -269,6 +2578,26 @@
         "resourceId": {
           "type": "String",
           "description": "ID of Amazon EBS volume for the rule to check."
+        },
+        "crossRegionList": {
+          "type": "String",
+          "description": "Comma-separated list of destination regions for the cross-region backup copy to be kept"
+        },
+        "crossAccountList": {
+          "type": "String",
+          "description": "Comma-separated list of destination accounts for cross-account backup copy to be kept"
+        },
+        "maxRetentionDays": {
+          "type": "int",
+          "description": "The maximum retention period in days for the Backup Vault Lock"
+        },
+        "minRetentionDays": {
+          "type": "int",
+          "description": "The minimum retention period in days for the Backup Vault Lock"
+        },
+        "backupVaultLockCheck": {
+          "type": "String",
+          "description": "Accepted values: 'True' or 'False'. Enter 'True' for the rule to check if the resource is backed up in a locked vault"
         }
       }
     },
@@ -302,6 +2631,26 @@
         "resourceId": {
           "type": "String",
           "description": "ID of Aurora DB cluster for the rule to check."
+        },
+        "crossRegionList": {
+          "type": "String",
+          "description": "Comma-separated list of destination regions for the cross-region backup copy to be kept"
+        },
+        "crossAccountList": {
+          "type": "String",
+          "description": "Comma-separated list of destination accounts for cross-account backup copy to be kept"
+        },
+        "maxRetentionDays": {
+          "type": "int",
+          "description": "The maximum retention period in days for the Backup Vault Lock"
+        },
+        "minRetentionDays": {
+          "type": "int",
+          "description": "The minimum retention period in days for the Backup Vault Lock"
+        },
+        "backupVaultLockCheck": {
+          "type": "String",
+          "description": "Accepted values: 'True' or 'False'. Enter 'True' for the rule to check if the resource is backed up in a locked vault"
         }
       }
     },
@@ -579,7 +2928,7 @@
   "rds-cluster-multi-az-enabled": {
     "id": "RDS_CLUSTER_MULTI_AZ_ENABLED",
     "default_name": "rds-cluster-multi-az-enabled",
-    "description": "Checks if Multi-AZ replication is enabled on Amazon Aurora clusters managed by Amazon Relational Database Service (Amazon RDS). This rule is NON_COMPLIANT if an Amazon RDS instance is not configured with Multi-AZ.",
+    "description": "Checks if Multi-AZ replication is enabled on Amazon Aurora and Hermes clusters managed by Amazon Relational Database Service (Amazon RDS). This rule is NON_COMPLIANT if an Amazon RDS instance is not configured with Multi-AZ.",
     "parameters": {
       "required": {},
       "optional": {}
@@ -599,7 +2948,9 @@
     "labels": [
       "RDS",
       "DBCluster",
-      "Multi-AZ"
+      "Multi-AZ",
+      "Hermes",
+      "Aurora"
     ]
   },
   "redshift-enhanced-vpc-routing-enabled": {
@@ -695,7 +3046,12 @@
           "description": "Comma-separated list of blocked KMS action patterns, for example, kms:*, kms:Decrypt, kms:ReEncrypt*."
         }
       },
-      "optional": {}
+      "optional": {
+        "excludeRoleByManagementAccount": {
+          "type": "boolean",
+          "description": "Exclude a role if it is only assumable by organization management account."
+        }
+      }
     },
     "trigger_by_change": {
       "enabled": true,
@@ -927,7 +3283,12 @@
           "description": "Comma-separated list of blocked KMS action patterns, for example, kms:*, kms:Decrypt, kms:ReEncrypt*."
         }
       },
-      "optional": {}
+      "optional": {
+        "excludePermissionBoundaryPolicy": {
+          "type": "boolean",
+          "description": "Boolean flag to exclude the evaluation of IAM policies used as permissions boundaries. If set to 'true', the rule will not include permissions boundaries in the evaluation. Otherwise, all IAM policies in scope are evaluated when value is set to 'false.' Default value is 'false'."
+        }
+      }
     },
     "trigger_by_change": {
       "enabled": true,
@@ -1102,7 +3463,12 @@
     "description": "Checks if AWS Identity and Access Management (IAM) policies grant permissions to all actions on individual AWS resources. The rule is NON_COMPLIANT if the managed IAM policy allows full access to at least 1 AWS service.",
     "parameters": {
       "required": {},
-      "optional": {}
+      "optional": {
+        "excludePermissionBoundaryPolicy": {
+          "type": "boolean",
+          "description": "Boolean flag to exclude the evaluation of IAM policies used as permissions boundaries. If set to 'true', the rule will not include permissions boundaries in the evaluation. Otherwise, all IAM policies in scope are evaluated when value is set to 'false.' Default value is 'false'."
+        }
+      }
     },
     "trigger_by_change": {
       "enabled": true,
