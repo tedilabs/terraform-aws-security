@@ -11,7 +11,7 @@ locals {
 
 module "role__recorder" {
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.18.3"
+  version = "~> 0.20.0"
 
   name        = "config-configuration-recorder-${local.metadata.name}"
   path        = "/"
@@ -39,7 +39,7 @@ module "role__aggregator" {
   count = try(var.organization_aggregation.enabled, false) ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "0.18.3"
+  version = "~> 0.20.0"
 
   name        = "config-configuration-aggregator-${local.metadata.name}"
   path        = "/"
