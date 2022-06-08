@@ -25,6 +25,7 @@ variable "level" {
   description = "(Optional) Choose to create a rule across all accounts in your Organization. Valid values are `ACCOUNT` and `ORGANIZATION`. Use `ORGANIZATION` level in Organization master account or delegated administrator accounts."
   type        = string
   default     = "ACCOUNT"
+  nullable    = false
 
   validation {
     condition     = contains(["ACCOUNT", "ORGANIZATION"], var.level)
@@ -36,6 +37,7 @@ variable "scope" {
   description = "(Optional) Choose when evaluations will occur. Valid values are `ALL_CHANGES`, `RESOURCES`, or `TAGS`."
   type        = string
   default     = "RESOURCES"
+  nullable    = false
 
   validation {
     condition     = contains(["ALL_CHANGES", "RESOURCES", "TAGS"], var.scope)

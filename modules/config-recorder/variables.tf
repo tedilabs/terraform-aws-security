@@ -8,12 +8,19 @@ variable "enabled" {
   description = "(Optional) Whether the configuration recorder should be enabled or disabled."
   type        = bool
   default     = true
+  nullable    = false
 }
 
 variable "scope" {
   description = "(Optional) Specifies the scope of AWS Config configuration recorder. Supported values are `REGIONAL_WITH_GLOBAL`, `REGIONAL`, or `CUSTOM`."
   type        = string
   default     = "REGIONAL"
+  nullable    = false
+
+  validation {
+    condition     = contains(["REGIONAL_WITH_GLOBAL", "REGIONAL", "CUSTOM"], var.scope)
+    error_message = "The scope should be one of `REGIONAL_WITH_GLOBAL`, `REGIONAL`, `CUSTOM`."
+  }
 }
 
 variable "custom_resource_types" {
