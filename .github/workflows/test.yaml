@@ -1,0 +1,15 @@
+name: Integration (test)
+
+on:
+  push:
+    branches:
+    - main
+  pull_request: {}
+
+concurrency:
+  group: integration-yaml-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  yaml:
+    uses: tedilabs/github/.github/workflows/integration-yaml.yaml@main
