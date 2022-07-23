@@ -17,3 +17,11 @@ output "type" {
   description = "The type of Analyzer."
   value       = aws_accessanalyzer_analyzer.this.type
 }
+
+output "archive_rules" {
+  description = "A list of archive rules for the Analyzer."
+  value = {
+    for name, rule in aws_accessanalyzer_archive_rule.this :
+    name => rule.filter
+  }
+}

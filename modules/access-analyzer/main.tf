@@ -26,3 +26,26 @@ resource "aws_accessanalyzer_analyzer" "this" {
     var.tags,
   )
 }
+
+resource "aws_accessanalyzer_archive_rule" "this" {
+  for_each = {
+    for rule in var.archive_rules :
+    rule.name => rule
+  }
+
+  analyzer_name = aws_accessanalyzer_analyzer.this.analyzer_name
+  rule_name     = each.key
+
+  dynamic "filter" {
+    for_each = each.value.filters
+
+    content {
+      criteria = filter.value.criteria
+
+      contains = try(filter.value.contains, null)
+      exists   = try(filter.value.exists, null)
+      eq       = try(filter.value.eq, null)
+      neq      = try(filter.value.neq, null)
+    }
+  }
+}
