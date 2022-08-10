@@ -52,3 +52,6 @@
 - color: "fbca04"
   description: "This issue or pull request is related to config-managed-rule module."
   name: ":floppy_disk: config-managed-rule"
+- color: "fbca04"
+  description: "This issue or pull request is related to macie-account module."
+  name: ":floppy_disk: macie-account"

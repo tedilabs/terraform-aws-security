@@ -7,3 +7,5 @@
 - modules/config-recorder/**/*
 ":floppy_disk: config-managed-rule":
 - modules/config-managed-rule/**/*
+":floppy_disk: macie-account":
+- modules/macie-account/**/*
