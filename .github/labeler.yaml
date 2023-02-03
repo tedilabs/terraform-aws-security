@@ -3,6 +3,8 @@
 - modules/access-analyzer/**/*
 ":floppy_disk: cloudtrail-trail":
 - modules/cloudtrail-trail/**/*
+":floppy_disk: cloudtrail-event-data-store":
+- modules/cloudtrail-event-data-store/**/*
 ":floppy_disk: config-recorder":
 - modules/config-recorder/**/*
 ":floppy_disk: config-managed-rule":

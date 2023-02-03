@@ -15,6 +15,6 @@ module "account" {
   enabled = true
 
   tags = {
-    "project" = "terraform-aws-secret-examples"
+    "project" = "terraform-aws-security-examples"
   }
 }
