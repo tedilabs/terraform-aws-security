@@ -53,6 +53,11 @@ module "event_data_store" {
   ]
 
 
+  ## Attributes
+  retention_in_days              = 365 * 7
+  termination_protection_enabled = false
+
+
   ## IAM Role
   import_trail_events_iam_role = {
     enabled = true
@@ -71,11 +76,6 @@ module "event_data_store" {
       },
     ]
   }
-
-
-  ## Attributes
-  retention_in_days              = 365 * 7
-  termination_protection_enabled = false
 
   tags = {
     "project" = "terraform-aws-security-examples"
