@@ -31,7 +31,8 @@ variable "scope" {
 variable "event_type" {
   description = "(Required) A type of event to be collected by the event data store. Valid values are `CLOUDTRAIL_EVENTS`, `CONFIG_CONFIGURATION_ITEMS`. Defaults to `CLOUDTRAIL_EVENTS`."
   type        = string
-  default     = null
+  default     = "CLOUDTRAIL_EVENTS"
+  nullable    = false
 
   validation {
     condition     = contains(["CLOUDTRAIL_EVENTS", "CONFIG_CONFIGURATION_ITEMS"], var.event_type)
@@ -175,7 +176,7 @@ variable "termination_protection_enabled" {
 
 variable "import_trail_events_iam_role" {
   description = <<EOF
-  (Optional) A configuration of IAM Role for importing CloudTrails events from S3 Bucket. `import_trail_events_iam_role` as defined below.
+  (Optional) A configuration of IAM Role for importing CloudTrail events from S3 Bucket. `import_trail_events_iam_role` as defined below.
     (Optional) `enabled` - Indicates whether you want to create IAM Role to import trail events. Defaults to `true`.
     (Optional) `source_s3_buckets` - A list of source S3 buckets to import events from. Each item of `source_s3_buckets` as defined below.
       (Required) `name` - A name of source S3 bucket.
@@ -196,12 +197,14 @@ variable "tags" {
   description = "(Optional) A map of tags to add to all resources."
   type        = map(string)
   default     = {}
+  nullable    = false
 }
 
 variable "module_tags_enabled" {
   description = "(Optional) Whether to create AWS Resource Tags for the module informations."
   type        = bool
   default     = true
+  nullable    = false
 }
 
 
@@ -213,16 +216,19 @@ variable "resource_group_enabled" {
   description = "(Optional) Whether to create Resource Group to find and group AWS resources which are created by this module."
   type        = bool
   default     = true
+  nullable    = false
 }
 
 variable "resource_group_name" {
   description = "(Optional) The name of Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`."
   type        = string
   default     = ""
+  nullable    = false
 }
 
 variable "resource_group_description" {
   description = "(Optional) The description of Resource Group."
   type        = string
   default     = "Managed by Terraform."
+  nullable    = false
 }

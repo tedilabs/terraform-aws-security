@@ -50,7 +50,7 @@ output "termination_protection_enabled" {
 }
 
 output "import_trail_events_iam_role" {
-  description = "A configuration of IAM Role for importing CloudTrails events from S3 Bucket."
+  description = "A configuration of IAM Role for importing CloudTrail events from S3 Bucket."
   value = one([
     for role in module.role[*] : {
       arn         = role.arn
