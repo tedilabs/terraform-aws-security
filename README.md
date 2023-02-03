@@ -38,7 +38,7 @@ Terraform Modules from [this package](https://github.com/tedilabs/terraform-aws-
 ```tf
 module "event_data_store" {
   source  = "tedilabs/security/aws//modules/cloudtrail-event-data-store"
-  version = "~> 0.5.0"
+  version = "~> 0.6.0"
 
   name = "management-event"
 

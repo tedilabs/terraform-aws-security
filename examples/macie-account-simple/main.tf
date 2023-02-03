@@ -10,7 +10,7 @@ provider "aws" {
 module "account" {
   source = "../../modules/macie-account"
   # source  = "tedilabs/security/aws//modules/macie-account"
-  # version = "~> 0.5.0"
+  # version = "~> 0.6.0"
 
   enabled = true
 

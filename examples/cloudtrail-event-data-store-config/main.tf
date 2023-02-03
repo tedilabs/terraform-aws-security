@@ -10,7 +10,7 @@ provider "aws" {
 module "event_data_store" {
   source = "../../modules/cloudtrail-event-data-store"
   # source  = "tedilabs/security/aws//modules/cloudtrail-event-data-store"
-  # version = "~> 0.5.0"
+  # version = "~> 0.6.0"
 
   name       = "config-configuration-items"
   event_type = "CONFIG_CONFIGURATION_ITEMS"
