@@ -12,7 +12,7 @@ module "role" {
   count = var.delivery_cloudwatch_logs_log_group != null ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.20.0"
+  version = "~> 0.23.0"
 
   name        = "cloudtrail-${local.metadata.name}"
   path        = "/"
@@ -21,7 +21,7 @@ module "role" {
   trusted_services = ["cloudtrail.amazonaws.com"]
 
   inline_policies = {
-    "cloudwatch" = one(data.aws_iam_policy_document.cloudwatch.*.json)
+    "cloudwatch" = one(data.aws_iam_policy_document.cloudwatch[*].json)
   }
 
   resource_group_enabled = false

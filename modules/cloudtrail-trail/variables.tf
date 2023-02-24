@@ -1,6 +1,7 @@
 variable "name" {
   description = "(Required) The name of the trail. The name can only contain uppercase letters, lowercase letters, numbers, periods (.), hyphens (-), and underscores (_)."
   type        = string
+  nullable    = false
 
   validation {
     condition     = can(regex("^[0-9A-Za-z-_\\.]+$", var.name))
@@ -9,7 +10,7 @@ variable "name" {
 }
 
 variable "enabled" {
-  description = "(Optional) Whether the trail starts the recording of AWS API calls and log file delivery."
+  description = "(Optional) Whether the trail starts the recording of AWS API calls and log file delivery. Defaults to `true`."
   type        = bool
   default     = true
   nullable    = false
@@ -106,21 +107,18 @@ variable "insight_event" {
   description = <<EOF
   (Optional) A configuration block for insight events logging to identify unusual operational activity. `insight_event` block as defined below.
     (Required) `enabled` - Whether the trail to log insight events.
-    (Optional) `scopes` - A list of insight types to log on the trail. Valid values are `API_CALL_RATE` and `API_ERROR_RATE`.
+    (Optional) `scopes` - A set of insight types to log on the trail. Valid values are `API_CALL_RATE` and `API_ERROR_RATE`.
   EOF
   type = object({
-    enabled = bool
-    scopes  = list(string)
+    enabled = optional(bool, false)
+    scopes  = optional(set(string), [])
   })
-  default = {
-    enabled = false
-    scopes  = []
-  }
+  default  = {}
   nullable = false
 
   validation {
     condition = alltrue([
-      for scope in try(var.insight_event.scopes, []) :
+      for scope in var.insight_event.scopes :
       contains(["API_CALL_RATE", "API_ERROR_RATE"], scope)
     ])
     error_message = "Valid values for `insight_event.scopes` are `API_CALL_RATE`, `API_ERROR_RATE`."
@@ -131,12 +129,14 @@ variable "tags" {
   description = "(Optional) A map of tags to add to all resources."
   type        = map(string)
   default     = {}
+  nullable    = false
 }
 
 variable "module_tags_enabled" {
   description = "(Optional) Whether to create AWS Resource Tags for the module informations."
   type        = bool
   default     = true
+  nullable    = false
 }
 
 
@@ -148,16 +148,19 @@ variable "resource_group_enabled" {
   description = "(Optional) Whether to create Resource Group to find and group AWS resources which are created by this module."
   type        = bool
   default     = true
+  nullable    = false
 }
 
 variable "resource_group_name" {
   description = "(Optional) The name of Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`."
   type        = string
   default     = ""
+  nullable    = false
 }
 
 variable "resource_group_description" {
   description = "(Optional) The description of Resource Group."
   type        = string
   default     = "Managed by Terraform."
+  nullable    = false
 }

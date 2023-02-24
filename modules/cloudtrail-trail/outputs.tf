@@ -35,8 +35,8 @@ output "scope" {
 output "iam_role" {
   description = "The IAM Role for the CloudTrail trail."
   value = {
-    arn  = one(module.role.*.arn)
-    name = one(module.role.*.name)
+    arn  = one(module.role[*].arn)
+    name = one(module.role[*].name)
   }
 }
 

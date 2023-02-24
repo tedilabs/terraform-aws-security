@@ -132,7 +132,7 @@ resource "aws_config_configuration_aggregator" "organization" {
   organization_aggregation_source {
     all_regions = try(length(var.organization_aggregation.regions) < 1, true)
     regions     = try(var.organization_aggregation.regions, null)
-    role_arn    = module.role__aggregator.*.arn[0]
+    role_arn    = module.role__aggregator[0].arn
   }
 
   tags = merge(

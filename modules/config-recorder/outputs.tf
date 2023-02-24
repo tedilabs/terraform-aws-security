@@ -71,11 +71,11 @@ output "account_aggregations" {
 output "organization_aggregation" {
   description = "The configuration to aggregate config data from organization accounts."
   value = try({
-    arn         = aws_config_configuration_aggregator.organization.*.arn[0]
-    id          = aws_config_configuration_aggregator.organization.*.id[0]
-    name        = aws_config_configuration_aggregator.organization.*.name[0]
-    all_regions = aws_config_configuration_aggregator.organization.*.organization_aggregation_source[0][0].all_regions
-    regions     = aws_config_configuration_aggregator.organization.*.organization_aggregation_source[0][0].regions
-    role_arn    = aws_config_configuration_aggregator.organization.*.organization_aggregation_source[0][0].role_arn
+    arn         = aws_config_configuration_aggregator.organization[*].arn[0]
+    id          = aws_config_configuration_aggregator.organization[*].id[0]
+    name        = aws_config_configuration_aggregator.organization[*].name[0]
+    all_regions = aws_config_configuration_aggregator.organization[*].organization_aggregation_source[0][0].all_regions
+    regions     = aws_config_configuration_aggregator.organization[*].organization_aggregation_source[0][0].regions
+    role_arn    = aws_config_configuration_aggregator.organization[*].organization_aggregation_source[0][0].role_arn
   }, null)
 }
