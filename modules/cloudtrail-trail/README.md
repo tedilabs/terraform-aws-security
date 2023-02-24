@@ -12,7 +12,7 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.14 |
 
 ## Providers
@@ -26,7 +26,7 @@ This module creates following resources.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.10.0 |
-| <a name="module_role"></a> [role](#module\_role) | tedilabs/account/aws//modules/iam-role | ~> 0.20.0 |
+| <a name="module_role"></a> [role](#module\_role) | tedilabs/account/aws//modules/iam-role | ~> 0.23.0 |
 
 ## Resources
 
@@ -49,8 +49,8 @@ This module creates following resources.
 | <a name="input_delivery_s3_integrity_validation_enabled"></a> [delivery\_s3\_integrity\_validation\_enabled](#input\_delivery\_s3\_integrity\_validation\_enabled) | (Optional) To determine whether a log file was modified, deleted, or unchanged after AWS CloudTrail delivered it, use CloudTrail log file integrity validation. This feature is built using industry standard algorithms: SHA-256 for hashing and SHA-256 with RSA for digital signing. | `bool` | `true` | no |
 | <a name="input_delivery_s3_key_prefix"></a> [delivery\_s3\_key\_prefix](#input\_delivery\_s3\_key\_prefix) | (Optional) The key prefix for the specified S3 bucket. | `string` | `null` | no |
 | <a name="input_delivery_sns_topic"></a> [delivery\_sns\_topic](#input\_delivery\_sns\_topic) | (Optional) The name of the SNS topic for notification of log file delivery. | `string` | `null` | no |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | (Optional) Whether the trail starts the recording of AWS API calls and log file delivery. | `bool` | `true` | no |
-| <a name="input_insight_event"></a> [insight\_event](#input\_insight\_event) | (Optional) A configuration block for insight events logging to identify unusual operational activity. `insight_event` block as defined below.<br>    (Required) `enabled` - Whether the trail to log insight events.<br>    (Optional) `scopes` - A list of insight types to log on the trail. Valid values are `API_CALL_RATE` and `API_ERROR_RATE`. | <pre>object({<br>    enabled = bool<br>    scopes  = list(string)<br>  })</pre> | <pre>{<br>  "enabled": false,<br>  "scopes": []<br>}</pre> | no |
+| <a name="input_enabled"></a> [enabled](#input\_enabled) | (Optional) Whether the trail starts the recording of AWS API calls and log file delivery. Defaults to `true`. | `bool` | `true` | no |
+| <a name="input_insight_event"></a> [insight\_event](#input\_insight\_event) | (Optional) A configuration block for insight events logging to identify unusual operational activity. `insight_event` block as defined below.<br>    (Required) `enabled` - Whether the trail to log insight events.<br>    (Optional) `scopes` - A set of insight types to log on the trail. Valid values are `API_CALL_RATE` and `API_ERROR_RATE`. | <pre>object({<br>    enabled = optional(bool, false)<br>    scopes  = optional(set(string), [])<br>  })</pre> | `{}` | no |
 | <a name="input_level"></a> [level](#input\_level) | (Optional) The level of the trail to decide whether the trail is an AWS Organizations trail. Organization trails log events for the master account and all member accounts. Can only be created in the organization master account. Valid values are `ACCOUNT` and `ORGANIZATION`. Use `ORGANIZATION` level in Organization master account. Defaults to `ACCOUNT`. | `string` | `"ACCOUNT"` | no |
 | <a name="input_management_event"></a> [management\_event](#input\_management\_event) | (Optional) A configuration block for management events logging to identify API activity for individual resources, or for all current and future resources in AWS account. `management_event` block as defined below.<br>    (Required) `enabled` - Whether the trail to log management events.<br>    (Optional) `scope` - The type of events to log. Valid values are `ALL`, `READ` and `WRITE`. Defaults to `ALL`.<br>    (Optional) `exclude_event_sources` - A set of event sources to exclude. Valid values are `kms.amazonaws.com` and `rdsdata.amazonaws.com`. `management_event.enabled` must be set to true to allow this. | <pre>object({<br>    enabled               = bool<br>    scope                 = string<br>    exclude_event_sources = list(string)<br>  })</pre> | <pre>{<br>  "enabled": true,<br>  "exclude_event_sources": [],<br>  "scope": "ALL"<br>}</pre> | no |
 | <a name="input_module_tags_enabled"></a> [module\_tags\_enabled](#input\_module\_tags\_enabled) | (Optional) Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |

@@ -34,7 +34,7 @@ module "role" {
   ]
 
   inline_policies = {
-    "s3" = one(data.aws_iam_policy_document.s3.*.json)
+    "s3" = one(data.aws_iam_policy_document.s3[*].json)
   }
 
   resource_group_enabled = false

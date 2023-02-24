@@ -52,7 +52,7 @@ resource "aws_cloudtrail" "this" {
 
   ## Delivery - CloudWatch Logs
   cloud_watch_logs_group_arn = var.delivery_cloudwatch_logs_log_group != null ? "${local.cloudwatch_log_group_arn}:*" : null
-  cloud_watch_logs_role_arn  = var.delivery_cloudwatch_logs_log_group != null ? one(module.role.*.arn) : null
+  cloud_watch_logs_role_arn  = var.delivery_cloudwatch_logs_log_group != null ? one(module.role[*].arn) : null
 
   ## Event Selector - Management Events
   event_selector {
@@ -66,7 +66,7 @@ resource "aws_cloudtrail" "this" {
 
   ## Event Selector - Insight Events
   dynamic "insight_selector" {
-    for_each = var.insight_event.enabled ? try(var.insight_event.scopes, []) : []
+    for_each = var.insight_event.enabled ? var.insight_event.scopes : []
 
     content {
       insight_type = local.insight_types[insight_selector.value]
