@@ -47,7 +47,7 @@ output "delivery_channels" {
       bucket     = var.delivery_s3_bucket
       key_prefix = var.delivery_s3_key_prefix
 
-      delivery_s3_integrity_validation_enabled = var.delivery_s3_integrity_validation_enabled
+      integrity_validation_enabled = var.delivery_s3_integrity_validation_enabled
     }
     sns = {
       topic = var.delivery_sns_topic
