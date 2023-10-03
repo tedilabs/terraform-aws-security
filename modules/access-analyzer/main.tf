@@ -16,7 +16,7 @@ locals {
 
 resource "aws_accessanalyzer_analyzer" "this" {
   analyzer_name = var.name
-  type          = try(var.type, "ACCOUNT")
+  type          = var.type
 
   tags = merge(
     {
