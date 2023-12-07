@@ -10,22 +10,36 @@ locals {
 ###################################################
 
 module "role__recorder" {
+  count = var.default_service_role.enabled ? 1 : 0
+
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.20.0"
+  version = "~> 0.28.0"
 
-  name        = "config-configuration-recorder-${local.metadata.name}"
-  path        = "/"
-  description = "Role for the Configuration Recorder in Config."
+  name = coalesce(
+    var.default_service_role.name,
+    "config-configuration-recorder-${local.metadata.name}",
+  )
+  path        = var.default_service_role.path
+  description = var.default_service_role.description
 
-  trusted_services = ["config.amazonaws.com"]
-
-  policies = [
-    "arn:aws:iam::aws:policy/service-role/AWS_ConfigRole",
+  trusted_service_policies = [
+    {
+      services = ["config.amazonaws.com"]
+    },
   ]
-  inline_policies = {
-    "delivery" = data.aws_iam_policy_document.delivery.json
-  }
 
+  policies = concat(
+    ["arn:aws:iam::aws:policy/service-role/AWS_ConfigRole"],
+    var.default_service_role.policies,
+  )
+  inline_policies = merge(
+    {
+      "delivery" = data.aws_iam_policy_document.delivery.json
+    },
+    var.default_service_role.inline_policies
+  )
+
+  force_detach_policies  = true
   resource_group_enabled = false
   module_tags_enabled    = false
 
@@ -36,22 +50,31 @@ module "role__recorder" {
 }
 
 module "role__aggregator" {
-  count = try(var.organization_aggregation.enabled, false) ? 1 : 0
+  count = var.organization_aggregation.enabled && var.default_organization_aggregator_role.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.20.0"
+  version = "~> 0.28.0"
 
-  name        = "config-configuration-aggregator-${local.metadata.name}"
-  path        = "/"
-  description = "Role for the Configuration Aggregator in Config."
+  name = coalesce(
+    var.default_organization_aggregator_role.name,
+    "config-configuration-aggregator-${local.metadata.name}",
+  )
+  path        = var.default_organization_aggregator_role.path
+  description = var.default_organization_aggregator_role.description
 
-  trusted_services = ["config.amazonaws.com"]
-
-  policies = [
-    "arn:aws:iam::aws:policy/service-role/AWSConfigRoleForOrganizations",
+  trusted_service_policies = [
+    {
+      services = ["config.amazonaws.com"]
+    },
   ]
-  inline_policies = {}
 
+  policies = concat(
+    ["arn:aws:iam::aws:policy/service-role/AWSConfigRoleForOrganizations"],
+    var.default_organization_aggregator_role.policies,
+  )
+  inline_policies = var.default_organization_aggregator_role.inline_policies
+
+  force_detach_policies  = true
   resource_group_enabled = false
   module_tags_enabled    = false
 
@@ -76,9 +99,9 @@ data "aws_iam_policy_document" "delivery" {
       "s3:PutObjectAcl",
     ]
     resources = [
-      var.delivery_s3_key_prefix != null && var.delivery_s3_key_prefix != ""
-      ? "arn:aws:s3:::${var.delivery_s3_bucket}/*/AWSLogs/${local.account_id}/*"
-      : "arn:aws:s3:::${var.delivery_s3_bucket}/AWSLogs/${local.account_id}/*",
+      var.delivery_channels.s3_bucket.key_prefix != null
+      ? "arn:aws:s3:::${var.delivery_channels.s3_bucket.name}/*/AWSLogs/${local.account_id}/*"
+      : "arn:aws:s3:::${var.delivery_channels.s3_bucket.name}/AWSLogs/${local.account_id}/*",
     ]
 
     condition {
@@ -95,11 +118,11 @@ data "aws_iam_policy_document" "delivery" {
       "s3:GetBucketAcl",
     ]
     resources = [
-      "arn:aws:s3:::${var.delivery_s3_bucket}",
+      "arn:aws:s3:::${var.delivery_channels.s3_bucket.name}",
     ]
   }
   dynamic "statement" {
-    for_each = var.delivery_s3_sse_kms_key != null ? ["go"] : []
+    for_each = var.delivery_channels.s3_bucket.sse_kms_key != null ? ["go"] : []
 
     content {
       sid = "EnableS3Encryption"
@@ -110,12 +133,12 @@ data "aws_iam_policy_document" "delivery" {
         "kms:GenerateDataKey",
       ]
       resources = [
-        var.delivery_s3_sse_kms_key,
+        var.delivery_channels.s3_bucket.sse_kms_key,
       ]
     }
   }
   dynamic "statement" {
-    for_each = var.delivery_sns_topic != null ? ["go"] : []
+    for_each = var.delivery_channels.sns_topic.arn != null ? ["go"] : []
 
     content {
       sid = "PublishToSnsTopic"
@@ -125,7 +148,7 @@ data "aws_iam_policy_document" "delivery" {
         "sns:Publish",
       ]
       resources = [
-        var.delivery_sns_topic,
+        var.delivery_channels.sns_topic.arn,
       ]
     }
   }
@@ -141,9 +164,9 @@ data "aws_iam_policy_document" "aggregation" {
       "s3:PutObjectAcl",
     ]
     resources = [
-      var.delivery_s3_key_prefix != null && var.delivery_s3_key_prefix != ""
-      ? "arn:aws:s3:::${var.delivery_s3_bucket}/*/AWSLogs/${local.account_id}/*"
-      : "arn:aws:s3:::${var.delivery_s3_bucket}/AWSLogs/${local.account_id}/*",
+      var.delivery_channels.s3_bucket.key_prefix != null && var.delivery_channels.s3_bucket.key_prefix != ""
+      ? "arn:aws:s3:::${var.delivery_channels.s3_bucket.name}/*/AWSLogs/${local.account_id}/*"
+      : "arn:aws:s3:::${var.delivery_channels.s3_bucket.name}/AWSLogs/${local.account_id}/*",
     ]
 
     condition {
@@ -160,11 +183,11 @@ data "aws_iam_policy_document" "aggregation" {
       "s3:GetBucketAcl",
     ]
     resources = [
-      "arn:aws:s3:::${var.delivery_s3_bucket}",
+      "arn:aws:s3:::${var.delivery_channels.s3_bucket.name}",
     ]
   }
   dynamic "statement" {
-    for_each = var.delivery_s3_sse_kms_key != null ? ["go"] : []
+    for_each = var.delivery_channels.s3_bucket.sse_kms_key != null ? ["go"] : []
 
     content {
       sid = "EnableS3Encryption"
@@ -175,12 +198,12 @@ data "aws_iam_policy_document" "aggregation" {
         "kms:GenerateDataKey",
       ]
       resources = [
-        var.delivery_s3_sse_kms_key,
+        var.delivery_channels.s3_bucket.sse_kms_key,
       ]
     }
   }
   dynamic "statement" {
-    for_each = var.delivery_sns_topic != null ? ["go"] : []
+    for_each = var.delivery_channels.sns_topic.arn != null ? ["go"] : []
 
     content {
       sid = "PublishToSnsTopic"
@@ -190,7 +213,7 @@ data "aws_iam_policy_document" "aggregation" {
         "sns:Publish",
       ]
       resources = [
-        var.delivery_sns_topic,
+        var.delivery_channels.sns_topic.arn,
       ]
     }
   }
