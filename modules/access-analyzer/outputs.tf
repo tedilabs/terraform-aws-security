@@ -14,8 +14,21 @@ output "arn" {
 }
 
 output "type" {
-  description = "The type of Analyzer."
-  value       = aws_accessanalyzer_analyzer.this.type
+  description = "The finding type of Analyzer."
+  value       = var.type
+}
+
+output "scope" {
+  description = "The scope of Analyzer."
+  value       = var.scope
+}
+
+output "unused_access_tracking_period" {
+  description = "The scope of Analyzer."
+  value = (var.type == "UNUSED_ACCESS"
+    ? one(aws_accessanalyzer_analyzer.this.configuration[0].unused_access[*].unused_access_age)
+    : null
+  )
 }
 
 output "archive_rules" {

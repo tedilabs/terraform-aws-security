@@ -14,9 +14,34 @@ locals {
   } : {}
 }
 
+
+###################################################
+# Access Analyzer
+###################################################
+
 resource "aws_accessanalyzer_analyzer" "this" {
   analyzer_name = var.name
-  type          = var.type
+  type = (var.type == "EXTERNAL_ACCESS"
+    ? var.scope
+    : (var.type == "UNUSED_ACCESS"
+      ? "${var.scope}_UNUSED_ACCESS"
+      : null
+    )
+  )
+
+  dynamic "configuration" {
+    for_each = var.type == "UNUSED_ACCESS" ? ["go"] : []
+
+    content {
+      dynamic "unused_access" {
+        for_each = var.type == "UNUSED_ACCESS" ? ["go"] : []
+
+        content {
+          unused_access_age = var.unused_access_tracking_period
+        }
+      }
+    }
+  }
 
   tags = merge(
     {
