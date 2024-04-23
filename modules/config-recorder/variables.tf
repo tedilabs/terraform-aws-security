@@ -12,6 +12,21 @@ variable "enabled" {
   nullable    = false
 }
 
+variable "retention_period" {
+  description = "(Optional) The number of days AWS Config stores historical information. Valid range is between a minimum period of 30 days and a maximum period of 7 years (2557 days).Defaults to `2557` (7 years)."
+  type        = number
+  default     = 2557
+  nullable    = false
+
+  validation {
+    condition = alltrue([
+      var.retention_period >= 30,
+      var.retention_period <= 2557,
+    ])
+    error_message = "Valid range for `retention_period` is between 30 and 2557 days."
+  }
+}
+
 variable "default_service_role" {
   description = <<EOF
   (Optional) A configuration for the default service role to use for Config recorder. Use `service_role` if `default_service_role.enabled` is `false`. `default_service_role` as defined below.
@@ -74,6 +89,42 @@ variable "organization_aggregator_role" {
   type        = string
   default     = null
   nullable    = true
+}
+
+variable "recording_frequency" {
+  description = <<EOF
+  (Optional) A configuration for the recording frequency mode of AWS Config configuration recorder. `recording_frequency` as defined below.
+    (Optional) `mode` - The recording frequency mode for the recorder. Valid values are `CONTINUOUS`, `DAILIY`. Defaults to `CONTINUOUS`.
+
+      `CONTINUOUS`: Continuous recording allows you to record configuration changes continuously whenever a change occurs.
+      `DAILY`: Daily recording allows you to receive a configuration item (CI) representing the most recent state of your resources over the last 24-hour period, only if it's different from the previous CI recorded.
+    (Optional) `overrides` - A configurations to override the recording frequency for specific resource types. Each block of `overrides` as defined below.
+      (Required) `resource_types` - A set of resource types to override the recording frequency mode. For example, `AWS::EC2::Instance` or `AWS::CloudTrail::Trail`.
+      (Required) `mode` - The recording frequency mode to override to all the resource types specified in the `resource_types`. Valid values are `CONTINUOUS`, `DAILIY`.
+      (Optional) `description` - The description of the override. Defaults to `Managed by Terraform.`
+  EOF
+  type = object({
+    mode = optional(string, "CONTINUOUS")
+    overrides = optional(list(object({
+      resource_types = set(string)
+      mode           = string
+      description    = optional(string, "Managed by Terraform.")
+    })), [])
+  })
+  default  = {}
+  nullable = false
+
+  validation {
+    condition     = contains(["CONTINUOUS", "DAILY"], var.recording_frequency.mode)
+    error_message = "Valid values for `mode` are `CONTINUOUS`, `DAILY`."
+  }
+  validation {
+    condition = alltrue([
+      for override in var.recording_frequency.overrides :
+      contains(["CONTINUOUS", "DAILY"], override.mode)
+    ])
+    error_message = "Valid values for `mode` are `CONTINUOUS`, `DAILY`."
+  }
 }
 
 variable "scope" {

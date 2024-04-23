@@ -13,6 +13,29 @@ output "enabled" {
   value       = aws_config_configuration_recorder_status.this.is_enabled
 }
 
+output "retention_period" {
+  description = "The number of days AWS Config stores historical information"
+  value       = aws_config_retention_configuration.this.retention_period_in_days
+}
+
+output "recording_frequency" {
+  description = <<EOF
+  The configuration for the recording frequency mode of the recorder.
+    `mode` - The recording frequency mode for the recorder.
+    `overrides` - The configurations to override the recording frequency for specific resource types.
+  EOF
+  value = {
+    mode = aws_config_configuration_recorder.this.recording_mode[0].recording_frequency
+    overrides = [
+      for override in aws_config_configuration_recorder.this.recording_mode[0].recording_mode_override : {
+        resource_types = override.resource_types
+        mode           = override.recording_frequency
+        description    = override.description
+      }
+    ]
+  }
+}
+
 output "scope" {
   description = <<EOF
   A list that specifies the types of AWS resources for which AWS Config records configuration changes.

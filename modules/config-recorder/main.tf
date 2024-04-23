@@ -66,6 +66,21 @@ resource "aws_config_configuration_recorder" "this" {
     : var.service_role
   )
 
+  recording_mode {
+    recording_frequency = var.recording_frequency.mode
+
+    dynamic "recording_mode_override" {
+      for_each = var.recording_frequency.overrides
+      iterator = override
+
+      content {
+        resource_types      = override.value.resource_types
+        recording_frequency = override.value.mode
+        description         = override.value.description
+      }
+    }
+  }
+
   recording_group {
     recording_strategy {
       use_only = local.recording_groups[var.scope.strategy].recording_strategy
@@ -92,6 +107,10 @@ resource "aws_config_configuration_recorder_status" "this" {
   depends_on = [
     aws_config_delivery_channel.this,
   ]
+}
+
+resource "aws_config_retention_configuration" "this" {
+  retention_period_in_days = var.retention_period
 }
 
 
