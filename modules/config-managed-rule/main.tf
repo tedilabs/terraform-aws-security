@@ -67,6 +67,14 @@ resource "aws_config_config_rule" "this" {
   input_parameters = jsonencode(var.parameters)
 
   ### Trigger by configuration change
+  dynamic "evaluation_mode" {
+    for_each = var.evaluation_modes
+
+    content {
+      mode = evaluation_mode.value
+    }
+  }
+
   ## Scope: ALL_CHANGES
   dynamic "scope" {
     for_each = local.rule.trigger_by_change.enabled && var.scope == "ALL_CHANGES" ? ["go"] : []

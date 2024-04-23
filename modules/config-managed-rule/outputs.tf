@@ -53,6 +53,11 @@ output "level" {
   value       = var.level
 }
 
+output "evaluation_modes" {
+  description = "A set of evaluation modes to enable for the Config rule."
+  value       = var.evaluation_modes
+}
+
 output "trigger_by_change" {
   description = "The information of trigger by configuration changes."
   value = {

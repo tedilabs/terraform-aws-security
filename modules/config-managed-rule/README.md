@@ -15,14 +15,14 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.14 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.6 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.23 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.19.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.46.0 |
 
 ## Modules
 
@@ -43,6 +43,7 @@ This module creates following resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_source_rule"></a> [source\_rule](#input\_source\_rule) | (Required) The identifier for AWS Config managed rule. Use the format like `root-account-mfa-enabled` instead of predefiend format like `ROOT_ACCOUNT_MFA_ENABLED`. | `string` | n/a | yes |
 | <a name="input_description"></a> [description](#input\_description) | (Optional) The description of the rule. Use default description if not provided. | `string` | `null` | no |
+| <a name="input_evaluation_modes"></a> [evaluation\_modes](#input\_evaluation\_modes) | (Optional) A set of evaluation modes to enable for the Config rule. Valid values are `DETECTIVE`, `PROACTIVE`. Default value contains only `DETECTIVE`. | `set(string)` | <pre>[<br>  "DETECTIVE"<br>]</pre> | no |
 | <a name="input_excluded_accounts"></a> [excluded\_accounts](#input\_excluded\_accounts) | (Optional) A list of AWS account identifiers to exclude from the rule. Only need when `level` is configured with value `ORGANIZATION`. | `list(string)` | `[]` | no |
 | <a name="input_level"></a> [level](#input\_level) | (Optional) Choose to create a rule across all accounts in your Organization. Valid values are `ACCOUNT` and `ORGANIZATION`. Use `ORGANIZATION` level in Organization master account or delegated administrator accounts. | `string` | `"ACCOUNT"` | no |
 | <a name="input_module_tags_enabled"></a> [module\_tags\_enabled](#input\_module\_tags\_enabled) | (Optional) Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |
@@ -64,6 +65,7 @@ This module creates following resources.
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | The Amazon Resource Name (ARN) of the rule. |
 | <a name="output_description"></a> [description](#output\_description) | The description of the rule. |
+| <a name="output_evaluation_modes"></a> [evaluation\_modes](#output\_evaluation\_modes) | A set of evaluation modes to enable for the Config rule. |
 | <a name="output_excluded_accounts"></a> [excluded\_accounts](#output\_excluded\_accounts) | A list of AWS account identifiers excluded from the rule. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the rule. |
 | <a name="output_level"></a> [level](#output\_level) | The level of the rule. `ACOUNT` or `ORGANIZATION`. The rule is for accounts in your Organization if the value is configured with `ORGANIZATION`. |

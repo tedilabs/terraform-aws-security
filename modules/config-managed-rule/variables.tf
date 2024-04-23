@@ -37,6 +37,21 @@ variable "level" {
   }
 }
 
+variable "evaluation_modes" {
+  description = "(Optional) A set of evaluation modes to enable for the Config rule. Valid values are `DETECTIVE`, `PROACTIVE`. Default value contains only `DETECTIVE`."
+  type        = set(string)
+  default     = ["DETECTIVE"]
+  nullable    = false
+
+  validation {
+    condition = alltrue([
+      for mode in var.evaluation_modes :
+      contains(["DETECTIVE", "PROACTIVE"], mode)
+    ])
+    error_message = "Valid values for `evaluation_modes` should be one of `DETECTIVE`, `PROACTIVE`."
+  }
+}
+
 variable "scope" {
   description = "(Optional) Choose when evaluations will occur. Valid values are `ALL_CHANGES`, `RESOURCES`, or `TAGS`."
   type        = string
