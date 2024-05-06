@@ -194,7 +194,7 @@ variable "delivery_channels" {
       !var.delivery_channels.sns_topic.enabled,
       var.delivery_channels.sns_topic.enabled && var.delivery_channels.sns_topic.arn != null,
     ])
-    error_message = "`delivery_channels.sns_topic.arn` must be provided when `delivery_channels.sns_topic.enableds` is `true`."
+    error_message = "`delivery_channels.sns_topic.arn` must be provided when `delivery_channels.sns_topic.enabled` is `true`."
   }
 }
 

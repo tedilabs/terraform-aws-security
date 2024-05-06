@@ -40,109 +40,142 @@ variable "event_type" {
   }
 }
 
-variable "event_selectors" {
+variable "management_event_selector" {
   description = <<EOF
-  (Optional) A configuration of event selectors to use to select the events for the event data store. Only used if `event_type` is `CLOUDTRAIL_EVENTS`. Each item of `event_selectors` as defined below.
-    (Required) `category` - A category of the event. Valid values are `DATA` and `MANAGEMENT`.
-      - `DATA`: Log the resource operations performed on or within a resource.
-      - `MANAGEMENT`: Capture management operations performed on your AWS resources.
-    (Optional) `scope` - A scope of events to log. Valid values are `ALL`, `READ` and `WRITE`. Defaults to `ALL`.
-    (Optional) `exclude_sources` - A set of event sources to exclude. Valid values are `kms.amazonaws.com` and `rdsdata.amazonaws.com`. Only used if `category` is `MANAGEMENT`.
-    (Optional) `resource_type` - The resource type to log data events to log. Required if `category` is `DATA`. Valid values are one of the following:
-      - `AWS::S3::Object`
-      - `AWS::Lambda::Function`
-      - `AWS::DynamoDB::Table`
-      - `AWS::S3Outposts::Object`
-      - `AWS::ManagedBlockchain::Node`
-      - `AWS::S3ObjectLambda::AccessPoint`
-      - `AWS::EC2::Snapshot`
-      - `AWS::S3::AccessPoint`
-      - `AWS::CloudTrail::Channe`l
-      - `AWS::DynamoDB::Stream`
-      - `AWS::Glue::Table`
-      - `AWS::FinSpace::Environmen`t
-      - `AWS::SageMaker::ExperimentTrialComponen`t
-      - `AWS::SageMaker::FeatureGrou`p
-    (Optional) `selectors` - A configuration of field selectors to filter events by the ARN of resource and the event name. Each item of `selectors` as defined below.
-      (Required) `field` - A field to compare by the field selector. Valid values are `event_name` and `resource_arn`.
-      (Required) `operator` - An operator of the field selector. Valid values are `equals`, `not_equals`, `starts_with`, `not_starts_with`, `ends_with`, `not_ends_with`.
-      (Required) `values` - A set of values of the field selector to compare.
+  (Optional) A configuration of management event selector to use to select the events for the event data store. Only used if `event_type` is `CLOUDTRAIL_EVENTS`. `management_event_selector` block as defined below.
+    (Optional) `enabled` - Whether to capture management events. Defaults to `false`.
+    (Optional) `scope` - The type of events to log. Valid values are `ALL`, `READ` and `WRITE`. Defaults to `ALL`.
+    (Optional) `exclude_event_sources` - A set of event sources to exclude. Valid values are `kms.amazonaws.com` and `rdsdata.amazonaws.com`. `management_event_selector.enabled` must be set to true to allow this.
+  EOF
+  type = object({
+    enabled               = optional(bool, false)
+    scope                 = optional(string, "ALL")
+    exclude_event_sources = optional(set(string), [])
+  })
+  nullable = false
+
+  validation {
+    condition     = contains(["ALL", "READ", "WRITE"], var.management_event_selector.scope)
+    error_message = "Valid values for `management_event_selector.scope` are `ALL`, `READ`, `WRITE`."
+  }
+
+  validation {
+    condition = alltrue([
+      for source in var.management_event_selector.exclude_event_sources :
+      contains(["kms.amazonaws.com", "rdsdata.amazonaws.com"], source)
+    ])
+    error_message = "Valid values for `management_event_selector.exclude_event_sources` are `kms.amazonaws.com`, `rdsdata.amazonaws.com`."
+  }
+}
+
+variable "data_event_selectors" {
+  description = <<EOF
+  (Optional) A configuration of event selectors to use to select the data events for the event data store. Each item of `data_event_selectors` block as defined below.
+    (Optional) `name` - A name of the advanced event selector.
+    (Optional) `resource_type` - A resource type to log data events to log. Valid values are one of the following:
+    - `AWS::DynamoDB::Table`
+    - `AWS::Lambda::Function`
+    - `AWS::S3::Object`
+    - `AWS::AppConfig::Configuration`
+    - `AWS::B2BI::Transformer`
+    - `AWS::Bedrock::AgentAlias`
+    - `AWS::Bedrock::KnowledgeBase`
+    - `AWS::Cassandra::Table`
+    - `AWS::CloudFront::KeyValueStore`
+    - `AWS::CloudTrail::Channel`
+    - `AWS::CodeWhisperer::Customization`
+    - `AWS::CodeWhisperer::Profile`
+    - `AWS::Cognito::IdentityPool`
+    - `AWS::DynamoDB::Stream`
+    - `AWS::EC2::Snapshot`
+    - `AWS::EMRWAL::Workspace`
+    - `AWS::FinSpace::Environment`
+    - `AWS::Glue::Table`
+    - `AWS::GreengrassV2::ComponentVersion`
+    - `AWS::GreengrassV2::Deployment`
+    - `AWS::GuardDuty::Detector`
+    - `AWS::IoT::Certificate`
+    - `AWS::IoT::Thing`
+    - `AWS::IoTSiteWise::Asset`
+    - `AWS::IoTSiteWise::TimeSeries`
+    - `AWS::IoTTwinMaker::Entity`
+    - `AWS::IoTTwinMaker::Workspace`
+    - `AWS::KendraRanking::ExecutionPlan`
+    - `AWS::KinesisVideo::Stream`
+    - `AWS::ManagedBlockchain::Network`
+    - `AWS::ManagedBlockchain::Node`
+    - `AWS::MedicalImaging::Datastore`
+    - `AWS::NeptuneGraph::Graph`
+    - `AWS::PCAConnectorAD::Connector`
+    - `AWS::QBusiness::Application`
+    - `AWS::QBusiness::DataSource`
+    - `AWS::QBusiness::Index`
+    - `AWS::QBusiness::WebExperience`
+    - `AWS::RDS::DBCluster`
+    - `AWS::S3::AccessPoint`
+    - `AWS::S3ObjectLambda::AccessPoint`
+    - `AWS::S3Outposts::Object`
+    - `AWS::SageMaker::Endpoint`
+    - `AWS::SageMaker::ExperimentTrialComponent`
+    - `AWS::SageMaker::FeatureGroup`
+    - `AWS::ServiceDiscovery::Namespace`
+    - `AWS::ServiceDiscovery::Service`
+    - `AWS::SCN::Instance`
+    - `AWS::SNS::PlatformEndpoint`
+    - `AWS::SNS::Topic`
+    - `AWS::SWF::Domain`
+    - `AWS::SQS::Queue`
+    - `AWS::SSMMessages::ControlChannel`
+    - `AWS::ThinClient::Device`
+    - `AWS::ThinClient::Environment`
+    - `AWS::Timestream::Database`
+    - `AWS::Timestream::Table`
+    - `AWS::VerifiedPermissions::PolicyStore`
+    (Optional) `scope` - The type of events to log. Valid values are `ALL`, `READ` and `WRITE`. Defaults to `WRITE`.
+    (Optional) `conditions` - A configuration of field conditions to filter events by the ARN of resource and the event name. Each item of `conditions` as defined below.
+      (Required) `field` - A field to compare by the field condition. Valid values are `event_name` and `resource_arn`.
+      (Required) `operator` - An operator of the field condition. Valid values are `equals`, `not_equals`, `starts_with`, `not_starts_with`, `ends_with`, `not_ends_with`.
+      (Required) `values` - A set of values of the field condition to compare.
   EOF
   type = list(object({
-    category        = string
-    scope           = optional(string, "ALL")
-    exclude_sources = optional(set(string), [])
-    resource_type   = optional(string)
-    selectors = optional(list(object({
+    name          = optional(string)
+    resource_type = string
+    scope         = optional(string, "WRITE")
+    conditions = optional(list(object({
       field    = string
       operator = string
       values   = set(string)
     })), [])
   }))
-  default = [{
-    category = "MANAGEMENT"
-  }]
+  default  = []
   nullable = false
 
   validation {
     condition = alltrue([
-      for event in var.event_selectors :
-      contains(["DATA", "MANAGEMENT"], event.category)
-    ])
-    error_message = "Valid values for `category` are `DATA`, `MANAGEMENT`."
-  }
-
-  validation {
-    condition = alltrue([
-      for event in var.event_selectors :
-      contains(["ALL", "READ", "WRITE"], event.scope)
+      for selector in var.data_event_selectors :
+      contains(["ALL", "READ", "WRITE"], selector.scope)
     ])
     error_message = "Valid values for `scope` are `ALL`, `READ`, `WRITE`."
   }
-
   validation {
     condition = alltrue([
-      for event in var.event_selectors :
+      for selector in var.data_event_selectors :
       alltrue([
-        for source in event.exclude_sources :
-        contains(["kms.amazonaws.com", "rdsdata.amazonaws.com"], source)
+        for condition in selector.conditions :
+        contains(["event_name", "resource_arn"], condition.field)
       ])
-      if event.category == "MANAGEMENT"
     ])
-    error_message = "Valid values for `exclude_sources` should be defined if `category` is `DATA`."
+    error_message = "Valid values for `field` of each condition are `event_name`, `resource_arn`."
   }
-
   validation {
     condition = alltrue([
-      for event in var.event_selectors :
-      event.resource_type != null
-      if event.category == "DATA"
-    ])
-    error_message = "`resource_type` should be defined if `category` is `DATA`."
-  }
-
-  validation {
-    condition = alltrue([
-      for event in var.event_selectors :
+      for selector in var.data_event_selectors :
       alltrue([
-        for selector in event.selectors :
-        contains(["event_name", "resource_arn"], selector.field)
+        for condition in selector.conditions :
+        contains(["equals", "not_equals", "starts_with", "not_starts_with", "ends_with", "not_ends_with"], condition.operator)
       ])
-      if event.category == "DATA"
     ])
-    error_message = "Valid values for `field` of each selector are `event_name`, `resource_arn`."
-  }
-
-  validation {
-    condition = alltrue([
-      for event in var.event_selectors :
-      alltrue([
-        for selector in event.selectors :
-        contains(["equals", "not_equals", "starts_with", "not_starts_with", "ends_with", "not_ends_with"], selector.operator)
-      ])
-      if event.category == "DATA"
-    ])
-    error_message = "Valid values for `operator` of each selector are `equals`, `not_equals`, `starts_with`, `not_starts_with`, `ends_with`, `not_ends_with`."
+    error_message = "Valid values for `operator` of each condition are `equals`, `not_equals`, `starts_with`, `not_starts_with`, `ends_with`, `not_ends_with`."
   }
 }
 
@@ -150,6 +183,7 @@ variable "encryption_kms_key" {
   description = "(Optional) Specify the KMS key ID to use to encrypt the events delivered by CloudTrail. The value can be an alias name prefixed by 'alias/', a fully specified ARN to an alias, a fully specified ARN to a key, or a globally unique identifier. By default, the event data store is encrypted with a KMS key that AWS owns and manages."
   type        = string
   default     = null
+  nullable    = true
 }
 
 variable "retention_in_days" {
