@@ -24,7 +24,7 @@ locals {
     "READ"  = "ReadOnly"
     "WRITE" = "WriteOnly"
   }
-  event_selector_fields = {
+  condition_fields = {
     "event_name"   = "eventName"
     "resource_arn" = "resources.ARN"
   }
@@ -47,62 +47,86 @@ resource "aws_cloudtrail_event_data_store" "this" {
   # kms_key_id = var.encryption_kms_key
 
 
-  ## Event Selector - AWS CloudTrail Events
+  ## Event Selector - AWS CloudTrail Events (Management)
   dynamic "advanced_event_selector" {
-    for_each = var.event_type == "CLOUDTRAIL_EVENTS" ? var.event_selectors : []
-    iterator = event
+    for_each = var.event_type == "CLOUDTRAIL_EVENTS" && var.management_event_selector.enabled ? [var.management_event_selector] : []
+    iterator = selector
 
     content {
-      name = "AWS CloudTrail Events - ${local.event_categories[event.value.category]}"
+      name = "AWS CloudTrail Events - Management"
 
       field_selector {
         field  = "eventCategory"
-        equals = [local.event_categories[event.value.category]]
+        equals = ["Management"]
       }
 
       dynamic "field_selector" {
-        for_each = event.value.scope != "ALL" ? ["go"] : []
+        for_each = selector.value.scope != "ALL" ? ["go"] : []
 
         content {
           field = "readOnly"
           equals = [{
             "READ"  = "true"
             "WRITE" = "false"
-          }[event.value.scope]]
+          }[selector.value.scope]]
         }
       }
 
       dynamic "field_selector" {
-        for_each = (event.value.category == "MANAGEMENT" && length(event.value.exclude_sources) > 0) ? ["go"] : []
+        for_each = (length(selector.value.exclude_event_sources) > 0) ? ["go"] : []
 
         content {
           field      = "eventSource"
-          not_equals = event.value.exclude_sources
+          not_equals = selector.value.exclude_event_sources
+        }
+      }
+    }
+  }
+
+
+  ## Event Selector - AWS CloudTrail Events (Data)
+  dynamic "advanced_event_selector" {
+    for_each = var.event_type == "CLOUDTRAIL_EVENTS" ? var.data_event_selectors : []
+    iterator = selector
+
+    content {
+      name = coalesce(selector.value.name, "AWS CloudTrail Events - Data ${selector.key}")
+
+      field_selector {
+        field  = "eventCategory"
+        equals = ["Data"]
+      }
+
+      field_selector {
+        field  = "resources.type"
+        equals = [selector.value.resource_type]
+      }
+
+      dynamic "field_selector" {
+        for_each = selector.value.scope != "ALL" ? ["go"] : []
+
+        content {
+          field = "readOnly"
+          equals = [{
+            "READ"  = "true"
+            "WRITE" = "false"
+          }[selector.value.scope]]
         }
       }
 
       dynamic "field_selector" {
-        for_each = event.value.category == "DATA" ? ["go"] : []
+        for_each = length(selector.value.conditions) > 0 ? selector.value.conditions : []
+        iterator = condition
 
         content {
-          field  = "resources.type"
-          equals = [event.value.resource_type]
-        }
-      }
+          field = local.condition_fields[condition.value.field]
 
-      dynamic "field_selector" {
-        for_each = length(event.value.selectors) > 0 ? event.value.selectors : []
-        iterator = selector
-
-        content {
-          field = local.event_selector_fields[selector.value.field]
-
-          equals          = selector.value.operator == "equals" ? selector.value.values : null
-          not_equals      = selector.value.operator == "not_equals" ? selector.value.values : null
-          starts_with     = selector.value.operator == "starts_with" ? selector.value.values : null
-          not_starts_with = selector.value.operator == "not_starts_with" ? selector.value.values : null
-          ends_with       = selector.value.operator == "ends_with" ? selector.value.values : null
-          not_ends_with   = selector.value.operator == "not_ends_with" ? selector.value.values : null
+          equals          = condition.value.operator == "equals" ? condition.value.values : null
+          not_equals      = condition.value.operator == "not_equals" ? condition.value.values : null
+          starts_with     = condition.value.operator == "starts_with" ? condition.value.values : null
+          not_starts_with = condition.value.operator == "not_starts_with" ? condition.value.values : null
+          ends_with       = condition.value.operator == "ends_with" ? condition.value.values : null
+          not_ends_with   = condition.value.operator == "not_ends_with" ? condition.value.values : null
         }
       }
     }

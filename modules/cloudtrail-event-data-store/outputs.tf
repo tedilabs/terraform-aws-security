@@ -27,9 +27,14 @@ output "event_type" {
   value       = var.event_type
 }
 
-output "event_selectors" {
-  description = "The event selectors to use to select the events for the event data store."
-  value       = var.event_selectors
+output "management_event_selector" {
+  description = "The event selector to use to select the management events for the event data store."
+  value       = var.management_event_selector
+}
+
+output "data_event_selectors" {
+  description = "The event selectors to use to select the data events for the event data store."
+  value       = var.data_event_selectors
 }
 
 output "encryption" {

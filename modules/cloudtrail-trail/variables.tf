@@ -40,73 +40,199 @@ variable "scope" {
   }
 }
 
-variable "delivery_s3_bucket" {
-  description = "(Required) The name of the S3 bucket designated for publishing log files."
-  type        = string
-}
-
-variable "delivery_s3_key_prefix" {
-  description = "(Optional) The key prefix for the specified S3 bucket."
-  type        = string
-  default     = null
-}
-
-variable "delivery_s3_integrity_validation_enabled" {
-  description = "(Optional) To determine whether a log file was modified, deleted, or unchanged after AWS CloudTrail delivered it, use CloudTrail log file integrity validation. This feature is built using industry standard algorithms: SHA-256 for hashing and SHA-256 with RSA for digital signing."
-  type        = bool
-  default     = true
-  nullable    = false
-}
-
-variable "delivery_sns_topic" {
-  description = "(Optional) The name of the SNS topic for notification of log file delivery."
-  type        = string
-  default     = null
-}
-
-variable "delivery_cloudwatch_logs_log_group" {
-  description = "(Optional) The name of the log group of CloudWatch Logs for log file delivery."
-  type        = string
-  default     = null
-}
-
-variable "management_event" {
+variable "delivery_channels" {
   description = <<EOF
-  (Optional) A configuration block for management events logging to identify API activity for individual resources, or for all current and future resources in AWS account. `management_event` block as defined below.
-    (Required) `enabled` - Whether the trail to log management events.
-    (Optional) `scope` - The type of events to log. Valid values are `ALL`, `READ` and `WRITE`. Defaults to `ALL`.
-    (Optional) `exclude_event_sources` - A set of event sources to exclude. Valid values are `kms.amazonaws.com` and `rdsdata.amazonaws.com`. `management_event.enabled` must be set to true to allow this.
+  (Required) A configuration for the delivery channels of the trail. `delivery_channels` as defined below.
+    (Required) `s3_bucket` - A configuration for the S3 Bucket delivery channel. `s3_bucket` as defined below.
+      (Required) `name` - The name of the S3 bucket used to publish log files.
+      (Optional) `key_prefix` - The key prefix for the specified S3 bucket.
+      (Optional) `integrity_validation_enabled` - To determine whether a log file was modified, deleted, or unchanged after AWS CloudTrail delivered it, use CloudTrail log file integrity validation. This feature is built using industry standard algorithms: SHA-256 for hashing and SHA-256 with RSA for digital signing. Defaults to `true`.
+      (Optional) `sse_kms_key` - The ARN of the AWS KMS key used to encrypt objects delivered by AWS Config. Must belong to the same Region as the destination S3 bucket.
+    (Optional) `sns_topic` - A configuration for the SNS Topic notifications for log file delivery. CloudTrail stores multiple events in a log file. When you enable this option, Amazon SNS notifications are sent for every log file delivery to your S3 bucket, not for every event. `sns_topic` as defined below.
+      (Optional) `enabled` - Whether to enable the SNS Topic notifications for log file delivery. Defaults to `false`.
+      (Optional) `name` - The name of the SNS topic for notification of log file delivery.
+    (Optional) `cloudwatch_log_group` - A configuration for the log group of CloudWatch Logs to send events to CloudWatch Logs. `cloudwatch_log_group` as defined below.
+      (Optional) `enabled` - Whether to send CloudTrail events to CloudWatch Logs. Defaults to `false`.
+      (Optional) `name` - The name of the log group of CloudWatch Logs.
   EOF
   type = object({
-    enabled               = bool
-    scope                 = string
-    exclude_event_sources = list(string)
+    s3_bucket = object({
+      name                         = string
+      key_prefix                   = optional(string, "")
+      integrity_validation_enabled = optional(bool, true)
+      sse_kms_key                  = optional(string)
+    })
+    sns_topic = optional(object({
+      enabled = optional(bool, false)
+      name    = optional(string)
+    }), {})
+    cloudwatch_log_group = optional(object({
+      enabled = optional(bool, false)
+      name    = optional(string)
+      # iam_role = optional(string)
+    }), {})
   })
-  default = {
-    enabled               = true
-    scope                 = "ALL"
-    exclude_event_sources = []
-  }
   nullable = false
 
   validation {
-    condition     = contains(["ALL", "READ", "WRITE"], var.management_event.scope)
-    error_message = "Valid values for `management_event.scope` are `ALL`, `READ`, `WRITE`."
+    condition = anytrue([
+      !var.delivery_channels.sns_topic.enabled,
+      var.delivery_channels.sns_topic.enabled && var.delivery_channels.sns_topic.name != null,
+    ])
+    error_message = "`delivery_channels.sns_topic.name` must be provided when `delivery_channels.sns_topic.enabled` is `true`."
+  }
+  validation {
+    condition = anytrue([
+      !var.delivery_channels.cloudwatch_log_group.enabled,
+      var.delivery_channels.cloudwatch_log_group.enabled && var.delivery_channels.cloudwatch_log_group.name != null,
+    ])
+    error_message = "`delivery_channels.cloudwatch_log_group.name` must be provided when `delivery_channels.cloudwatch_log_group.enabled` is `true`."
+  }
+}
+
+variable "management_event_selector" {
+  description = <<EOF
+  (Required) A configuration block for management events logging to identify API activity for individual resources, or for all current and future resources in AWS account. `management_event_selector` block as defined below.
+    (Required) `enabled` - Whether the trail to log management events.
+    (Optional) `scope` - The type of events to log. Valid values are `ALL`, `READ` and `WRITE`. Defaults to `ALL`.
+    (Optional) `exclude_event_sources` - A set of event sources to exclude. Valid values are `kms.amazonaws.com` and `rdsdata.amazonaws.com`. `management_event_selector.enabled` must be set to true to allow this.
+  EOF
+  type = object({
+    enabled               = bool
+    scope                 = optional(string, "ALL")
+    exclude_event_sources = optional(set(string), [])
+  })
+  nullable = false
+
+  validation {
+    condition     = contains(["ALL", "READ", "WRITE"], var.management_event_selector.scope)
+    error_message = "Valid values for `management_event_selector.scope` are `ALL`, `READ`, `WRITE`."
   }
 
   validation {
     condition = alltrue([
-      for source in try(var.management_event.exclude_event_sources, []) :
+      for source in var.management_event_selector.exclude_event_sources :
       contains(["kms.amazonaws.com", "rdsdata.amazonaws.com"], source)
     ])
-    error_message = "Valid values for `management_event.exclude_event_sources` are `kms.amazonaws.com`, `rdsdata.amazonaws.com`."
+    error_message = "Valid values for `management_event_selector.exclude_event_sources` are `kms.amazonaws.com`, `rdsdata.amazonaws.com`."
   }
 }
 
-variable "insight_event" {
+variable "data_event_selectors" {
   description = <<EOF
-  (Optional) A configuration block for insight events logging to identify unusual operational activity. `insight_event` block as defined below.
-    (Required) `enabled` - Whether the trail to log insight events.
+  (Optional) A list of configurations for data events logging the resource operations performed on or within a resource. Each item of `data_event_selectors` block as defined below.
+    (Optional) `name` - A name of the advanced event selector.
+    (Optional) `resource_type` - A resource type to log data events to log. Valid values are one of the following:
+    - `AWS::DynamoDB::Table`
+    - `AWS::Lambda::Function`
+    - `AWS::S3::Object`
+    - `AWS::AppConfig::Configuration`
+    - `AWS::B2BI::Transformer`
+    - `AWS::Bedrock::AgentAlias`
+    - `AWS::Bedrock::KnowledgeBase`
+    - `AWS::Cassandra::Table`
+    - `AWS::CloudFront::KeyValueStore`
+    - `AWS::CloudTrail::Channel`
+    - `AWS::CodeWhisperer::Customization`
+    - `AWS::CodeWhisperer::Profile`
+    - `AWS::Cognito::IdentityPool`
+    - `AWS::DynamoDB::Stream`
+    - `AWS::EC2::Snapshot`
+    - `AWS::EMRWAL::Workspace`
+    - `AWS::FinSpace::Environment`
+    - `AWS::Glue::Table`
+    - `AWS::GreengrassV2::ComponentVersion`
+    - `AWS::GreengrassV2::Deployment`
+    - `AWS::GuardDuty::Detector`
+    - `AWS::IoT::Certificate`
+    - `AWS::IoT::Thing`
+    - `AWS::IoTSiteWise::Asset`
+    - `AWS::IoTSiteWise::TimeSeries`
+    - `AWS::IoTTwinMaker::Entity`
+    - `AWS::IoTTwinMaker::Workspace`
+    - `AWS::KendraRanking::ExecutionPlan`
+    - `AWS::KinesisVideo::Stream`
+    - `AWS::ManagedBlockchain::Network`
+    - `AWS::ManagedBlockchain::Node`
+    - `AWS::MedicalImaging::Datastore`
+    - `AWS::NeptuneGraph::Graph`
+    - `AWS::PCAConnectorAD::Connector`
+    - `AWS::QBusiness::Application`
+    - `AWS::QBusiness::DataSource`
+    - `AWS::QBusiness::Index`
+    - `AWS::QBusiness::WebExperience`
+    - `AWS::RDS::DBCluster`
+    - `AWS::S3::AccessPoint`
+    - `AWS::S3ObjectLambda::AccessPoint`
+    - `AWS::S3Outposts::Object`
+    - `AWS::SageMaker::Endpoint`
+    - `AWS::SageMaker::ExperimentTrialComponent`
+    - `AWS::SageMaker::FeatureGroup`
+    - `AWS::ServiceDiscovery::Namespace`
+    - `AWS::ServiceDiscovery::Service`
+    - `AWS::SCN::Instance`
+    - `AWS::SNS::PlatformEndpoint`
+    - `AWS::SNS::Topic`
+    - `AWS::SWF::Domain`
+    - `AWS::SQS::Queue`
+    - `AWS::SSMMessages::ControlChannel`
+    - `AWS::ThinClient::Device`
+    - `AWS::ThinClient::Environment`
+    - `AWS::Timestream::Database`
+    - `AWS::Timestream::Table`
+    - `AWS::VerifiedPermissions::PolicyStore`
+    (Optional) `scope` - The type of events to log. Valid values are `ALL`, `READ` and `WRITE`. Defaults to `WRITE`.
+    (Optional) `conditions` - A configuration of field conditions to filter events by the ARN of resource and the event name. Each item of `conditions` as defined below.
+      (Required) `field` - A field to compare by the field condition. Valid values are `event_name` and `resource_arn`.
+      (Required) `operator` - An operator of the field condition. Valid values are `equals`, `not_equals`, `starts_with`, `not_starts_with`, `ends_with`, `not_ends_with`.
+      (Required) `values` - A set of values of the field condition to compare.
+  EOF
+  type = list(object({
+    name          = optional(string)
+    resource_type = string
+    scope         = optional(string, "WRITE")
+    conditions = optional(list(object({
+      field    = string
+      operator = string
+      values   = set(string)
+    })), [])
+  }))
+  default  = []
+  nullable = false
+
+  validation {
+    condition = alltrue([
+      for selector in var.data_event_selectors :
+      contains(["ALL", "READ", "WRITE"], selector.scope)
+    ])
+    error_message = "Valid values for `scope` are `ALL`, `READ`, `WRITE`."
+  }
+  validation {
+    condition = alltrue([
+      for selector in var.data_event_selectors :
+      alltrue([
+        for condition in selector.conditions :
+        contains(["event_name", "resource_arn"], condition.field)
+      ])
+    ])
+    error_message = "Valid values for `field` of each condition are `event_name`, `resource_arn`."
+  }
+  validation {
+    condition = alltrue([
+      for selector in var.data_event_selectors :
+      alltrue([
+        for condition in selector.conditions :
+        contains(["equals", "not_equals", "starts_with", "not_starts_with", "ends_with", "not_ends_with"], condition.operator)
+      ])
+    ])
+    error_message = "Valid values for `operator` of each condition are `equals`, `not_equals`, `starts_with`, `not_starts_with`, `ends_with`, `not_ends_with`."
+  }
+}
+
+variable "insight_event_selector" {
+  description = <<EOF
+  (Optional) A configuration block for insight events logging to identify unusual operational activity. `insight_event_selector` block as defined below.
+    (Optional) `enabled` - Whether the trail to log insight events. Defaults to `false`.
     (Optional) `scopes` - A set of insight types to log on the trail. Valid values are `API_CALL_RATE` and `API_ERROR_RATE`.
   EOF
   type = object({
@@ -118,10 +244,10 @@ variable "insight_event" {
 
   validation {
     condition = alltrue([
-      for scope in var.insight_event.scopes :
+      for scope in var.insight_event_selector.scopes :
       contains(["API_CALL_RATE", "API_ERROR_RATE"], scope)
     ])
-    error_message = "Valid values for `insight_event.scopes` are `API_CALL_RATE`, `API_ERROR_RATE`."
+    error_message = "Valid values for `insight_event_selector.scopes` are `API_CALL_RATE`, `API_ERROR_RATE`."
   }
 }
 

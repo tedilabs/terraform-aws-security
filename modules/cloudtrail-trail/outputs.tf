@@ -41,29 +41,45 @@ output "iam_role" {
 }
 
 output "delivery_channels" {
-  description = "Delivery channels of the trail."
+  description = "The configurations for the delivery channels of the trail."
   value = {
-    s3 = {
-      bucket     = var.delivery_s3_bucket
-      key_prefix = var.delivery_s3_key_prefix
-
-      integrity_validation_enabled = var.delivery_s3_integrity_validation_enabled
+    s3_bucket = {
+      name                         = aws_cloudtrail.this.s3_bucket_name
+      key_prefix                   = aws_cloudtrail.this.s3_key_prefix
+      integrity_validation_enabled = aws_cloudtrail.this.enable_log_file_validation
+      sse_kms_key                  = var.delivery_channels.s3_bucket.sse_kms_key
     }
-    sns = {
-      topic = var.delivery_sns_topic
+    sns_topic = {
+      enabled = var.delivery_channels.sns_topic.enabled
+      name    = var.delivery_channels.sns_topic.name
     }
-    cloudwatch_logs = {
-      log_group = var.delivery_cloudwatch_logs_log_group
+    cloudwatch_log_group = {
+      enabled = var.delivery_channels.cloudwatch_log_group.enabled
+      arn     = aws_cloudtrail.this.cloud_watch_logs_group_arn
+      name    = var.delivery_channels.cloudwatch_log_group.name
     }
   }
 }
 
 output "management_event" {
-  description = "A configuration for management events logging of the trail."
-  value       = var.management_event
+  description = "A selector for management events of the trail."
+  value       = var.management_event_selector
+}
+
+output "data_event" {
+  description = "A list of selectors for data events of the trail."
+  value       = var.data_event_selectors
 }
 
 output "insight_event" {
-  description = "A configuration for insight events logging of the trail."
-  value       = var.insight_event
+  description = "A selector for insight events of the trail."
+  value       = var.insight_event_selector
 }
+
+# output "debug" {
+#   value = {
+#     for k, v in aws_cloudtrail.this :
+#     k => v
+#     if !contains(["id", "arn", "name", "enable_logging", "home_region", "s3_bucket_name", "s3_key_prefix", "enable_log_file_validation", "kms_key_id", "sns_topic_name", "cloud_watch_logs_group_arn", "tags", "tags_all", "is_multi_region_trail", "is_organization_trail", "include_global_service_events", "insight_selector", "event_selector", "advanced_event_selector"], k)
+#   }
+# }

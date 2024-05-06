@@ -9,21 +9,26 @@ data "aws_organizations_organization" "this" {}
 ###################################################
 
 module "role" {
-  count = var.delivery_cloudwatch_logs_log_group != null ? 1 : 0
+  count = var.delivery_channels.cloudwatch_log_group.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.23.0"
+  version = "~> 0.29.0"
 
   name        = "cloudtrail-${local.metadata.name}"
   path        = "/"
   description = "Role for the CloudTrail trail(${local.metadata.name})"
 
-  trusted_services = ["cloudtrail.amazonaws.com"]
+  trusted_service_policies = [
+    {
+      services = ["cloudtrail.amazonaws.com"]
+    }
+  ]
 
   inline_policies = {
     "cloudwatch" = one(data.aws_iam_policy_document.cloudwatch[*].json)
   }
 
+  force_detach_policies  = true
   resource_group_enabled = false
   module_tags_enabled    = false
 
@@ -44,12 +49,12 @@ locals {
   account_id = data.aws_caller_identity.this.account_id
   org_id     = data.aws_organizations_organization.this.id
 
-  cloudwatch_log_group_arn = var.delivery_cloudwatch_logs_log_group != null ? "arn:${local.partition}:logs:${local.region}:${local.account_id}:log-group:${var.delivery_cloudwatch_logs_log_group}" : null
+  cloudwatch_log_group_arn = var.delivery_channels.cloudwatch_log_group.enabled ? "arn:${local.partition}:logs:${local.region}:${local.account_id}:log-group:${var.delivery_channels.cloudwatch_log_group.name}" : null
 
 }
 
 data "aws_iam_policy_document" "cloudwatch" {
-  count = var.delivery_cloudwatch_logs_log_group != null ? 1 : 0
+  count = var.delivery_channels.cloudwatch_log_group.enabled ? 1 : 0
 
   statement {
     sid = "CreateLogStream"
