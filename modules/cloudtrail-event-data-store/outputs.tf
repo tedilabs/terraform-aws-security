@@ -2,6 +2,7 @@ output "arn" {
   description = "The Amazon Resource Name (ARN) of the event data store."
   value       = aws_cloudtrail_event_data_store.this.arn
 }
+
 output "id" {
   description = "The ID of the event data store."
   value       = aws_cloudtrail_event_data_store.this.id
@@ -40,7 +41,7 @@ output "data_event_selectors" {
 output "encryption" {
   description = "The configuration for the encryption of the event data store."
   value = {
-    # kms_key = aws_cloudtrail_event_data_store.this.kms_key_id
+    kms_key = aws_cloudtrail_event_data_store.this.kms_key_id
   }
 }
 
