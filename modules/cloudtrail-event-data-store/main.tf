@@ -43,8 +43,7 @@ resource "aws_cloudtrail_event_data_store" "this" {
 
 
   ## Encryption
-  # TODO: Not supported yet in aws provider
-  # kms_key_id = var.encryption_kms_key
+  kms_key_id = var.encryption.kms_key
 
 
   ## Event Selector - AWS CloudTrail Events (Management)
