@@ -41,6 +41,10 @@ resource "aws_macie2_account" "this" {
 
 # TODO: Cannot delete member account from AWS Organization
 # https://github.com/hashicorp/terraform-provider-aws/issues/26219
+# INFO: Not supported attributes
+# - `invite`
+# - `invitation_message`
+# - `invitation_disable_email_notification`
 resource "aws_macie2_member" "this" {
   for_each = {
     for account in var.member_accounts :
@@ -51,10 +55,12 @@ resource "aws_macie2_member" "this" {
   email      = each.value.email
   status     = try(each.value.enabled, true) ? "ENABLED" : "PAUSED"
 
+
   ## Invitation
   # invite                                = true
   # invitation_message                    = "Message of the invitation"
   # invitation_disable_email_notification = true
+
 
   tags = merge(
     {
@@ -84,12 +90,12 @@ resource "aws_macie2_member" "this" {
 ###################################################
 
 resource "aws_macie2_classification_export_configuration" "this" {
-  count = var.discovery_result != null ? 1 : 0
+  count = var.discovery_result_repository.s3_bucket != null ? 1 : 0
 
   s3_destination {
-    bucket_name = var.discovery_result.s3_bucket
-    key_prefix  = try(var.discovery_result.s3_key_prefix, "")
-    kms_key_arn = var.discovery_result.encryption_kms_key
+    bucket_name = var.discovery_result_repository.s3_bucket.name
+    key_prefix  = var.discovery_result_repository.s3_bucket.key_prefix
+    kms_key_arn = var.discovery_result_repository.s3_bucket.sse_kms_key
   }
 
   depends_on = [

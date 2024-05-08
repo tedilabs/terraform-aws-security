@@ -18,7 +18,7 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.19.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.48.0 |
 
 ## Modules
 
@@ -39,9 +39,9 @@ This module creates following resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_discovery_result"></a> [discovery\_result](#input\_discovery\_result) | (Optional) The configuration for discovery result location and encryption of the macie account. A `discovery_result` block as defined below.<br>    (Required) `s3_bucket` - The name of the S3 bucket in which Amazon Macie exports the data discovery result.<br>    (Optional) `s3_key_prefix` - The key prefix for the specified S3 bucket. Defaults to `""`.<br>    (Required) `encryption_kms_key` - The Amazon Resource Name (ARN) of the KMS key to be used to encrypt the data. | `map(any)` | `null` | no |
+| <a name="input_discovery_result_repository"></a> [discovery\_result\_repository](#input\_discovery\_result\_repository) | (Optional) The configuration for discovery result location and encryption of the macie account. A `discovery_result_repository` block as defined below.<br>    (Optional) `s3_bucket` - A configuration for the S3 bucket in which Amazon Macie exports the data discovery results. `s3_bucket` as defined below.<br>      (Required) `name` - The name of the S3 bucket in which Amazon Macie exports the data classification results.<br>      (Optional) `key_prefix` - The key prefix for the specified S3 bucket.<br>      (Required) `sse_kms_key` - The ARN of the AWS KMS key to be used to encrypt the data. | <pre>object({<br>    s3_bucket = optional(object({<br>      name        = string<br>      key_prefix  = optional(string, "")<br>      sse_kms_key = string<br>    }))<br>  })</pre> | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | (Optional) Whether to enable Amazon Macie and start all Macie activities for the account. Defaults to `true`. Set `false` to suspend Macie, it stops monitoring your AWS environment and does not generate new findings. The existing findings remain intact and are not affected. Delete `aws_macie2_account` resource to disable Macie, it permanently deletes all of your existing findings, classification jobs, and other Macie resources. | `bool` | `true` | no |
-| <a name="input_member_accounts"></a> [member\_accounts](#input\_member\_accounts) | (Optional) A list of configurations for member accounts on the macie account. Each block of `member_accounts` as defined below.<br>    (Required) `account_id` -<br>    (Required) `email` -<br>    (Optional) `enabled` - Whether to enable Amazon Macie and start all Macie activities for the member account.<br>    (Optional) `tags` - A map of key-value pairs that specifies the tags to associate with the account in Amazon Macie. | `any` | `[]` | no |
+| <a name="input_member_accounts"></a> [member\_accounts](#input\_member\_accounts) | (Optional) A list of configurations for member accounts on the macie account. Each block of `member_accounts` as defined below.<br>    (Required) `account_id` - The AWS account ID for the account.<br>    (Required) `email` -  The email address for the account.<br>    (Optional) `enabled` - Whether to enable Amazon Macie and start all Macie activities for the member account. Defaults to `true`.<br>    (Optional) `tags` - A map of key-value pairs that specifies the tags to associate with the account in Amazon Macie. | <pre>list(object({<br>    account_id = string<br>    email      = string<br>    enabled    = optional(bool, true)<br>    tags       = optional(map(string), {})<br>  }))</pre> | `[]` | no |
 | <a name="input_module_tags_enabled"></a> [module\_tags\_enabled](#input\_module\_tags\_enabled) | (Optional) Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |
 | <a name="input_resource_group_description"></a> [resource\_group\_description](#input\_resource\_group\_description) | (Optional) The description of Resource Group. | `string` | `"Managed by Terraform."` | no |
 | <a name="input_resource_group_enabled"></a> [resource\_group\_enabled](#input\_resource\_group\_enabled) | (Optional) Whether to create Resource Group to find and group AWS resources which are created by this module. | `bool` | `true` | no |
@@ -54,6 +54,7 @@ This module creates following resources.
 | Name | Description |
 |------|-------------|
 | <a name="output_created_at"></a> [created\_at](#output\_created\_at) | The date and time, in UTC and extended RFC 3339 format, when the Amazon Macie account was created. |
+| <a name="output_discovery_result_repository"></a> [discovery\_result\_repository](#output\_discovery\_result\_repository) | The configuration for discovery result location and encryption of the macie account. |
 | <a name="output_enabled"></a> [enabled](#output\_enabled) | Whether the macie account is eanbled. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the macie account. |
 | <a name="output_member_accounts"></a> [member\_accounts](#output\_member\_accounts) | The list of configruations for member accounts on the macie account. |

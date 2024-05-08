@@ -43,18 +43,22 @@ output "member_accounts" {
   value = {
     for id, account in aws_macie2_member.this :
     id => {
-      id      = account.id
-      arn     = account.arn
-      email   = account.email
-      enabled = account.status == "ENABLED"
+      id                  = account.id
+      arn                 = account.arn
+      email               = account.email
+      enabled             = account.status == "ENABLED"
+      relationship_status = account.relationship_status
+
+      updated_at = account.updated_at
     }
   }
 }
 
-# TODO
-# output "discovery_result" {
-#   description = <<EOF
-#   The configuration for discovery result location and encryption of the macie account.
-#   EOF
-#   value       = aws_macie2_classification_export_configuration.this
-# }
+output "discovery_result_repository" {
+  description = <<EOF
+  The configuration for discovery result location and encryption of the macie account.
+  EOF
+  value = {
+    s3_bucket = var.discovery_result_repository.s3_bucket
+  }
+}
