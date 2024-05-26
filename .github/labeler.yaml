@@ -1,13 +1,30 @@
 # Modules
 ":floppy_disk: access-analyzer":
-- modules/access-analyzer/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/access-analyzer/**/*
+
 ":floppy_disk: cloudtrail-trail":
-- modules/cloudtrail-trail/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/cloudtrail-trail/**/*
+
 ":floppy_disk: cloudtrail-event-data-store":
-- modules/cloudtrail-event-data-store/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/cloudtrail-event-data-store/**/*
+
 ":floppy_disk: config-recorder":
-- modules/config-recorder/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/config-recorder/**/*
+
 ":floppy_disk: config-managed-rule":
-- modules/config-managed-rule/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/config-managed-rule/**/*
+
 ":floppy_disk: macie-account":
-- modules/macie-account/**/*
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/macie-account/**/*
