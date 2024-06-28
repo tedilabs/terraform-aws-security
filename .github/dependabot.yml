@@ -7,11 +7,6 @@ updates:
 
 - package-ecosystem: terraform
   directories:
-  - /modules/access-analyzer
-  - /modules/cloudtrail-event-data-store
-  - /modules/cloudtrail-trail
-  - /modules/config-managed-rule
-  - /modules/config-recorder
-  - /modules/macie-account
+  - /modules/*
   schedule:
     interval: weekly
