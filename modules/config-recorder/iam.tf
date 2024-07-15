@@ -13,7 +13,7 @@ module "role__recorder" {
   count = var.default_service_role.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.28.0"
+  version = "~> 0.30.5"
 
   name = coalesce(
     var.default_service_role.name,
@@ -53,7 +53,7 @@ module "role__aggregator" {
   count = var.organization_aggregation.enabled && var.default_organization_aggregator_role.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.28.0"
+  version = "~> 0.30.5"
 
   name = coalesce(
     var.default_organization_aggregator_role.name,
