@@ -5,7 +5,7 @@ This module creates following resources.
 - `aws_accessanalyzer_analyzer`
 - `aws_accessanalyzer_archive_rule` (optional)
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -58,4 +58,4 @@ This module creates following resources.
 | <a name="output_scope"></a> [scope](#output\_scope) | The scope of Analyzer. |
 | <a name="output_type"></a> [type](#output\_type) | The finding type of Analyzer. |
 | <a name="output_unused_access_tracking_period"></a> [unused\_access\_tracking\_period](#output\_unused\_access\_tracking\_period) | The scope of Analyzer. |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->

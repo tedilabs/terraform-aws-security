@@ -6,7 +6,7 @@ This module creates following resources.
 - `aws_macie2_member` (optional)
 - `aws_macie2_classification_export_configuration` (optional)
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -62,4 +62,4 @@ This module creates following resources.
 | <a name="output_service_role"></a> [service\_role](#output\_service\_role) | The Amazon Resource Name (ARN) of the service-linked role that allows Macie to monitor and analyze data in AWS resources for the account. |
 | <a name="output_update_frequency"></a> [update\_frequency](#output\_update\_frequency) | How often to publish updates to policy findings for the macie account. |
 | <a name="output_updated_at"></a> [updated\_at](#output\_updated\_at) | The date and time, in UTC and extended RFC 3339 format, of the most recent change to the status of the Macie account. |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->

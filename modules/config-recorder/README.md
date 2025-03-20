@@ -12,7 +12,7 @@ This module creates following resources.
 - `aws_iam_role_policy`
 - `aws_iam_role_policy_attachment`
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -89,4 +89,4 @@ This module creates following resources.
 | <a name="output_scope"></a> [scope](#output\_scope) | A list that specifies the types of AWS resources for which AWS Config records configuration changes.<br>    `strategy` - The recording strategy for the configuration recorder.<br>    `resource_types` - A list of resource types to include/exclude for recording. |
 | <a name="output_service_role"></a> [service\_role](#output\_service\_role) | The Amazon Resource Name (ARN) of the IAM role for the recorder. |
 | <a name="output_snapshot_delivery"></a> [snapshot\_delivery](#output\_snapshot\_delivery) | The configuration for the configuration snapshot delivery of the recorder.<br>    `enabled` - Whether the configuration snapshot delivery is enabled.<br>    `frequency` - The frequency with which AWS Config recurringly delivers configuration snapshots. |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->

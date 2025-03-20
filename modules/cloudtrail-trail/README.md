@@ -7,7 +7,7 @@ This module creates following resources.
 - `aws_iam_role_policy` (optional)
 - `aws_iam_role_policy_attachment` (optional)
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -74,4 +74,4 @@ This module creates following resources.
 | <a name="output_management_event"></a> [management\_event](#output\_management\_event) | A selector for management events of the trail. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the trail. |
 | <a name="output_scope"></a> [scope](#output\_scope) | The scope of the trail to decide whether the trail is multi-region trail. |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->

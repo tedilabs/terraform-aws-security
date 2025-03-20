@@ -10,7 +10,7 @@ This module creates following resources.
 - https://console.aws.amazon.com/config/service/managedRuleTemplate?region=ap-northeast-2
 
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -74,4 +74,4 @@ This module creates following resources.
 | <a name="output_source_rule"></a> [source\_rule](#output\_source\_rule) | The information of the managed rule used. |
 | <a name="output_trigger_by_change"></a> [trigger\_by\_change](#output\_trigger\_by\_change) | The information of trigger by configuration changes. |
 | <a name="output_trigger_by_schedule"></a> [trigger\_by\_schedule](#output\_trigger\_by\_schedule) | The information of trigger by schedule. |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->

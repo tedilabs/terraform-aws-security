@@ -7,7 +7,7 @@ This module creates following resources.
 - `aws_iam_role_policy` (optional)
 - `aws_iam_role_policy_attachment` (optional)
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -72,4 +72,4 @@ This module creates following resources.
 | <a name="output_retention_in_days"></a> [retention\_in\_days](#output\_retention\_in\_days) | The retention period of the event data store, in days. |
 | <a name="output_scope"></a> [scope](#output\_scope) | The scope of the event data store to decide whether the event data store includes events from all regions, or only from the region in which the event data store is created. |
 | <a name="output_termination_protection_enabled"></a> [termination\_protection\_enabled](#output\_termination\_protection\_enabled) | Whether termination protection is enabled for the event data store. |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
