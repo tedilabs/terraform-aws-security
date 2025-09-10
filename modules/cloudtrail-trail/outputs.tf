@@ -83,3 +83,19 @@ output "insight_event" {
 #     if !contains(["id", "arn", "name", "enable_logging", "home_region", "s3_bucket_name", "s3_key_prefix", "enable_log_file_validation", "kms_key_id", "sns_topic_name", "cloud_watch_logs_group_arn", "tags", "tags_all", "is_multi_region_trail", "is_organization_trail", "include_global_service_events", "insight_selector", "event_selector", "advanced_event_selector"], k)
 #   }
 # }
+
+output "resource_group" {
+  description = "The resource group created to manage resources in this module."
+  value = merge(
+    {
+      enabled = var.resource_group.enabled && var.module_tags_enabled
+    },
+    (var.resource_group.enabled && var.module_tags_enabled
+      ? {
+        arn  = module.resource_group[0].arn
+        name = module.resource_group[0].name
+      }
+      : {}
+    )
+  )
+}
