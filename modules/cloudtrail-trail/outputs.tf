@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_cloudtrail.this.region
+}
+
 output "arn" {
   description = "The Amazon Resource Name (ARN) of the trail."
   value       = aws_cloudtrail.this.arn

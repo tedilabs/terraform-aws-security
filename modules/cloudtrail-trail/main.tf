@@ -44,6 +44,8 @@ locals {
 # INFO: Not supported attributes
 # - `event_selector`
 resource "aws_cloudtrail" "this" {
+  region = var.region
+
   name           = var.name
   enable_logging = var.enabled
 

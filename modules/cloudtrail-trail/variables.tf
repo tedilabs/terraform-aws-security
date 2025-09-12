@@ -1,3 +1,10 @@
+variable "region" {
+  description = "(Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
 variable "name" {
   description = "(Required) The name of the trail. The name can only contain uppercase letters, lowercase letters, numbers, periods (.), hyphens (-), and underscores (_)."
   type        = string

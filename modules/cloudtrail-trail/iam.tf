@@ -1,5 +1,7 @@
 data "aws_partition" "this" {}
-data "aws_region" "this" {}
+data "aws_region" "this" {
+  region = var.region
+}
 data "aws_caller_identity" "this" {}
 data "aws_organizations_organization" "this" {}
 
