@@ -14,7 +14,7 @@ module "role" {
   count = var.delivery_channels.cloudwatch_log_group.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.29.0"
+  version = "~> 0.32.0"
 
   name        = "cloudtrail-${local.metadata.name}"
   path        = "/"
@@ -30,9 +30,11 @@ module "role" {
     "cloudwatch" = one(data.aws_iam_policy_document.cloudwatch[*].json)
   }
 
-  force_detach_policies  = true
-  resource_group_enabled = false
-  module_tags_enabled    = false
+  force_detach_policies = true
+  resource_group = {
+    enabled = false
+  }
+  module_tags_enabled = false
 
   tags = merge(
     local.module_tags,

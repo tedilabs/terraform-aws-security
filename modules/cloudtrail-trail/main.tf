@@ -30,10 +30,6 @@ locals {
     "API_CALL_RATE"  = "ApiCallRateInsight"
     "API_ERROR_RATE" = "ApiErrorRateInsight"
   }
-  condition_fields = {
-    "event_name"   = "eventName"
-    "resource_arn" = "resources.ARN"
-  }
 }
 
 
@@ -151,7 +147,7 @@ resource "aws_cloudtrail" "this" {
         iterator = condition
 
         content {
-          field = local.condition_fields[condition.value.field]
+          field = condition.value.field
 
           equals          = condition.value.operator == "equals" ? condition.value.values : null
           not_equals      = condition.value.operator == "not_equals" ? condition.value.values : null

@@ -190,7 +190,7 @@ variable "data_event_selectors" {
     - `AWS::VerifiedPermissions::PolicyStore`
     (Optional) `scope` - The type of events to log. Valid values are `ALL`, `READ` and `WRITE`. Defaults to `WRITE`.
     (Optional) `conditions` - A configuration of field conditions to filter events by the ARN of resource and the event name. Each item of `conditions` as defined below.
-      (Required) `field` - A field to compare by the field condition. Valid values are `event_name` and `resource_arn`.
+      (Required) `field` - A field to compare by the field condition. Valid values are `eventName`, `eventSource`, `eventType`, `resources.ARN`, `sessionCredentialFromConsole` and `userIdentity.arn`.
       (Required) `operator` - An operator of the field condition. Valid values are `equals`, `not_equals`, `starts_with`, `not_starts_with`, `ends_with`, `not_ends_with`.
       (Required) `values` - A set of values of the field condition to compare.
   EOF
@@ -219,10 +219,10 @@ variable "data_event_selectors" {
       for selector in var.data_event_selectors :
       alltrue([
         for condition in selector.conditions :
-        contains(["event_name", "resource_arn"], condition.field)
+        contains(["eventName", "eventSource", "eventType", "resources.ARN", "sessionCredentialFromConsole", "userIdentity.arn"], condition.field)
       ])
     ])
-    error_message = "Valid values for `field` of each condition are `event_name`, `resource_arn`."
+    error_message = "Valid values for `field` of each condition are `eventName`, `eventSource`, `eventType`, `resources.ARN`, `sessionCredentialFromConsole`, `userIdentity.arn`."
   }
   validation {
     condition = alltrue([
@@ -276,9 +276,6 @@ variable "module_tags_enabled" {
 ###################################################
 # Resource Group
 ###################################################
-
-
-
 
 variable "resource_group" {
   description = <<EOF
