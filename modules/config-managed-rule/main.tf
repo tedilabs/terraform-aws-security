@@ -34,7 +34,7 @@ locals {
       tag_value      = null
     }
     "RESOURCES" = {
-      resource_types = concat(var.resource_types, try(local.rule.trigger_by_change.scope.resource_types, []))
+      resource_types = concat(var.resource_types, local.rule.trigger_by_change.enabled ? local.rule.trigger_by_change.scope.resource_types : [])
       resource_id    = var.resource_id
       tag_key        = null
       tag_value      = null
