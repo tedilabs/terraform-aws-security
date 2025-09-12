@@ -60,6 +60,8 @@ locals {
 ###################################################
 
 resource "aws_config_configuration_recorder" "this" {
+  region = var.region
+
   name = var.name
   role_arn = (var.default_service_role.enabled
     ? module.role__recorder[0].arn
@@ -101,6 +103,8 @@ resource "aws_config_configuration_recorder" "this" {
 }
 
 resource "aws_config_configuration_recorder_status" "this" {
+  region = var.region
+
   name       = aws_config_configuration_recorder.this.name
   is_enabled = var.enabled
 
@@ -110,6 +114,8 @@ resource "aws_config_configuration_recorder_status" "this" {
 }
 
 resource "aws_config_retention_configuration" "this" {
+  region = var.region
+
   retention_period_in_days = var.retention_period
 }
 
@@ -119,6 +125,8 @@ resource "aws_config_retention_configuration" "this" {
 ###################################################
 
 resource "aws_config_delivery_channel" "this" {
+  region = var.region
+
   name = aws_config_configuration_recorder.this.name
 
   s3_bucket_name = var.delivery_channels.s3_bucket.name

@@ -2,14 +2,15 @@
 # Authorization for Aggregators
 ###################################################
 
+# TODO: Not yet support `region` for AWS provider v6
 resource "aws_config_aggregate_authorization" "this" {
   for_each = {
     for aggregator in var.authorized_aggregators :
     "${aggregator.account}:${aggregator.region}" => aggregator
   }
 
-  account_id = each.value.account
-  region     = each.value.region
+  account_id            = each.value.account
+  authorized_aws_region = each.value.region
 
   tags = merge(
     local.module_tags,
@@ -28,6 +29,8 @@ resource "aws_config_configuration_aggregator" "account" {
     for aggregation in var.account_aggregations :
     aggregation.name => aggregation
   }
+
+  region = var.region
 
   name = each.key
 
@@ -52,6 +55,8 @@ resource "aws_config_configuration_aggregator" "account" {
 
 resource "aws_config_configuration_aggregator" "organization" {
   count = var.organization_aggregation.enabled ? 1 : 0
+
+  region = var.region
 
   name = var.organization_aggregation.name
 

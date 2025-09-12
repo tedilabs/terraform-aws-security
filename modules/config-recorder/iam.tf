@@ -13,7 +13,7 @@ module "role__recorder" {
   count = var.default_service_role.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.28.0"
+  version = "~> 0.32.0"
 
   name = coalesce(
     var.default_service_role.name,
@@ -39,9 +39,11 @@ module "role__recorder" {
     var.default_service_role.inline_policies
   )
 
-  force_detach_policies  = true
-  resource_group_enabled = false
-  module_tags_enabled    = false
+  force_detach_policies = true
+  resource_group = {
+    enabled = false
+  }
+  module_tags_enabled = false
 
   tags = merge(
     local.module_tags,
@@ -53,7 +55,7 @@ module "role__aggregator" {
   count = var.organization_aggregation.enabled && var.default_organization_aggregator_role.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.28.0"
+  version = "~> 0.32.0"
 
   name = coalesce(
     var.default_organization_aggregator_role.name,
@@ -74,9 +76,11 @@ module "role__aggregator" {
   )
   inline_policies = var.default_organization_aggregator_role.inline_policies
 
-  force_detach_policies  = true
-  resource_group_enabled = false
-  module_tags_enabled    = false
+  force_detach_policies = true
+  resource_group = {
+    enabled = false
+  }
+  module_tags_enabled = false
 
   tags = merge(
     local.module_tags,

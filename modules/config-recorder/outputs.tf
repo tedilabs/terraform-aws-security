@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_config_configuration_recorder.this.region
+}
+
 output "name" {
   description = "The name of the recorder."
   value       = aws_config_configuration_recorder.this.name
