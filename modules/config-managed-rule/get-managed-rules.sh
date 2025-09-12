@@ -1,11 +1,14 @@
 #!/usr/bin/env sh
 
+curl https://a.b.cdn.console.awsstatic.com/a/v1/775YGM4M3SHLVWHBMZMAQNPI5LE3J2LYXJ5DISHSLQR4LRANT23A/managed-rules.json -o raw.json
 cat raw.json | jq '
   [
-    .payload[] | {
+    .[] | {
       id: .identifier,
       default_name: .defaultName,
       description: .description,
+      is_ready: .isReadyToUse,
+      supported_evaluation_modes: (.supportedEvaluationModes | map(.evaluationMode)),
       parameters: {
         required: .compulsoryInputParameterDetails,
         optional: .optionalInputParameterDetails
@@ -14,7 +17,7 @@ cat raw.json | jq '
         enabled: (.sourceDetails | map(.messageType == "ConfigurationItemChangeNotification" or .messageType == "OversizedConfigurationItemChangeNotification") | any(.) ),
         scope: (if (.scope != null)
             then {
-              resource_types: .scope.resourceTypes
+              resource_types: .scope.ResourceTypes
             }
             else null
           end),
