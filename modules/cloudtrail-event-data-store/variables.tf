@@ -11,6 +11,13 @@ variable "name" {
   nullable    = false
 }
 
+variable "enabled" {
+  description = "(Optional) Whether to enable ingesting new events into the event data store. If set to `false`, ingestion is suspended while maintaining the ability to query existing events. If set to `true`, ingestion is active. Defaults to `true`."
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
 variable "level" {
   description = "(Optional) The level of the event data store to decide whether the event data store collects events logged for an organization in AWS Organizations. Can be created in the management account or delegated administrator account. Valid values are `ACCOUNT` and `ORGANIZATION`. Defaults to `ACCOUNT`."
   type        = string
@@ -140,7 +147,7 @@ variable "data_event_selectors" {
     - `AWS::VerifiedPermissions::PolicyStore`
     (Optional) `scope` - The type of events to log. Valid values are `ALL`, `READ` and `WRITE`. Defaults to `WRITE`.
     (Optional) `conditions` - A configuration of field conditions to filter events by the ARN of resource and the event name. Each item of `conditions` as defined below.
-      (Required) `field` - A field to compare by the field condition. Valid values are `event_name` and `resource_arn`.
+      (Required) `field` - A field to compare by the field condition. Valid values are `eventName`, `eventSource`, `eventType`, `resources.ARN`, `sessionCredentialFromConsole` and `userIdentity.arn`.
       (Required) `operator` - An operator of the field condition. Valid values are `equals`, `not_equals`, `starts_with`, `not_starts_with`, `ends_with`, `not_ends_with`.
       (Required) `values` - A set of values of the field condition to compare.
   EOF
@@ -169,10 +176,10 @@ variable "data_event_selectors" {
       for selector in var.data_event_selectors :
       alltrue([
         for condition in selector.conditions :
-        contains(["event_name", "resource_arn"], condition.field)
+        contains(["eventName", "eventSource", "eventType", "resources.ARN", "sessionCredentialFromConsole", "userIdentity.arn"], condition.field)
       ])
     ])
-    error_message = "Valid values for `field` of each condition are `event_name`, `resource_arn`."
+    error_message = "Valid values for `field` of each condition are `eventName`, `eventSource`, `eventType`, `resources.ARN`, `sessionCredentialFromConsole`, `userIdentity.arn`."
   }
   validation {
     condition = alltrue([
@@ -196,6 +203,18 @@ variable "encryption" {
   })
   default  = {}
   nullable = false
+}
+
+variable "billing_mode" {
+  description = "(Optional) The billing mode for the event data store. Valid values are `EXTENDABLE_RETENTION_PRICING` and `FIXED_RETENTION_PRICING`. Defaults to `EXTENDABLE_RETENTION_PRICING`."
+  type        = string
+  default     = "EXTENDABLE_RETENTION_PRICING"
+  nullable    = false
+
+  validation {
+    condition     = contains(["EXTENDABLE_RETENTION_PRICING", "FIXED_RETENTION_PRICING"], var.billing_mode)
+    error_message = "Valid values for `billing_mode` are `EXTENDABLE_RETENTION_PRICING`, `FIXED_RETENTION_PRICING`."
+  }
 }
 
 variable "retention_in_days" {
@@ -257,9 +276,6 @@ variable "module_tags_enabled" {
 ###################################################
 # Resource Group
 ###################################################
-
-
-
 
 variable "resource_group" {
   description = <<EOF

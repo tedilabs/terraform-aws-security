@@ -18,6 +18,11 @@ output "name" {
   value       = aws_cloudtrail_event_data_store.this.name
 }
 
+output "enabled" {
+  description = "Whether the event data store is enabled."
+  value       = !aws_cloudtrail_event_data_store.this.suspend
+}
+
 output "level" {
   description = "The level of the event data store to decide whether the event data store collects events logged for an organization in AWS Organizations."
   value       = aws_cloudtrail_event_data_store.this.organization_enabled ? "ORGANIZATION" : "ACCOUNT"
@@ -48,6 +53,11 @@ output "encryption" {
   value = {
     kms_key = aws_cloudtrail_event_data_store.this.kms_key_id
   }
+}
+
+output "billing_mode" {
+  description = "The billing mode for the event data store."
+  value       = aws_cloudtrail_event_data_store.this.billing_mode
 }
 
 output "retention_in_days" {

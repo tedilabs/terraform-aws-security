@@ -24,10 +24,6 @@ locals {
     "READ"  = "ReadOnly"
     "WRITE" = "WriteOnly"
   }
-  condition_fields = {
-    "event_name"   = "eventName"
-    "resource_arn" = "resources.ARN"
-  }
 }
 
 
@@ -36,8 +32,10 @@ locals {
 ###################################################
 
 resource "aws_cloudtrail_event_data_store" "this" {
-  name = var.name
   region = var.region
+
+  name    = var.name
+  suspend = !var.enabled
 
   organization_enabled = var.level == "ORGANIZATION"
   multi_region_enabled = var.scope == "ALL"
@@ -119,7 +117,7 @@ resource "aws_cloudtrail_event_data_store" "this" {
         iterator = condition
 
         content {
-          field = local.condition_fields[condition.value.field]
+          field = condition.value.field
 
           equals          = condition.value.operator == "equals" ? condition.value.values : null
           not_equals      = condition.value.operator == "not_equals" ? condition.value.values : null
@@ -148,6 +146,7 @@ resource "aws_cloudtrail_event_data_store" "this" {
 
 
   ## Attributes
+  billing_mode                   = var.billing_mode
   retention_period               = var.retention_in_days
   termination_protection_enabled = var.termination_protection_enabled
 
