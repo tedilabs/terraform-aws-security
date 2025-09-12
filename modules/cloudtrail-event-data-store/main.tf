@@ -37,6 +37,7 @@ locals {
 
 resource "aws_cloudtrail_event_data_store" "this" {
   name = var.name
+  region = var.region
 
   organization_enabled = var.level == "ORGANIZATION"
   multi_region_enabled = var.scope == "ALL"

@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_cloudtrail_event_data_store.this.region
+}
+
 output "arn" {
   description = "The Amazon Resource Name (ARN) of the event data store."
   value       = aws_cloudtrail_event_data_store.this.arn
