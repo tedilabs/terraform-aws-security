@@ -1,3 +1,11 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value = try(
+    aws_config_config_rule.this[0].region,
+    aws_config_organization_managed_rule.this[0].region
+  )
+}
+
 output "id" {
   description = "The ID of the rule."
   value = try(

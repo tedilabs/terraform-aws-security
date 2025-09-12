@@ -42,8 +42,8 @@ locals {
     "TAGS" = {
       resource_types = null
       resource_id    = null
-      tag_key        = try(var.resource_tag.key, null)
-      tag_value      = try(var.resource_tag.value, null)
+      tag_key        = var.resource_tag != null ? var.resource_tag.key : null
+      tag_value      = var.resource_tag != null ? var.resource_tag.value : null
     }
   }
 }
@@ -55,6 +55,8 @@ locals {
 
 resource "aws_config_config_rule" "this" {
   count = var.level == "ACCOUNT" ? 1 : 0
+
+  region = var.region
 
   name        = local.metadata.name
   description = coalesce(var.description, local.rule.description)
@@ -118,6 +120,8 @@ resource "aws_config_config_rule" "this" {
 
 resource "aws_config_organization_managed_rule" "this" {
   count = var.level == "ORGANIZATION" ? 1 : 0
+
+  region = var.region
 
   name        = local.metadata.name
   description = coalesce(var.description, local.rule.description)

@@ -1,3 +1,10 @@
+variable "region" {
+  description = "(Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
 variable "source_rule" {
   description = "(Required) The identifier for AWS Config managed rule. Use the format like `root-account-mfa-enabled` instead of predefiend format like `ROOT_ACCOUNT_MFA_ENABLED`."
   type        = string
@@ -69,6 +76,14 @@ variable "resource_types" {
   type        = list(string)
   default     = []
   nullable    = false
+
+  validation {
+    condition = anytrue([
+      var.scope != "RESOURCES",
+      var.scope == "RESOURCES" && length(var.resource_types) > 0,
+    ])
+    error_message = "You must provide at least one resource type in `resource_types` when `scope` is configured with value `RESOURCES`."
+  }
 }
 
 variable "resource_id" {
@@ -76,13 +91,24 @@ variable "resource_id" {
   type        = string
   default     = null
   nullable    = true
+
+  validation {
+    condition = anytrue([
+      var.scope != "RESOURCES",
+      var.scope == "RESOURCES" && (var.resource_id == null || (var.resource_id != null && length(var.resource_types) == 1)),
+    ])
+    error_message = "You must provide only one resource type in `resource_types` when `resource_id` is specified and `scope` is configured with value `RESOURCES`."
+  }
 }
 
 variable "resource_tag" {
   description = "(Optional) The tag that are applied to only those AWS resources that you want you want to trigger an evaluation for the rule. You can configure with only `key` or a set of `key` and `value`. Only need when `scope` is configured with value `TAGS`."
-  type        = map(string)
-  default     = {}
-  nullable    = false
+  type = object({
+    key   = string
+    value = optional(string)
+  })
+  default  = null
+  nullable = true
 }
 
 variable "schedule_frequency" {
@@ -117,9 +143,6 @@ variable "module_tags_enabled" {
 ###################################################
 # Resource Group
 ###################################################
-
-
-
 
 variable "resource_group" {
   description = <<EOF

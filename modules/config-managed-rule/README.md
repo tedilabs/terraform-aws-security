@@ -15,20 +15,20 @@ This module creates following resources.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.6 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.23 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.46.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.13.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.10.0 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 
 ## Resources
 
@@ -43,17 +43,16 @@ This module creates following resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_source_rule"></a> [source\_rule](#input\_source\_rule) | (Required) The identifier for AWS Config managed rule. Use the format like `root-account-mfa-enabled` instead of predefiend format like `ROOT_ACCOUNT_MFA_ENABLED`. | `string` | n/a | yes |
 | <a name="input_description"></a> [description](#input\_description) | (Optional) The description of the rule. Use default description if not provided. | `string` | `null` | no |
-| <a name="input_evaluation_modes"></a> [evaluation\_modes](#input\_evaluation\_modes) | (Optional) A set of evaluation modes to enable for the Config rule. Valid values are `DETECTIVE`, `PROACTIVE`. Default value contains only `DETECTIVE`. | `set(string)` | <pre>[<br>  "DETECTIVE"<br>]</pre> | no |
+| <a name="input_evaluation_modes"></a> [evaluation\_modes](#input\_evaluation\_modes) | (Optional) A set of evaluation modes to enable for the Config rule. Valid values are `DETECTIVE`, `PROACTIVE`. Default value contains only `DETECTIVE`. | `set(string)` | <pre>[<br/>  "DETECTIVE"<br/>]</pre> | no |
 | <a name="input_excluded_accounts"></a> [excluded\_accounts](#input\_excluded\_accounts) | (Optional) A list of AWS account identifiers to exclude from the rule. Only need when `level` is configured with value `ORGANIZATION`. | `list(string)` | `[]` | no |
 | <a name="input_level"></a> [level](#input\_level) | (Optional) Choose to create a rule across all accounts in your Organization. Valid values are `ACCOUNT` and `ORGANIZATION`. Use `ORGANIZATION` level in Organization master account or delegated administrator accounts. | `string` | `"ACCOUNT"` | no |
 | <a name="input_module_tags_enabled"></a> [module\_tags\_enabled](#input\_module\_tags\_enabled) | (Optional) Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | (Optional) The name of the rule. Use default rule name if not provided. | `string` | `null` | no |
 | <a name="input_parameters"></a> [parameters](#input\_parameters) | (Optional) A map of parameters that is passed to the AWS Config rule Lambda function. | `any` | `{}` | no |
-| <a name="input_resource_group_description"></a> [resource\_group\_description](#input\_resource\_group\_description) | (Optional) The description of Resource Group. | `string` | `"Managed by Terraform."` | no |
-| <a name="input_resource_group_enabled"></a> [resource\_group\_enabled](#input\_resource\_group\_enabled) | (Optional) Whether to create Resource Group to find and group AWS resources which are created by this module. | `bool` | `true` | no |
-| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | (Optional) The name of Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`. | `string` | `""` | no |
+| <a name="input_region"></a> [region](#input\_region) | (Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region. | `string` | `null` | no |
+| <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | (Optional) A configurations of Resource Group for this module. `resource_group` as defined below.<br/>    (Optional) `enabled` - Whether to create Resource Group to find and group AWS resources which are created by this module. Defaults to `true`.<br/>    (Optional) `name` - The name of Resource Group. A Resource Group name can have a maximum of 127 characters, including letters, numbers, hyphens, dots, and underscores. The name cannot start with `AWS` or `aws`. If not provided, a name will be generated using the module name and instance name.<br/>    (Optional) `description` - The description of Resource Group. Defaults to `Managed by Terraform.`. | <pre>object({<br/>    enabled     = optional(bool, true)<br/>    name        = optional(string, "")<br/>    description = optional(string, "Managed by Terraform.")<br/>  })</pre> | `{}` | no |
 | <a name="input_resource_id"></a> [resource\_id](#input\_resource\_id) | (Optional) The ID of the only AWS resource that you want to trigger an evaluation for the rule. If you specify this, you must specify only one resource type for `resource_types`. Only need when `scope` is configured with value `RESOURCES`. | `string` | `null` | no |
-| <a name="input_resource_tag"></a> [resource\_tag](#input\_resource\_tag) | (Optional) The tag that are applied to only those AWS resources that you want you want to trigger an evaluation for the rule. You can configure with only `key` or a set of `key` and `value`. Only need when `scope` is configured with value `TAGS`. | `map(string)` | `{}` | no |
+| <a name="input_resource_tag"></a> [resource\_tag](#input\_resource\_tag) | (Optional) The tag that are applied to only those AWS resources that you want you want to trigger an evaluation for the rule. You can configure with only `key` or a set of `key` and `value`. Only need when `scope` is configured with value `TAGS`. | <pre>object({<br/>    key   = string<br/>    value = optional(string)<br/>  })</pre> | `null` | no |
 | <a name="input_resource_types"></a> [resource\_types](#input\_resource\_types) | (Optional) A list of resource types of only those AWS resources that you want to trigger an evaluation for the rule. For example, `AWS::EC2::Instance` or `AWS::CloudTrail::Trail`. Only need when `scope` is configured with value `RESOURCES`. | `list(string)` | `[]` | no |
 | <a name="input_schedule_frequency"></a> [schedule\_frequency](#input\_schedule\_frequency) | (Optional) The frequency with which AWS Config runs evaluations for a rule. Use default value if not provided. Valid values are `1h`, `3h`, `6h`, `12h`, or `24h`. | `string` | `null` | no |
 | <a name="input_scope"></a> [scope](#input\_scope) | (Optional) Choose when evaluations will occur. Valid values are `ALL_CHANGES`, `RESOURCES`, or `TAGS`. | `string` | `"RESOURCES"` | no |
@@ -71,6 +70,8 @@ This module creates following resources.
 | <a name="output_level"></a> [level](#output\_level) | The level of the rule. `ACOUNT` or `ORGANIZATION`. The rule is for accounts in your Organization if the value is configured with `ORGANIZATION`. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the rule. |
 | <a name="output_parameters"></a> [parameters](#output\_parameters) | The parameters of the rule. |
+| <a name="output_region"></a> [region](#output\_region) | The AWS region this module resources resides in. |
+| <a name="output_resource_group"></a> [resource\_group](#output\_resource\_group) | The resource group created to manage resources in this module. |
 | <a name="output_source_rule"></a> [source\_rule](#output\_source\_rule) | The information of the managed rule used. |
 | <a name="output_trigger_by_change"></a> [trigger\_by\_change](#output\_trigger\_by\_change) | The information of trigger by configuration changes. |
 | <a name="output_trigger_by_schedule"></a> [trigger\_by\_schedule](#output\_trigger\_by\_schedule) | The information of trigger by schedule. |
