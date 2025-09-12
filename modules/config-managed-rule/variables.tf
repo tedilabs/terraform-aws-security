@@ -76,14 +76,6 @@ variable "resource_types" {
   type        = list(string)
   default     = []
   nullable    = false
-
-  validation {
-    condition = anytrue([
-      var.scope != "RESOURCES",
-      var.scope == "RESOURCES" && length(var.resource_types) > 0,
-    ])
-    error_message = "You must provide at least one resource type in `resource_types` when `scope` is configured with value `RESOURCES`."
-  }
 }
 
 variable "resource_id" {
@@ -91,14 +83,6 @@ variable "resource_id" {
   type        = string
   default     = null
   nullable    = true
-
-  validation {
-    condition = anytrue([
-      var.scope != "RESOURCES",
-      var.scope == "RESOURCES" && (var.resource_id == null || (var.resource_id != null && length(var.resource_types) == 1)),
-    ])
-    error_message = "You must provide only one resource type in `resource_types` when `resource_id` is specified and `scope` is configured with value `RESOURCES`."
-  }
 }
 
 variable "resource_tag" {
