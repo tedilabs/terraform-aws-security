@@ -20,24 +20,74 @@ locals {
 ###################################################
 
 resource "aws_accessanalyzer_analyzer" "this" {
+  region = var.region
+
   analyzer_name = var.name
-  type = (var.type == "EXTERNAL_ACCESS"
-    ? var.scope
-    : (var.type == "UNUSED_ACCESS"
-      ? "${var.scope}_UNUSED_ACCESS"
-      : null
-    )
-  )
+  type          = "${var.scope}${var.type == "EXTERNAL_ACCESS" ? "" : "_${var.type}"}"
 
   dynamic "configuration" {
-    for_each = var.type == "UNUSED_ACCESS" ? ["go"] : []
+    for_each = contains(["INTERNAL_ACCESS", "UNUSED_ACCESS"], var.type) ? ["go"] : []
 
     content {
+      dynamic "internal_access" {
+        for_each = var.type == "INTERNAL_ACCESS" ? ["go"] : []
+
+        content {
+          dynamic "analysis_rule" {
+            for_each = length(var.internal_access_analysis.rules) > 0 ? ["go"] : []
+            iterator = rule
+
+            content {
+              dynamic "inclusion" {
+                for_each = var.internal_access_analysis.rules[*].inclusion
+
+                content {
+                  account_ids = (length(inclusion.value.accounts) > 0
+                    ? inclusion.value.accounts
+                    : null
+                  )
+                  resource_arns = (length(inclusion.value.resource_arns) > 0
+                    ? inclusion.value.resource_arns
+                    : null
+                  )
+                  resource_types = (length(inclusion.value.resource_types) > 0
+                    ? inclusion.value.resource_types
+                    : null
+                  )
+                }
+              }
+            }
+          }
+        }
+      }
+
       dynamic "unused_access" {
         for_each = var.type == "UNUSED_ACCESS" ? ["go"] : []
 
         content {
-          unused_access_age = var.unused_access_tracking_period
+          unused_access_age = var.unused_access_analysis.tracking_period
+
+          dynamic "analysis_rule" {
+            for_each = length(var.unused_access_analysis.rules) > 0 ? ["go"] : []
+            iterator = rule
+
+            content {
+              dynamic "exclusion" {
+                for_each = var.unused_access_analysis.rules[*].exclusion
+
+                content {
+                  account_ids = (length(exclusion.value.accounts) > 0
+                    ? exclusion.value.accounts
+                    : null
+                  )
+                  resource_tags = (length(exclusion.value.resource_tags) > 0
+                    ? exclusion.value.resource_tags
+                    : null
+                  )
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -57,6 +107,8 @@ resource "aws_accessanalyzer_archive_rule" "this" {
     for rule in var.archive_rules :
     rule.name => rule
   }
+
+  region = var.region
 
   analyzer_name = aws_accessanalyzer_analyzer.this.analyzer_name
   rule_name     = each.key

@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_accessanalyzer_analyzer.this.region
+}
+
 output "name" {
   description = "The name of the Analyzer."
   value       = aws_accessanalyzer_analyzer.this.analyzer_name
@@ -23,10 +28,23 @@ output "scope" {
   value       = var.scope
 }
 
-output "unused_access_tracking_period" {
-  description = "The scope of Analyzer."
+output "internal_access_analysis" {
+  description = "The configurations for the `INTERNAL_ACCESS` type Analyzer."
+  value = (var.type == "INTERNAL_ACCESS"
+    ? {
+      rules = var.internal_access_analysis.rules
+    }
+    : null
+  )
+}
+
+output "unused_access_analysis" {
+  description = "The configurations for the `UNUSED_ACCESS` type Analyzer."
   value = (var.type == "UNUSED_ACCESS"
-    ? one(aws_accessanalyzer_analyzer.this.configuration[0].unused_access[*].unused_access_age)
+    ? {
+      tracking_period = one(aws_accessanalyzer_analyzer.this.configuration[0].unused_access[*].unused_access_age)
+      rules           = var.unused_access_analysis.rules
+    }
     : null
   )
 }
