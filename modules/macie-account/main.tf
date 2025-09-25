@@ -24,13 +24,15 @@ locals {
   }
 }
 
+
 ###################################################
 # Macie Account
 ###################################################
 
 resource "aws_macie2_account" "this" {
-  status = var.enabled ? "ENABLED" : "PAUSED"
+  region = var.region
 
+  status                       = var.enabled ? "ENABLED" : "PAUSED"
   finding_publishing_frequency = local.update_frequency[var.update_frequency]
 }
 
@@ -51,15 +53,17 @@ resource "aws_macie2_member" "this" {
     account.account_id => account
   }
 
+  region = aws_macie2_account.this.region
+
   account_id = each.key
   email      = each.value.email
-  status     = try(each.value.enabled, true) ? "ENABLED" : "PAUSED"
+  status     = each.value.enabled ? "ENABLED" : "PAUSED"
 
 
   ## Invitation
-  # invite                                = true
-  # invitation_message                    = "Message of the invitation"
-  # invitation_disable_email_notification = true
+  invite                                = each.value.type == "INVITATION" ? true : null
+  invitation_message                    = each.value.invitation.message
+  invitation_disable_email_notification = !each.value.invitation.email_notification_enabled
 
 
   tags = merge(
@@ -78,10 +82,6 @@ resource "aws_macie2_member" "this" {
       email,
     ]
   }
-
-  depends_on = [
-    aws_macie2_account.this
-  ]
 }
 
 
@@ -92,13 +92,11 @@ resource "aws_macie2_member" "this" {
 resource "aws_macie2_classification_export_configuration" "this" {
   count = var.discovery_result_repository.s3_bucket != null ? 1 : 0
 
+  region = aws_macie2_account.this.region
+
   s3_destination {
     bucket_name = var.discovery_result_repository.s3_bucket.name
     key_prefix  = var.discovery_result_repository.s3_bucket.key_prefix
     kms_key_arn = var.discovery_result_repository.s3_bucket.sse_kms_key
   }
-
-  depends_on = [
-    aws_macie2_account.this,
-  ]
 }

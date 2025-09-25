@@ -1,3 +1,8 @@
+output "region" {
+  description = "The AWS region this module resources resides in."
+  value       = aws_macie2_account.this.region
+}
+
 output "id" {
   description = "The ID of the macie account."
   value       = aws_macie2_account.this.id
@@ -46,9 +51,11 @@ output "member_accounts" {
       id                  = account.id
       arn                 = account.arn
       email               = account.email
+      type                = timecmp(account.invited_at, "1999-01-01T00:00:00Z") < 0 ? "ORGANIZATION" : "INVITATION"
       enabled             = account.status == "ENABLED"
       relationship_status = account.relationship_status
 
+      invited_at = timecmp(account.invited_at, "1999-01-01T00:00:00Z") < 0 ? null : account.invited_at
       updated_at = account.updated_at
     }
   }
