@@ -58,3 +58,6 @@
 - color: "fbca04"
   description: "This issue or pull request is related to macie-account module."
   name: ":floppy_disk: macie-account"
+- color: "fbca04"
+  description: "This issue or pull request is related to macie-custom-data-identifier module."
+  name: ":floppy_disk: macie-custom-data-identifier"

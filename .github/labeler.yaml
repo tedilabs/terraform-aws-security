@@ -28,3 +28,8 @@
 - changed-files:
   - any-glob-to-any-file:
     - modules/macie-account/**/*
+
+":floppy_disk: macie-custom-data-identifier":
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/macie-custom-data-identifier/**/*

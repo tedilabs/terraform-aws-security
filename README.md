@@ -12,6 +12,7 @@ Terraform module which creates security related resources on AWS.
 - [config-managed-rule](./modules/config-managed-rule)
 - [config-recorder](./modules/config-recorder)
 - [macie-account](./modules/macie-account)
+- [macie-custom-data-identifier](./modules/macie-custom-data-identifier)
 
 
 ## Target AWS Services
@@ -29,6 +30,9 @@ Terraform Modules from [this package](https://github.com/tedilabs/terraform-aws-
     - Managed Rules
 - **AWS Macie**
   - Account
+    - Member Accounts
+    - Organization Configurations
+  - Custom Data Identifier
 
 
 ## Usage
