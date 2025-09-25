@@ -60,6 +60,18 @@ variable "member_accounts" {
   }
 }
 
+variable "organization_config" {
+  description = <<EOF
+  (Optional) The organization configurations for the macie account. `organization_config` as defined below.
+    (Optional) `auto_enable` - Whether to automatically enable Macie for new accounts in the organization. Defaults to `true`.
+  EOF
+  type = object({
+    auto_enable = optional(bool, true)
+  })
+  default  = {}
+  nullable = false
+}
+
 variable "discovery_result_repository" {
   description = <<EOF
   (Optional) The configuration for discovery result location and encryption of the macie account. A `discovery_result_repository` block as defined below.

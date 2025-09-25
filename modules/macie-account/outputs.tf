@@ -61,6 +61,15 @@ output "member_accounts" {
   }
 }
 
+output "organization_config" {
+  description = <<EOF
+  The organization configuration for the macie account.
+  EOF
+  value = {
+    auto_enable = aws_macie2_organization_configuration.this.auto_enable
+  }
+}
+
 output "discovery_result_repository" {
   description = <<EOF
   The configuration for discovery result location and encryption of the macie account.

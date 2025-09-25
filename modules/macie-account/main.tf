@@ -84,6 +84,16 @@ resource "aws_macie2_member" "this" {
   }
 }
 
+###################################################
+# Organization Configurations for Macie Account
+###################################################
+
+resource "aws_macie2_organization_configuration" "this" {
+  region = aws_macie2_account.this.region
+
+  auto_enable = var.organization_config.auto_enable
+}
+
 
 ###################################################
 # S3 Bucket for Sensitive Data Discovery Results
