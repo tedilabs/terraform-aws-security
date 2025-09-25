@@ -89,6 +89,11 @@ resource "aws_macie2_member" "this" {
 ###################################################
 
 resource "aws_macie2_organization_configuration" "this" {
+  count = anytrue([
+    for account in var.member_accounts :
+    account.type == "ORGANIZATION"
+  ]) ? 1 : 0
+
   region = aws_macie2_account.this.region
 
   auto_enable = var.organization_config.auto_enable

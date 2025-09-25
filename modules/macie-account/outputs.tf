@@ -65,9 +65,12 @@ output "organization_config" {
   description = <<EOF
   The organization configuration for the macie account.
   EOF
-  value = {
-    auto_enable = aws_macie2_organization_configuration.this.auto_enable
-  }
+  value = (length(aws_macie2_organization_configuration.this) > 0
+    ? {
+      auto_enable = aws_macie2_organization_configuration.this[0].auto_enable
+    }
+    : null
+  )
 }
 
 output "discovery_result_repository" {

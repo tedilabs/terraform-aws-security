@@ -3,7 +3,7 @@
 This module creates following resources.
 
 - `aws_macie2_account`
-- `aws_macie2_organization_configuration`
+- `aws_macie2_organization_configuration` (optional)
 - `aws_macie2_member` (optional)
 - `aws_macie2_classification_export_configuration` (optional)
 
