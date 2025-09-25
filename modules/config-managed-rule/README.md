@@ -57,6 +57,7 @@ This module creates following resources.
 | <a name="input_schedule_frequency"></a> [schedule\_frequency](#input\_schedule\_frequency) | (Optional) The frequency with which AWS Config runs evaluations for a rule. Use default value if not provided. Valid values are `1h`, `3h`, `6h`, `12h`, or `24h`. | `string` | `null` | no |
 | <a name="input_scope"></a> [scope](#input\_scope) | (Optional) Choose when evaluations will occur. Valid values are `ALL_CHANGES`, `RESOURCES`, or `TAGS`. | `string` | `"RESOURCES"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A map of tags to add to all resources. | `map(string)` | `{}` | no |
+| <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | (Optional) How long to wait for the rules to be created/updated/deleted. | <pre>object({<br/>    create = optional(string, "30m")<br/>    update = optional(string, "30m")<br/>    delete = optional(string, "30m")<br/>  })</pre> | `{}` | no |
 
 ## Outputs
 

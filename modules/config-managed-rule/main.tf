@@ -150,4 +150,10 @@ resource "aws_config_organization_managed_rule" "this" {
   : null)
 
   excluded_accounts = var.excluded_accounts
+
+  timeouts {
+    create = var.timeouts.create
+    update = var.timeouts.update
+    delete = var.timeouts.delete
+  }
 }
