@@ -40,7 +40,7 @@ locals {
     "BLACKLIST" = {
       recording_strategy            = "EXCLUSION_BY_RESOURCE_TYPES"
       all_supported                 = false
-      include_global_resource_types = true
+      include_global_resource_types = false
       resource_types                = null
       exclude_resource_types        = var.scope.resource_types
     }
