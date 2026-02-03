@@ -14,7 +14,7 @@ module "role" {
   count = var.delivery_channels.cloudwatch_log_group.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.32.0"
+  version = "~> 0.33.3"
 
   name        = "cloudtrail-${local.metadata.name}"
   path        = "/"
