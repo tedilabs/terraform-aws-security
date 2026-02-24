@@ -13,7 +13,7 @@ module "role" {
   count = var.import_trail_events_iam_role.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.32.0"
+  version = "~> 0.33.6"
 
   name        = "cloudtrail-event-data-store-${local.metadata.name}"
   path        = "/"
