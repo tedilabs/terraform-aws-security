@@ -37,14 +37,6 @@ output "scope" {
   value       = var.scope
 }
 
-output "iam_role" {
-  description = "The IAM Role for the CloudTrail trail."
-  value = {
-    arn  = one(module.role[*].arn)
-    name = one(module.role[*].name)
-  }
-}
-
 output "delivery_channels" {
   description = "The configurations for the delivery channels of the trail."
   value = {
@@ -62,6 +54,8 @@ output "delivery_channels" {
       enabled = var.delivery_channels.cloudwatch_log_group.enabled
       arn     = aws_cloudtrail.this.cloud_watch_logs_group_arn
       name    = var.delivery_channels.cloudwatch_log_group.name
+
+      iam_role = aws_cloudtrail.this.cloud_watch_logs_role_arn
     }
   }
 }

@@ -61,6 +61,15 @@ variable "delivery_channels" {
     (Optional) `cloudwatch_log_group` - A configuration for the log group of CloudWatch Logs to send events to CloudWatch Logs. `cloudwatch_log_group` as defined below.
       (Optional) `enabled` - Whether to send CloudTrail events to CloudWatch Logs. Defaults to `false`.
       (Optional) `name` - The name of the log group of CloudWatch Logs.
+      (Optional) `default_iam_role` - A configuration for the default IAM Role to allow CloudTrail to send events to CloudWatch Logs. `default_iam_role` as defined below.
+        (Optional) `enabled` - Whether to create the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to `true`.
+        (Optional) `name` - The name of the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to `cloudtrail-cloudwatch-logs-$${var.name}`.
+        (Optional) `path` - The path of the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to `/`.
+        (Optional) `description` - The description of the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to `Managed by Terraform.`.
+        (Optional) `policies` - A list of managed policy ARNs to attach to the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to an empty list.
+        (Optional) `inline_policies` - A map of inline policies to attach to the default IAM Role for CloudTrail to send events to CloudWatch Logs, where the key is the name of the inline policy and the value is the JSON formatted policy document. Defaults to an empty map.
+        (Optional) `permissions_boundary` - The ARN of the policy used as permissions boundary for the default IAM Role for CloudTrail to send events to CloudWatch Logs.
+      (Optional) `iam_role` - The ARN of the IAM Role to allow CloudTrail to send events to CloudWatch Logs. If `default_iam_role.enabled` is `true`, this will be ignored.
   EOF
   type = object({
     s3_bucket = object({
@@ -76,7 +85,17 @@ variable "delivery_channels" {
     cloudwatch_log_group = optional(object({
       enabled = optional(bool, false)
       name    = optional(string)
-      # iam_role = optional(string)
+      default_iam_role = optional(object({
+        enabled     = optional(bool, true)
+        name        = optional(string)
+        path        = optional(string, "/")
+        description = optional(string, "Managed by Terraform.")
+
+        policies             = optional(list(string), [])
+        inline_policies      = optional(map(string), {})
+        permissions_boundary = optional(string)
+      }), {})
+      iam_role = optional(string)
     }), {})
   })
   nullable = false

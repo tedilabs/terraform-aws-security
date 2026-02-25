@@ -69,9 +69,9 @@ resource "aws_cloudtrail" "this" {
     ? data.aws_cloudwatch_log_group.this[0].arn
     : null
   )
-  cloud_watch_logs_role_arn = (var.delivery_channels.cloudwatch_log_group.enabled
-    ? one(module.role[*].arn)
-    : null
+  cloud_watch_logs_role_arn = (var.delivery_channels.cloudwatch_log_group.enabled && var.delivery_channels.cloudwatch_log_group.default_iam_role.enabled
+    ? module.role[0].arn
+    : var.delivery_channels.cloudwatch_log_group.iam_role
   )
 
 

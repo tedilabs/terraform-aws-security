@@ -11,14 +11,17 @@ data "aws_organizations_organization" "this" {}
 ###################################################
 
 module "role" {
-  count = var.delivery_channels.cloudwatch_log_group.enabled ? 1 : 0
+  count = (var.delivery_channels.cloudwatch_log_group.enabled && var.delivery_channels.cloudwatch_log_group.default_iam_role.enabled) ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.32.0"
+  version = "~> 0.33.0"
 
-  name        = "cloudtrail-${local.metadata.name}"
-  path        = "/"
-  description = "Role for the CloudTrail trail(${local.metadata.name})"
+  name = coalesce(
+    var.delivery_channels.cloudwatch_log_group.default_iam_role.name,
+    "cloudtrail-cloudwatch-logs-${local.metadata.name}",
+  )
+  path        = var.delivery_channels.cloudwatch_log_group.default_iam_role.path
+  description = var.delivery_channels.cloudwatch_log_group.default_iam_role.description
 
   trusted_service_policies = [
     {
@@ -26,9 +29,14 @@ module "role" {
     }
   ]
 
-  inline_policies = {
-    "cloudwatch" = one(data.aws_iam_policy_document.cloudwatch[*].json)
-  }
+  policies = var.delivery_channels.cloudwatch_log_group.default_iam_role.policies
+  inline_policies = merge(
+    {
+      "cloudwatch" = one(data.aws_iam_policy_document.cloudwatch[*].json)
+    },
+    var.delivery_channels.cloudwatch_log_group.default_iam_role.inline_policies
+  )
+  permissions_boundary = var.delivery_channels.cloudwatch_log_group.default_iam_role.permissions_boundary
 
   force_detach_policies = true
   resource_group = {
