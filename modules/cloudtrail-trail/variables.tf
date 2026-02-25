@@ -97,6 +97,18 @@ variable "delivery_channels" {
   }
 }
 
+variable "cloudwatch_iam_role" {
+  description = <<EOF
+  (Optional) A configuration for the IAM role used by CloudTrail to send logs to CloudWatch Logs. `cloudwatch_iam_role` as defined below.
+    (Optional) `permissions_boundary` - The ARN of the IAM policy to use as permissions boundary for the IAM role.
+  EOF
+  type = object({
+    permissions_boundary = optional(string)
+  })
+  default  = {}
+  nullable = false
+}
+
 variable "management_event_selector" {
   description = <<EOF
   (Required) A configuration block for management events logging to identify API activity for individual resources, or for all current and future resources in AWS account. `management_event_selector` block as defined below.

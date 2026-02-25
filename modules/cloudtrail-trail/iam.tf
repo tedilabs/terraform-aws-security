@@ -30,6 +30,8 @@ module "role" {
     "cloudwatch" = one(data.aws_iam_policy_document.cloudwatch[*].json)
   }
 
+  permissions_boundary = var.cloudwatch_iam_role.permissions_boundary
+
   force_detach_policies = true
   resource_group = {
     enabled = false

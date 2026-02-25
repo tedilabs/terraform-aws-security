@@ -246,6 +246,7 @@ variable "import_trail_events_iam_role" {
     (Optional) `source_s3_buckets` - A list of source S3 buckets to import events from. Each item of `source_s3_buckets` as defined below.
       (Required) `name` - A name of source S3 bucket.
       (Optional) `key_prefix` - A key prefix of source S3 bucket.
+    (Optional) `permissions_boundary` - The ARN of the IAM policy to use as permissions boundary for the IAM role.
   EOF
   type = object({
     enabled = optional(bool, true)
@@ -253,6 +254,7 @@ variable "import_trail_events_iam_role" {
       name       = string
       key_prefix = optional(string, "/")
     })), [])
+    permissions_boundary = optional(string)
   })
   default  = {}
   nullable = false

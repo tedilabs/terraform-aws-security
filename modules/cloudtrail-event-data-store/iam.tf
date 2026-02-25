@@ -41,6 +41,8 @@ module "role" {
     "s3" = one(data.aws_iam_policy_document.s3[*].json)
   }
 
+  permissions_boundary = var.import_trail_events_iam_role.permissions_boundary
+
   force_detach_policies = true
   resource_group = {
     enabled = false
