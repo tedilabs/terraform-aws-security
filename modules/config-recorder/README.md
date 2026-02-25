@@ -31,8 +31,8 @@ This module creates following resources.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
-| <a name="module_role__aggregator"></a> [role\_\_aggregator](#module\_role\_\_aggregator) | tedilabs/account/aws//modules/iam-role | ~> 0.32.0 |
-| <a name="module_role__recorder"></a> [role\_\_recorder](#module\_role\_\_recorder) | tedilabs/account/aws//modules/iam-role | ~> 0.32.0 |
+| <a name="module_role__aggregator"></a> [role\_\_aggregator](#module\_role\_\_aggregator) | tedilabs/account/aws//modules/iam-role | ~> 0.33.0 |
+| <a name="module_role__recorder"></a> [role\_\_recorder](#module\_role\_\_recorder) | tedilabs/account/aws//modules/iam-role | ~> 0.33.0 |
 
 ## Resources
 
