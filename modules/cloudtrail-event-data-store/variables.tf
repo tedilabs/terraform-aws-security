@@ -243,12 +243,26 @@ variable "import_trail_events_iam_role" {
   description = <<EOF
   (Optional) A configuration of IAM Role for importing CloudTrail events from S3 Bucket. `import_trail_events_iam_role` as defined below.
     (Optional) `enabled` - Indicates whether you want to create IAM Role to import trail events. Defaults to `true`.
+    (Optional) `name` - The name of the iam role. Defaults to `cloudtrail-event-data-store-$${name}`.
+    (Optional) `path` - The path of the iam role. Defaults to `/`.
+    (Optional) `description` - The description of the iam role.
+    (Optional) `policies` - A list of IAM policy ARNs to attach to the iam role. Defaults to `[]`.
+    (Optional) `inline_policies` - A Map of inline IAM policies to attach to the iam role. (`name` => `policy`).
+    (Optional) `permissions_boundary` - The ARN of the IAM policy to use as permissions boundary for the iam role.
     (Optional) `source_s3_buckets` - A list of source S3 buckets to import events from. Each item of `source_s3_buckets` as defined below.
       (Required) `name` - A name of source S3 bucket.
       (Optional) `key_prefix` - A key prefix of source S3 bucket.
   EOF
   type = object({
-    enabled = optional(bool, true)
+    enabled     = optional(bool, true)
+    name        = optional(string)
+    path        = optional(string, "/")
+    description = optional(string, "Managed by Terraform.")
+
+    policies             = optional(list(string), [])
+    inline_policies      = optional(map(string), {})
+    permissions_boundary = optional(string)
+
     source_s3_buckets = optional(list(object({
       name       = string
       key_prefix = optional(string, "/")

@@ -13,11 +13,14 @@ module "role" {
   count = var.import_trail_events_iam_role.enabled ? 1 : 0
 
   source  = "tedilabs/account/aws//modules/iam-role"
-  version = "~> 0.32.0"
+  version = "~> 0.33.0"
 
-  name        = "cloudtrail-event-data-store-${local.metadata.name}"
-  path        = "/"
-  description = "Role for the CloudTrail Event Data Store (${local.metadata.name})"
+  name = coalesce(
+    var.import_trail_events_iam_role.name,
+    "cloudtrail-event-data-store-${local.metadata.name}",
+  )
+  path        = var.import_trail_events_iam_role.path
+  description = var.import_trail_events_iam_role.description
 
   trusted_service_policies = [
     {
@@ -37,9 +40,14 @@ module "role" {
     },
   ]
 
-  inline_policies = {
-    "s3" = one(data.aws_iam_policy_document.s3[*].json)
-  }
+  policies = var.import_trail_events_iam_role.policies
+  inline_policies = merge(
+    {
+      "s3" = one(data.aws_iam_policy_document.s3[*].json)
+    },
+    var.import_trail_events_iam_role.inline_policies
+  )
+  permissions_boundary = var.import_trail_events_iam_role.permissions_boundary
 
   force_detach_policies = true
   resource_group = {
