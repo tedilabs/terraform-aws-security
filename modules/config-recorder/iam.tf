@@ -38,6 +38,7 @@ module "role__recorder" {
     },
     var.default_service_role.inline_policies
   )
+  permissions_boundary = var.default_service_role.permissions_boundary
 
   force_detach_policies = true
   resource_group = {
@@ -74,7 +75,8 @@ module "role__aggregator" {
     ["arn:aws:iam::aws:policy/service-role/AWSConfigRoleForOrganizations"],
     var.default_organization_aggregator_role.policies,
   )
-  inline_policies = var.default_organization_aggregator_role.inline_policies
+  inline_policies      = var.default_organization_aggregator_role.inline_policies
+  permissions_boundary = var.default_organization_aggregator_role.permissions_boundary
 
   force_detach_policies = true
   resource_group = {
