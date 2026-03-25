@@ -84,6 +84,7 @@ resource "aws_macie2_member" "this" {
   }
 }
 
+
 ###################################################
 # Organization Configurations for Macie Account
 ###################################################
