@@ -13,6 +13,7 @@ Terraform module which creates security related resources on AWS.
 - [config-recorder](./modules/config-recorder)
 - [macie-account](./modules/macie-account)
 - [macie-custom-data-identifier](./modules/macie-custom-data-identifier)
+- [securityhub-account](./modules/securityhub-account)
 
 
 ## Target AWS Services
@@ -33,6 +34,9 @@ Terraform Modules from [this package](https://github.com/tedilabs/terraform-aws-
     - Member Accounts
     - Organization Configurations
   - Custom Data Identifier
+- **AWS SecurityHub**
+  - Account
+    - Finding Aggregator
 
 
 ## Usage

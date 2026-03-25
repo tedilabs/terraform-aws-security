@@ -33,3 +33,8 @@
 - changed-files:
   - any-glob-to-any-file:
     - modules/macie-custom-data-identifier/**/*
+
+":floppy_disk: securityhub-account":
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/securityhub-account/**/*

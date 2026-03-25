@@ -20,3 +20,6 @@
 - color: "fbca04"
   description: "This issue or pull request is related to macie-custom-data-identifier module."
   name: ":floppy_disk: macie-custom-data-identifier"
+- color: "fbca04"
+  description: "This issue or pull request is related to securityhub-account module."
+  name: ":floppy_disk: securityhub-account"
