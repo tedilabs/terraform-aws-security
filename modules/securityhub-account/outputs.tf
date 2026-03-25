@@ -38,6 +38,22 @@ output "member_accounts" {
   }
 }
 
+output "organization_config" {
+  description = <<EOF
+  The organization configurations for the SecurityHub account.
+    `mode` - The organization configuration mode. Valid values are `CENTRAL` or `LOCAL`.
+    `auto_enable` - Whether to automatically enable SecurityHub for new accounts in the organization.
+  EOF
+  value = (length(aws_securityhub_organization_configuration.this) > 0
+    ? {
+      mode                          = aws_securityhub_organization_configuration.this[0].organization_configuration[0].configuration_type
+      auto_enable                   = aws_securityhub_organization_configuration.this[0].auto_enable
+      auto_enable_default_standards = aws_securityhub_organization_configuration.this[0].auto_enable_standards == "DEFAULT"
+    }
+    : null
+  )
+}
+
 output "auto_enable_controls" {
   description = "Whether to automatically enable new controls when they are added to security standards that are enabled."
   value       = aws_securityhub_account.this.auto_enable_controls

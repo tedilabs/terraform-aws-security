@@ -28,6 +28,30 @@ variable "member_accounts" {
   }
 }
 
+variable "organization_config" {
+  description = <<EOF
+  (Optional) The organization configurations for the SecurityHub account. `organization_config` as defined below.
+    (Optional) `mode` - The organization configuration mode. Valid values are `CENTRAL` or `LOCAL`. Defaults to `CENTRAL`.
+       `CENTRAL` - the delegated administrator can create configuration policies. Configuration policies can be used to configure Security Hub CSPM, security standards, and security controls in multiple accounts and Regions. If you want new organization accounts to use a specific configuration, you can create a configuration policy and associate it with the root or specific organizational units (OUs). New accounts will inherit the policy from the root or their assigned OU.
+       `LOCAL` - the delegated administrator can set `auto_enable` to `true` and `auto_enable_default_standards` to `true`. This automatically enables Security Hub CSPM and default security standards in new organization accounts. These new account settings must be set separately in each AWS Region, and settings may be different in each Region.
+    (Optional) `auto_enable` - Whether to automatically enable SecurityHub for new accounts in the organization. Defaults to `true`.
+    (Optional) `auto_enable_default_standards` - Whether to automatically enable default security standards for new accounts in the organization. Defaults to `true`. This is only applicable when `mode` is `LOCAL`.
+  EOF
+  type = object({
+    mode                          = optional(string, "CENTRAL")
+    auto_enable                   = optional(bool, true)
+    auto_enable_default_standards = optional(bool, true)
+  })
+  default  = {}
+  nullable = false
+
+  validation {
+    condition = contains(["CENTRAL", "LOCAL"], var.organization_config.mode)
+
+    error_message = "Valid values for `organization_config.mode` are `CENTRAL` or `LOCAL`."
+  }
+}
+
 variable "auto_enable_controls" {
   description = "(Optional) Whether to automatically enable new controls when they are added to security standards that are enabled. Defaults to `true`."
   type        = bool

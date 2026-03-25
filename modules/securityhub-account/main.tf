@@ -74,3 +74,40 @@ resource "aws_securityhub_finding_aggregator" "this" {
     : null
   )
 }
+
+
+###################################################
+# Organization Configurations for SecurityHub Account
+###################################################
+
+resource "aws_securityhub_organization_configuration" "this" {
+  count = anytrue([
+    for account in var.member_accounts :
+    account.type == "ORGANIZATION"
+  ]) ? 1 : 0
+
+  region = aws_securityhub_finding_aggregator.this[0].region
+
+  auto_enable = (var.organization_config.mode == "CENTRAL"
+    ? false
+    : var.organization_config.auto_enable
+  )
+  auto_enable_standards = (var.organization_config.mode == "CENTRAL"
+    ? "NONE"
+    : (var.organization_config.auto_enable_default_standards
+      ? "DEFAULT"
+      : "NONE"
+    )
+  )
+
+  organization_configuration {
+    configuration_type = var.organization_config.mode
+  }
+
+  lifecycle {
+    precondition {
+      condition     = var.control_finding.aggregator.enabled
+      error_message = "`aws_securityhub_organization_configuration` resource requires `aws_securityhub_finding_aggregator` to be enabled. Please enable finding aggregator by setting `control_finding.aggregator.enabled` to `true`."
+    }
+  }
+}
