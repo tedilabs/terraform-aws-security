@@ -18,6 +18,26 @@ output "name" {
   value       = local.metadata.name
 }
 
+output "member_accounts" {
+  description = <<EOF
+  The list of configruations for member accounts on the SecurityHub account.
+  EOF
+  value = {
+    for id, account in aws_securityhub_member.this :
+    id => {
+      id      = account.id
+      type    = !account.invite ? "ORGANIZATION" : "INVITATION"
+      enabled = account.member_status == "Enabled"
+
+      debug = {
+        for k, v in account :
+        k => v
+        if !contains(["region", "id", "email", "account_id", "master_id", "member_status"], k)
+      }
+    }
+  }
+}
+
 output "auto_enable_controls" {
   description = "Whether to automatically enable new controls when they are added to security standards that are enabled."
   value       = aws_securityhub_account.this.auto_enable_controls

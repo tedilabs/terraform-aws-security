@@ -5,6 +5,29 @@ variable "region" {
   nullable    = true
 }
 
+variable "member_accounts" {
+  description = <<EOF
+  (Optional) A list of configurations for member accounts on the SecurityHub account. Each block of `member_accounts` as defined below.
+    (Required) `account_id` - The AWS account ID for the account.
+    (Optional) `type` - The type of the member account. Valid values are `ORGANIZATION` or `INVITATION`. Defaults to `ORGANIZATION`.
+  EOF
+  type = list(object({
+    account_id = string
+    type       = optional(string, "ORGANIZATION")
+  }))
+  default  = []
+  nullable = false
+
+  validation {
+    condition = alltrue([
+      for member in var.member_accounts :
+      contains(["ORGANIZATION", "INVITATION"], member.type)
+    ])
+
+    error_message = "Valid values for `type` in `member_accounts` are `ORGANIZATION` or `INVITATION`."
+  }
+}
+
 variable "auto_enable_controls" {
   description = "(Optional) Whether to automatically enable new controls when they are added to security standards that are enabled. Defaults to `true`."
   type        = bool

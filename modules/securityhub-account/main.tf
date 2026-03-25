@@ -31,19 +31,46 @@ resource "aws_securityhub_account" "this" {
 
 
 ###################################################
+# Member Accounts of SecurityHub Account
+###################################################
+
+# INFO: Not supported attributes
+# - `email`
+resource "aws_securityhub_member" "this" {
+  for_each = {
+    for account in var.member_accounts :
+    account.account_id => account
+  }
+
+  region = aws_securityhub_account.this.region
+
+  account_id = each.key
+
+  invite = each.value.type == "INVITATION"
+
+  # TODO: Bug for `email` and `invite` parameter
+  # https://github.com/hashicorp/terraform-provider-aws/issues/24320
+  lifecycle {
+    ignore_changes = [
+      email,
+      invite,
+    ]
+  }
+}
+
+
+###################################################
 # Finding Aggregator of SecurityHub Account
 ###################################################
 
 resource "aws_securityhub_finding_aggregator" "this" {
   count = var.control_finding.aggregator.enabled ? 1 : 0
 
-  region = var.region
+  region = aws_securityhub_account.this.region
 
   linking_mode = var.control_finding.aggregator.mode
   specified_regions = (contains(["ALL_REGIONS_EXCEPT_SPECIFIED", "SPECIFIED_REGIONS"], var.control_finding.aggregator.mode)
     ? var.control_finding.aggregator.regions
     : null
   )
-
-  depends_on = [aws_securityhub_account.this]
 }
