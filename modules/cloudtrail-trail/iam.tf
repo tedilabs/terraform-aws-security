@@ -3,7 +3,9 @@ data "aws_region" "this" {
   region = var.region
 }
 data "aws_caller_identity" "this" {}
-data "aws_organizations_organization" "this" {}
+data "aws_organizations_organization" "this" {
+  count = var.level == "ORGANIZATION" ? 1 : 0
+}
 
 
 ###################################################
@@ -59,7 +61,7 @@ locals {
   partition  = data.aws_partition.this.partition
   region     = data.aws_region.this.region
   account_id = data.aws_caller_identity.this.account_id
-  org_id     = data.aws_organizations_organization.this.id
+  org_id     = one(data.aws_organizations_organization.this[*].id)
 
   cloudwatch_log_group_arn = var.delivery_channels.cloudwatch_log_group.enabled ? "arn:${local.partition}:logs:${local.region}:${local.account_id}:log-group:${var.delivery_channels.cloudwatch_log_group.name}" : null
 
