@@ -10,7 +10,7 @@ provider "aws" {
 module "recorder" {
   source = "../../modules/config-recorder"
   # source  = "tedilabs/security/aws//modules/config-recorder"
-  # version = "~> 0.6.0"
+  # version = "~> 0.10.0"
 
   name    = "test"
   enabled = true
