@@ -11,27 +11,27 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.33.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.12 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 | <a name="module_role"></a> [role](#module\_role) | tedilabs/account/aws//modules/iam-role | ~> 0.33.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_cloudtrail.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudtrail) | resource |
 | [aws_caller_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_cloudwatch_log_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/cloudwatch_log_group) | data source |
@@ -43,7 +43,7 @@ This module creates following resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_delivery_channels"></a> [delivery\_channels](#input\_delivery\_channels) | (Required) A configuration for the delivery channels of the trail. `delivery_channels` as defined below.<br/>    (Required) `s3_bucket` - A configuration for the S3 Bucket delivery channel. `s3_bucket` as defined below.<br/>      (Required) `name` - The name of the S3 bucket used to publish log files.<br/>      (Optional) `key_prefix` - The key prefix for the specified S3 bucket.<br/>      (Optional) `integrity_validation_enabled` - To determine whether a log file was modified, deleted, or unchanged after AWS CloudTrail delivered it, use CloudTrail log file integrity validation. This feature is built using industry standard algorithms: SHA-256 for hashing and SHA-256 with RSA for digital signing. Defaults to `true`.<br/>      (Optional) `sse_kms_key` - The ARN of the AWS KMS key used to encrypt objects delivered by AWS Config. Must belong to the same Region as the destination S3 bucket.<br/>    (Optional) `sns_topic` - A configuration for the SNS Topic notifications for log file delivery. CloudTrail stores multiple events in a log file. When you enable this option, Amazon SNS notifications are sent for every log file delivery to your S3 bucket, not for every event. `sns_topic` as defined below.<br/>      (Optional) `enabled` - Whether to enable the SNS Topic notifications for log file delivery. Defaults to `false`.<br/>      (Optional) `name` - The name of the SNS topic for notification of log file delivery.<br/>    (Optional) `cloudwatch_log_group` - A configuration for the log group of CloudWatch Logs to send events to CloudWatch Logs. `cloudwatch_log_group` as defined below.<br/>      (Optional) `enabled` - Whether to send CloudTrail events to CloudWatch Logs. Defaults to `false`.<br/>      (Optional) `name` - The name of the log group of CloudWatch Logs.<br/>      (Optional) `default_iam_role` - A configuration for the default IAM Role to allow CloudTrail to send events to CloudWatch Logs. `default_iam_role` as defined below.<br/>        (Optional) `enabled` - Whether to create the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to `true`.<br/>        (Optional) `name` - The name of the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to `cloudtrail-cloudwatch-logs-${var.name}`.<br/>        (Optional) `path` - The path of the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to `/`.<br/>        (Optional) `description` - The description of the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to `Managed by Terraform.`.<br/>        (Optional) `policies` - A list of managed policy ARNs to attach to the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to an empty list.<br/>        (Optional) `inline_policies` - A map of inline policies to attach to the default IAM Role for CloudTrail to send events to CloudWatch Logs, where the key is the name of the inline policy and the value is the JSON formatted policy document. Defaults to an empty map.<br/>        (Optional) `permissions_boundary` - The ARN of the policy used as permissions boundary for the default IAM Role for CloudTrail to send events to CloudWatch Logs.<br/>      (Optional) `iam_role` - The ARN of the IAM Role to allow CloudTrail to send events to CloudWatch Logs. If `default_iam_role.enabled` is `true`, this will be ignored. | <pre>object({<br/>    s3_bucket = object({<br/>      name                         = string<br/>      key_prefix                   = optional(string, "")<br/>      integrity_validation_enabled = optional(bool, true)<br/>      sse_kms_key                  = optional(string)<br/>    })<br/>    sns_topic = optional(object({<br/>      enabled = optional(bool, false)<br/>      name    = optional(string)<br/>    }), {})<br/>    cloudwatch_log_group = optional(object({<br/>      enabled = optional(bool, false)<br/>      name    = optional(string)<br/>      default_iam_role = optional(object({<br/>        enabled     = optional(bool, true)<br/>        name        = optional(string)<br/>        path        = optional(string, "/")<br/>        description = optional(string, "Managed by Terraform.")<br/><br/>        policies             = optional(list(string), [])<br/>        inline_policies      = optional(map(string), {})<br/>        permissions_boundary = optional(string)<br/>      }), {})<br/>      iam_role = optional(string)<br/>    }), {})<br/>  })</pre> | n/a | yes |
 | <a name="input_management_event_selector"></a> [management\_event\_selector](#input\_management\_event\_selector) | (Required) A configuration block for management events logging to identify API activity for individual resources, or for all current and future resources in AWS account. `management_event_selector` block as defined below.<br/>    (Required) `enabled` - Whether the trail to log management events.<br/>    (Optional) `scope` - The type of events to log. Valid values are `ALL`, `READ` and `WRITE`. Defaults to `ALL`.<br/>    (Optional) `exclude_event_sources` - A set of event sources to exclude. Valid values are `kms.amazonaws.com` and `rdsdata.amazonaws.com`. `management_event_selector.enabled` must be set to true to allow this. | <pre>object({<br/>    enabled               = bool<br/>    scope                 = optional(string, "ALL")<br/>    exclude_event_sources = optional(set(string), [])<br/>  })</pre> | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | (Required) The name of the trail. The name can only contain uppercase letters, lowercase letters, numbers, periods (.), hyphens (-), and underscores (\_). | `string` | n/a | yes |
@@ -60,7 +60,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_arn"></a> [arn](#output\_arn) | The Amazon Resource Name (ARN) of the trail. |
 | <a name="output_data_event"></a> [data\_event](#output\_data\_event) | A list of selectors for data events of the trail. |
 | <a name="output_delivery_channels"></a> [delivery\_channels](#output\_delivery\_channels) | The configurations for the delivery channels of the trail. |

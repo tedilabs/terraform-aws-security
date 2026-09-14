@@ -8,32 +8,32 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.13.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.12 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_macie2_custom_data_identifier.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/macie2_custom_data_identifier) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_name"></a> [name](#input\_name) | (Required) A name for the custom data identifier. The name can contain as many as 128 characters. | `string` | n/a | yes |
 | <a name="input_regex"></a> [regex](#input\_regex) | (Required) The regular expression (regex) that defines the pattern to match. The expression can contain as many as 512 characters. | `string` | n/a | yes |
 | <a name="input_description"></a> [description](#input\_description) | (Optional) A description of the custom data identifier. Defaults to `Managed by Terraform.`. | `string` | `"Managed by Terraform."` | no |
@@ -48,7 +48,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN (Amazon Resource Name) for the macie custom data identifier. For example: `arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5`. |
 | <a name="output_created_at"></a> [created\_at](#output\_created\_at) | The date and time, in UTC and extended RFC 3339 format, when the Amazon Macie custom data identifier was created. |
 | <a name="output_description"></a> [description](#output\_description) | The description of the macie custom data identifier. |

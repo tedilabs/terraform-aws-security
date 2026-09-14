@@ -11,26 +11,26 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.37 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.13.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.37 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_securityhub_account.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/securityhub_account) | resource |
 | [aws_securityhub_finding_aggregator.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/securityhub_finding_aggregator) | resource |
 | [aws_securityhub_member.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/securityhub_member) | resource |
@@ -40,7 +40,7 @@ This module creates following resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_auto_enable_controls"></a> [auto\_enable\_controls](#input\_auto\_enable\_controls) | (Optional) Whether to automatically enable new controls when they are added to security standards that are enabled. Defaults to `true`. | `bool` | `true` | no |
 | <a name="input_control_finding"></a> [control\_finding](#input\_control\_finding) | (Optional) A configuration for control finding of the SecurityHub account. `control_finding` as defined below.<br/>    (Optional) `consolidation_enabled` - Whether to enable control finding consolidation for the account. If `true`, Security Hub generates a single finding for a control check even when the check applies to multiple enabled standards. Defaults to `true`."<br/>    (Optional) `aggregator` - A configuration for finding aggregator of the account. `aggregator` as defined below.<br/>      (Optional) `enabled` - Whether to enable finding aggregator for the account. Defaults to `false`. If `true`, a finding aggregator will be created to aggregate findings from other regions.<br/>      (Optional) `mode` - A linking mode for the finding aggregator. This decide which regions the finding aggregator will aggregate findings from. Valid values are `ALL_REGIONS`, `ALL_REGIONS_EXCEPT_SPECIFIED`, `SPECIFIED_REGIONS`, or `NO_REGIONS`. The selected `mode` also determines how to use `regions` provided. Defaults to `ALL_REGIONS`.<br/>        `ALL_REGIONS` - Aggregates findings from all of the Regions where Security Hub CSPM is enabled. When you choose this option, Security Hub CSPM also automatically aggregates findings from new Regions as Security Hub CSPM supports them and you opt into them.<br/>        `ALL_REGIONS_EXCEPT_SPECIFIED` - Aggregates findings from all of the Regions where Security Hub CSPM is enabled, except for the Regions listed in the Regions parameter. When you choose this option, Security Hub CSPM also automatically aggregates findings from new Regions as Security Hub CSPM supports them and you opt into them.<br/>        `SPECIFIED_REGIONS` - Aggregates findings only from the Regions listed in the Regions parameter. Security Hub CSPM does not automatically aggregate findings from new Regions.<br/>        `NO_REGIONS` - Aggregates no data because no Regions are selected as linked Regions.<br/>        (Optional) `regions` - The Regions to be aggregated. This is required when `mode` is `ALL_REGIONS_EXCEPT_SPECIFIED` or `SPECIFIED_REGIONS`. When `mode` is `ALL_REGIONS_EXCEPT_SPECIFIED`, the finding aggregator will aggregate findings from all enabled Regions except for the Regions listed here. When `mode` is `SPECIFIED_REGIONS`, the finding aggregator will only aggregate findings from the Regions listed here. | <pre>object({<br/>    consolidation_enabled = optional(bool, true)<br/>    aggregator = optional(object({<br/>      enabled = optional(bool, false)<br/>      mode    = optional(string, "ALL_REGIONS")<br/>      regions = optional(set(string), [])<br/>    }), {})<br/>  })</pre> | `{}` | no |
 | <a name="input_member_accounts"></a> [member\_accounts](#input\_member\_accounts) | (Optional) A list of configurations for member accounts on the SecurityHub account. Each block of `member_accounts` as defined below.<br/>    (Required) `account_id` - The AWS account ID for the account.<br/>    (Optional) `type` - The type of the member account. Valid values are `ORGANIZATION` or `INVITATION`. Defaults to `ORGANIZATION`. | <pre>list(object({<br/>    account_id = string<br/>    type       = optional(string, "ORGANIZATION")<br/>  }))</pre> | `[]` | no |
@@ -53,7 +53,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_arn"></a> [arn](#output\_arn) | The Amazon Resource Name (ARN) of this SecurityHub account. |
 | <a name="output_auto_enable_controls"></a> [auto\_enable\_controls](#output\_auto\_enable\_controls) | Whether to automatically enable new controls when they are added to security standards that are enabled. |
 | <a name="output_control_finding"></a> [control\_finding](#output\_control\_finding) | The configuration for control finding of the SecurityHub account.<br/>    `consolidation_enabled` - Whether to enable control finding consolidation for the account. |
