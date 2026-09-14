@@ -9,33 +9,33 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.13.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.12 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_accessanalyzer_analyzer.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/accessanalyzer_analyzer) | resource |
 | [aws_accessanalyzer_archive_rule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/accessanalyzer_archive_rule) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_name"></a> [name](#input\_name) | (Required) The name of the Analyzer. | `string` | n/a | yes |
 | <a name="input_archive_rules"></a> [archive\_rules](#input\_archive\_rules) | (Optional) A list of archive rules for the AccessAnalyzer Analyzer. Each item of `archive_rules` block as defined below.<br/>    (Required) `name` - The name of archive rule.<br/>    (Required) `filters` - A list of filter criterias for the archive rule. Each item of `filters` block as defined below.<br/>      (Required) `criteria` - The filter criteria.<br/>      (Optional) `contains` - Contains comparator.<br/>      (Optional) `exists` - Exists comparator (Boolean).<br/>      (Optional) `eq` - Equal comparator.<br/>      (Optional) `neq` - Not Equal comparator. | <pre>list(object({<br/>    name = string<br/>    filters = list(object({<br/>      criteria = string<br/>      contains = optional(list(string))<br/>      exists   = optional(bool)<br/>      eq       = optional(list(string))<br/>      neq      = optional(list(string))<br/>    }))<br/>  }))</pre> | `[]` | no |
 | <a name="input_internal_access_analysis"></a> [internal\_access\_analysis](#input\_internal\_access\_analysis) | (Optional) A configurations for the `INTERNAL_ACCESS` type Analyzer. `internal_access_analysis` as defined below.<br/>    (Optional) `rules` - A list of rules for internal access analyzer. Each item of `rules` block as defined below.<br/>      (Required) `inclusion` - An inclusion rule to filter findings. `inclusion` as defined below.<br/>        (Optional) `accounts` - A set of account IDs to include in the analysis. Account IDs can only be applied to the analysis rule criteria for organization-level analyzers.<br/>        (Optional) `resource_arns` - A set of resource ARNs to include in the analysis. The analyzer will only generate findings for resources that match these ARNs.<br/>        (Optional) `resource_types` - A set of resource types to include in the analysis. The analyzer will only generate findings for resources of these types | <pre>object({<br/>    rules = optional(list(object({<br/>      inclusion = object({<br/>        accounts       = optional(set(string), [])<br/>        resource_arns  = optional(set(string), [])<br/>        resource_types = optional(set(string), [])<br/>      })<br/>    })), [])<br/>  })</pre> | `{}` | no |
@@ -50,7 +50,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_archive_rules"></a> [archive\_rules](#output\_archive\_rules) | A list of archive rules for the Analyzer. |
 | <a name="output_arn"></a> [arn](#output\_arn) | The Amazon Resource Name (ARN) of this Analyzer. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of this Analyzer. |

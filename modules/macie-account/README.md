@@ -11,26 +11,26 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.13.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.12 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_macie2_account.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/macie2_account) | resource |
 | [aws_macie2_classification_export_configuration.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/macie2_classification_export_configuration) | resource |
 | [aws_macie2_member.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/macie2_member) | resource |
@@ -40,7 +40,7 @@ This module creates following resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_discovery_result_repository"></a> [discovery\_result\_repository](#input\_discovery\_result\_repository) | (Optional) The configuration for discovery result location and encryption of the macie account. A `discovery_result_repository` block as defined below.<br/>    (Optional) `s3_bucket` - A configuration for the S3 bucket in which Amazon Macie exports the data discovery results. `s3_bucket` as defined below.<br/>      (Required) `name` - The name of the S3 bucket in which Amazon Macie exports the data classification results.<br/>      (Optional) `key_prefix` - The key prefix for the specified S3 bucket.<br/>      (Required) `sse_kms_key` - The ARN of the AWS KMS key to be used to encrypt the data. | <pre>object({<br/>    s3_bucket = optional(object({<br/>      name        = string<br/>      key_prefix  = optional(string, "")<br/>      sse_kms_key = string<br/>    }))<br/>  })</pre> | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | (Optional) Whether to enable Amazon Macie and start all Macie activities for the account. Defaults to `true`. Set `false` to suspend Macie, it stops monitoring your AWS environment and does not generate new findings. The existing findings remain intact and are not affected. Delete `aws_macie2_account` resource to disable Macie, it permanently deletes all of your existing findings, classification jobs, and other Macie resources. | `bool` | `true` | no |
 | <a name="input_member_accounts"></a> [member\_accounts](#input\_member\_accounts) | (Optional) A list of configurations for member accounts on the macie account. Each block of `member_accounts` as defined below.<br/>    (Required) `account_id` - The AWS account ID for the account.<br/>    (Required) `email` -  The email address for the account.<br/>    (Optional) `type` - The type of the member account. Valid values are `ORGANIZATION` or `INVITATION`. Defaults to `ORGANIZATION`.<br/>    (Optional) `enabled` - Whether to enable Amazon Macie and start all Macie activities for the member account. Defaults to `true`.<br/>    (Optional) `tags` - A map of key-value pairs that specifies the tags to associate with the account in Amazon Macie.<br/>    (Optional) `invitation` - A configuration for invitation to the member account. `invitation` as defined below.<br/>      (Optional) `message` - A custom message to include in the invitation to the account.<br/>      (Optional) `email_notification_enabled` - Whether to send an email notification to the account when you invite it to become a member of your Macie account. This notification is in addition to an alert that the root user receives in AWS Personal Health Dashboard. Defaults to `false`. | <pre>list(object({<br/>    account_id = string<br/>    email      = string<br/>    type       = optional(string, "ORGANIZATION")<br/>    enabled    = optional(bool, true)<br/>    tags       = optional(map(string), {})<br/>    invitation = optional(object({<br/>      message                    = optional(string, "")<br/>      email_notification_enabled = optional(bool, false)<br/>    }), {})<br/>  }))</pre> | `[]` | no |
@@ -54,7 +54,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_created_at"></a> [created\_at](#output\_created\_at) | The date and time, in UTC and extended RFC 3339 format, when the Amazon Macie account was created. |
 | <a name="output_discovery_result_repository"></a> [discovery\_result\_repository](#output\_discovery\_result\_repository) | The configuration for discovery result location and encryption of the macie account. |
 | <a name="output_enabled"></a> [enabled](#output\_enabled) | Whether the macie account is eanbled. |

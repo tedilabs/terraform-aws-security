@@ -16,20 +16,20 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.33.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.12 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 | <a name="module_role__aggregator"></a> [role\_\_aggregator](#module\_role\_\_aggregator) | tedilabs/account/aws//modules/iam-role | ~> 0.33.0 |
 | <a name="module_role__recorder"></a> [role\_\_recorder](#module\_role\_\_recorder) | tedilabs/account/aws//modules/iam-role | ~> 0.33.0 |
@@ -37,7 +37,7 @@ This module creates following resources.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_config_aggregate_authorization.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/config_aggregate_authorization) | resource |
 | [aws_config_configuration_aggregator.account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/config_configuration_aggregator) | resource |
 | [aws_config_configuration_aggregator.organization](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/config_configuration_aggregator) | resource |
@@ -52,7 +52,7 @@ This module creates following resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_delivery_channels"></a> [delivery\_channels](#input\_delivery\_channels) | (Required) A configuration for the delivery channels of the configuration recorder. `delivery_channels` as defined below.<br/>    (Required) `s3_bucket` - A configuration for the S3 Bucket delivery channel. `s3_bucket` as defined below.<br/>      (Required) `name` - The name of the S3 bucket used to store the configuration history.<br/>      (Optional) `key_prefix` - The key prefix for the specified S3 bucket.<br/>      (Optional) `sse_kms_key` - The ARN of the AWS KMS key used to encrypt objects delivered by AWS Config. Must belong to the same Region as the destination S3 bucket.<br/>    (Optional) `sns_topic` - A configuration for the SNS Topic delivery channel. `sns_topic` as defined below.<br/>      (Optional) `enabled` - Whether to enable the SNS Topic delivery channel. Defaults to `false`.<br/>      (Optional) `arn` - The ARN of the SNS topic that AWS Config delivers notifications to. | <pre>object({<br/>    s3_bucket = object({<br/>      name        = string<br/>      key_prefix  = optional(string)<br/>      sse_kms_key = optional(string)<br/>    })<br/>    sns_topic = optional(object({<br/>      enabled = optional(bool, false)<br/>      arn     = optional(string)<br/>    }), {})<br/>  })</pre> | n/a | yes |
 | <a name="input_account_aggregations"></a> [account\_aggregations](#input\_account\_aggregations) | (Optional) A list of configurations to aggregate config data from individual accounts. Each item of `account_aggregations` as defined below.<br/>    (Required) `name` - The name of the account aggregation.<br/>    (Required) `accounts` - A list of account IDs to be aggregated.<br/>    (Optional) `regions` - A list of regions to aggregate data. Aggregate from all supported regions if `regions` is missing.<br/>    (Optional) `tags` - A map of tags to add to the account aggregation resource. | <pre>list(object({<br/>    name     = string<br/>    accounts = set(string)<br/>    regions  = optional(set(string), [])<br/>    tags     = optional(map(string), {})<br/>  }))</pre> | `[]` | no |
 | <a name="input_authorized_aggregators"></a> [authorized\_aggregators](#input\_authorized\_aggregators) | (Optional) A list of Authorized aggregators to allow an aggregator account and region to collect AWS Config configuration and compliance data. Each item of `authorized_aggregators` as defined below.<br/>    (Required) `account` - The account ID of the account authorized to aggregate data.<br/>    (Required) `region` - The region authorized to collect aggregated data.<br/>    (Optional) `tags` - A map of tags to add to authorized aggregator resource. | <pre>list(object({<br/>    account = string<br/>    region  = string<br/>    tags    = optional(map(string), {})<br/>  }))</pre> | `[]` | no |
@@ -75,7 +75,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_account_aggregations"></a> [account\_aggregations](#output\_account\_aggregations) | A list of configurations to aggregate config data from individual accounts. |
 | <a name="output_authorized_aggregators"></a> [authorized\_aggregators](#output\_authorized\_aggregators) | A list of Authorized aggregators allowed to collect AWS Config configuration and compliance data. |
 | <a name="output_delivery_channels"></a> [delivery\_channels](#output\_delivery\_channels) | The configuration of delivery channels of the recorder.<br/>    `s3_bucket` - The configuration for the S3 Bucket delivery channel.<br/>    `sns_topic` - The configuration for the SNS Topic delivery channel. |
