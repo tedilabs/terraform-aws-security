@@ -40,6 +40,8 @@ module "role" {
     },
   ]
 
+  assumable_roles = var.import_trail_events_iam_role.assumable_roles
+
   policies = var.import_trail_events_iam_role.policies
   inline_policies = merge(
     {

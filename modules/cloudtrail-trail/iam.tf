@@ -31,6 +31,8 @@ module "role" {
     }
   ]
 
+  assumable_roles = var.delivery_channels.cloudwatch_log_group.default_iam_role.assumable_roles
+
   policies = var.delivery_channels.cloudwatch_log_group.default_iam_role.policies
   inline_policies = merge(
     {
