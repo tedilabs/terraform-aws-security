@@ -28,6 +28,8 @@ module "role__recorder" {
     },
   ]
 
+  assumable_roles = var.default_service_role.assumable_roles
+
   policies = concat(
     ["arn:aws:iam::aws:policy/service-role/AWS_ConfigRole"],
     var.default_service_role.policies,
@@ -74,6 +76,8 @@ module "role__aggregator" {
       services = ["config.amazonaws.com"]
     },
   ]
+
+  assumable_roles = var.default_organization_aggregator_role.assumable_roles
 
   policies = concat(
     ["arn:aws:iam::aws:policy/service-role/AWSConfigRoleForOrganizations"],

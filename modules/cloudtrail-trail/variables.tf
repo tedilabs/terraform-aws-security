@@ -66,6 +66,7 @@ variable "delivery_channels" {
         (Optional) `name` - The name of the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to `cloudtrail-cloudwatch-logs-$${var.name}`.
         (Optional) `path` - The path of the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to `/`.
         (Optional) `description` - The description of the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to `Managed by Terraform.`.
+        (Optional) `assumable_roles` - A set of IAM role ARNs that can be assumed by this role. Defaults to `[]`.
         (Optional) `policies` - A list of managed policy ARNs to attach to the default IAM Role for CloudTrail to send events to CloudWatch Logs. Defaults to an empty list.
         (Optional) `inline_policies` - A map of inline policies to attach to the default IAM Role for CloudTrail to send events to CloudWatch Logs, where the key is the name of the inline policy and the value is the JSON formatted policy document. Defaults to an empty map.
         (Optional) `permissions_boundary` - The ARN of the policy used as permissions boundary for the default IAM Role for CloudTrail to send events to CloudWatch Logs.
@@ -91,6 +92,7 @@ variable "delivery_channels" {
         path        = optional(string, "/")
         description = optional(string, "Managed by Terraform.")
 
+        assumable_roles      = optional(set(string), [])
         policies             = optional(list(string), [])
         inline_policies      = optional(map(string), {})
         permissions_boundary = optional(string)
