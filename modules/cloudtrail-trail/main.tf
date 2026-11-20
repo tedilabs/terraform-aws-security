@@ -17,6 +17,8 @@ locals {
 data "aws_cloudwatch_log_group" "this" {
   count = (var.delivery_channels.cloudwatch_log_group.enabled ? 1 : 0)
 
+  region = var.region
+
   name = var.delivery_channels.cloudwatch_log_group.name
 }
 
