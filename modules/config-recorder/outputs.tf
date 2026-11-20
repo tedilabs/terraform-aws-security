@@ -95,7 +95,7 @@ output "authorized_aggregators" {
       id      = aggregator.id
       arn     = aggregator.arn
       account = aggregator.account_id
-      region  = aggregator.region
+      region  = aggregator.authorized_aws_region
     }
   ]
 }
