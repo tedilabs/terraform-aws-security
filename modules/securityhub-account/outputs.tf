@@ -20,7 +20,7 @@ output "name" {
 
 output "member_accounts" {
   description = <<EOF
-  The list of configruations for member accounts on the SecurityHub account.
+  The list of configurations for member accounts on the SecurityHub account.
   EOF
   value = {
     for id, account in aws_securityhub_member.this :

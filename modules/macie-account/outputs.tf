@@ -14,7 +14,7 @@ output "name" {
 }
 
 output "enabled" {
-  description = "Whether the macie account is eanbled."
+  description = "Whether the macie account is enabled."
   value       = aws_macie2_account.this.status == "ENABLED"
 }
 
@@ -43,7 +43,7 @@ output "updated_at" {
 
 output "member_accounts" {
   description = <<EOF
-  The list of configruations for member accounts on the macie account.
+  The list of configurations for member accounts on the macie account.
   EOF
   value = {
     for id, account in aws_macie2_member.this :

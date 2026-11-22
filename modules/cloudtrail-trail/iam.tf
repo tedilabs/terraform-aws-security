@@ -60,7 +60,7 @@ module "role" {
 
 
 ###################################################
-# IAM Policy for CloudtWatch Logs
+# IAM Policy for CloudWatch Logs
 ###################################################
 
 locals {

@@ -6,7 +6,7 @@ variable "region" {
 }
 
 variable "source_rule" {
-  description = "(Required) The identifier for AWS Config managed rule. Use the format like `root-account-mfa-enabled` instead of predefiend format like `ROOT_ACCOUNT_MFA_ENABLED`."
+  description = "(Required) The identifier for AWS Config managed rule. Use the format like `root-account-mfa-enabled` instead of predefined format like `ROOT_ACCOUNT_MFA_ENABLED`."
   type        = string
   nullable    = false
 }
