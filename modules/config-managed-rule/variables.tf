@@ -26,7 +26,7 @@ variable "description" {
 }
 
 variable "parameters" {
-  description = "(Optional) A map of parameters that is passed to the AWS Config rule Lambda function."
+  description = "(Optional) A map of parameters that is passed to the AWS Config managed rule."
   type        = any
   default     = {}
   nullable    = false
