@@ -20,7 +20,7 @@ variable "enabled" {
 }
 
 variable "retention_period" {
-  description = "(Optional) The number of days AWS Config stores historical information. Valid range is between a minimum period of 30 days and a maximum period of 7 years (2557 days).Defaults to `2557` (7 years)."
+  description = "(Optional) The number of days AWS Config stores historical information. Valid range is between a minimum period of 30 days and a maximum period of 7 years (2557 days). Defaults to `2557` (7 years)."
   type        = number
   default     = 2557
   nullable    = false
