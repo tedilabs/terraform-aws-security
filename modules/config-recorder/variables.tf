@@ -109,13 +109,13 @@ variable "organization_aggregator_role" {
 variable "recording_frequency" {
   description = <<EOF
   (Optional) A configuration for the recording frequency mode of AWS Config configuration recorder. `recording_frequency` as defined below.
-    (Optional) `mode` - The recording frequency mode for the recorder. Valid values are `CONTINUOUS`, `DAILIY`. Defaults to `CONTINUOUS`.
+    (Optional) `mode` - The recording frequency mode for the recorder. Valid values are `CONTINUOUS`, `DAILY`. Defaults to `CONTINUOUS`.
 
       `CONTINUOUS`: Continuous recording allows you to record configuration changes continuously whenever a change occurs.
       `DAILY`: Daily recording allows you to receive a configuration item (CI) representing the most recent state of your resources over the last 24-hour period, only if it's different from the previous CI recorded.
     (Optional) `overrides` - A configurations to override the recording frequency for specific resource types. Each block of `overrides` as defined below.
       (Required) `resource_types` - A set of resource types to override the recording frequency mode. For example, `AWS::EC2::Instance` or `AWS::CloudTrail::Trail`.
-      (Required) `mode` - The recording frequency mode to override to all the resource types specified in the `resource_types`. Valid values are `CONTINUOUS`, `DAILIY`.
+      (Required) `mode` - The recording frequency mode to override to all the resource types specified in the `resource_types`. Valid values are `CONTINUOUS`, `DAILY`.
       (Optional) `description` - The description of the override. Defaults to `Managed by Terraform.`
   EOF
   type = object({
@@ -146,7 +146,7 @@ variable "scope" {
   description = <<EOF
   (Optional) A configuration for the scope of AWS Config configuration recorder. `scope` as defined below.
     (Optional) `strategy` - The recording strategy for the configuration recorder. Valid values are `ALL_WITHOUT_GLOBAL`, `ALL`, `WHITELIST`, `BLACKLIST`. Defaults to `ALL_WITHOUT_GLOBAL`.
-    (Optional) `resource_types` - A list of resource types to include/exclude for recording. For example, `AWS::EC2::Instance` or `AWS::CloudTrail::Trail`. Only need when `strategy` is confirued with value `WHITELIST` or `BLACKLIST`.
+    (Optional) `resource_types` - A list of resource types to include/exclude for recording. For example, `AWS::EC2::Instance` or `AWS::CloudTrail::Trail`. Only need when `strategy` is configured with value `WHITELIST` or `BLACKLIST`.
   EOF
   type = object({
     strategy       = optional(string, "ALL_WITHOUT_GLOBAL")

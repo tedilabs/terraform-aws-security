@@ -60,7 +60,7 @@ This module creates following resources.
 | <a name="output_auto_enable_controls"></a> [auto\_enable\_controls](#output\_auto\_enable\_controls) | Whether to automatically enable new controls when they are added to security standards that are enabled. |
 | <a name="output_control_finding"></a> [control\_finding](#output\_control\_finding) | The configuration for control finding of the SecurityHub account.<br/>    `consolidation_enabled` - Whether to enable control finding consolidation for the account. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the SecurityHub account. |
-| <a name="output_member_accounts"></a> [member\_accounts](#output\_member\_accounts) | The list of configruations for member accounts on the SecurityHub account. |
+| <a name="output_member_accounts"></a> [member\_accounts](#output\_member\_accounts) | The list of configurations for member accounts on the SecurityHub account. |
 | <a name="output_name"></a> [name](#output\_name) | The account ID of the SecurityHub account. |
 | <a name="output_organization_config"></a> [organization\_config](#output\_organization\_config) | The organization configurations for the SecurityHub account.<br/>    `mode` - The organization configuration mode. Valid values are `CENTRAL` or `LOCAL`.<br/>    `auto_enable` - Whether to automatically enable SecurityHub for new accounts in the organization. |
 | <a name="output_region"></a> [region](#output\_region) | The AWS region this module resources resides in. |

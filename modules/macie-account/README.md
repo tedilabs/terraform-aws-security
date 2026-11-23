@@ -59,9 +59,9 @@ This module creates following resources.
 | ---- | ----------- |
 | <a name="output_created_at"></a> [created\_at](#output\_created\_at) | The date and time, in UTC and extended RFC 3339 format, when the Amazon Macie account was created. |
 | <a name="output_discovery_result_repository"></a> [discovery\_result\_repository](#output\_discovery\_result\_repository) | The configuration for discovery result location and encryption of the macie account. |
-| <a name="output_enabled"></a> [enabled](#output\_enabled) | Whether the macie account is eanbled. |
+| <a name="output_enabled"></a> [enabled](#output\_enabled) | Whether the macie account is enabled. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the macie account. |
-| <a name="output_member_accounts"></a> [member\_accounts](#output\_member\_accounts) | The list of configruations for member accounts on the macie account. |
+| <a name="output_member_accounts"></a> [member\_accounts](#output\_member\_accounts) | The list of configurations for member accounts on the macie account. |
 | <a name="output_name"></a> [name](#output\_name) | The account ID of the macie account. |
 | <a name="output_organization_config"></a> [organization\_config](#output\_organization\_config) | The organization configuration for the macie account. |
 | <a name="output_region"></a> [region](#output\_region) | The AWS region this module resources resides in. |

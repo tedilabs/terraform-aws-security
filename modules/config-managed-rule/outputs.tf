@@ -57,7 +57,7 @@ output "parameters" {
 }
 
 output "level" {
-  description = "The level of the rule. `ACOUNT` or `ORGANIZATION`. The rule is for accounts in your Organization if the value is configured with `ORGANIZATION`."
+  description = "The level of the rule. `ACCOUNT` or `ORGANIZATION`. The rule is for accounts in your Organization if the value is configured with `ORGANIZATION`."
   value       = var.level
 }
 

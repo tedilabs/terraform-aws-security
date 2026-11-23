@@ -42,7 +42,7 @@ This module creates following resources.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
-| <a name="input_source_rule"></a> [source\_rule](#input\_source\_rule) | (Required) The identifier for AWS Config managed rule. Use the format like `root-account-mfa-enabled` instead of predefiend format like `ROOT_ACCOUNT_MFA_ENABLED`. | `string` | n/a | yes |
+| <a name="input_source_rule"></a> [source\_rule](#input\_source\_rule) | (Required) The identifier for AWS Config managed rule. Use the format like `root-account-mfa-enabled` instead of predefined format like `ROOT_ACCOUNT_MFA_ENABLED`. | `string` | n/a | yes |
 | <a name="input_description"></a> [description](#input\_description) | (Optional) The description of the rule. Use default description if not provided. | `string` | `null` | no |
 | <a name="input_evaluation_modes"></a> [evaluation\_modes](#input\_evaluation\_modes) | (Optional) A set of evaluation modes to enable for the Config rule. Valid values are `DETECTIVE`, `PROACTIVE`. Default value contains only `DETECTIVE`. | `set(string)` | <pre>[<br/>  "DETECTIVE"<br/>]</pre> | no |
 | <a name="input_excluded_accounts"></a> [excluded\_accounts](#input\_excluded\_accounts) | (Optional) A list of AWS account identifiers to exclude from the rule. Only need when `level` is configured with value `ORGANIZATION`. | `list(string)` | `[]` | no |
@@ -70,7 +70,7 @@ This module creates following resources.
 | <a name="output_evaluation_modes"></a> [evaluation\_modes](#output\_evaluation\_modes) | A set of evaluation modes to enable for the Config rule. |
 | <a name="output_excluded_accounts"></a> [excluded\_accounts](#output\_excluded\_accounts) | A list of AWS account identifiers excluded from the rule. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the rule. |
-| <a name="output_level"></a> [level](#output\_level) | The level of the rule. `ACOUNT` or `ORGANIZATION`. The rule is for accounts in your Organization if the value is configured with `ORGANIZATION`. |
+| <a name="output_level"></a> [level](#output\_level) | The level of the rule. `ACCOUNT` or `ORGANIZATION`. The rule is for accounts in your Organization if the value is configured with `ORGANIZATION`. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the rule. |
 | <a name="output_parameters"></a> [parameters](#output\_parameters) | The parameters of the rule. |
 | <a name="output_region"></a> [region](#output\_region) | The AWS region this module resources resides in. |
