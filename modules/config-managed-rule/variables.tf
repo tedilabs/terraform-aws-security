@@ -100,6 +100,14 @@ variable "schedule_frequency" {
   type        = string
   default     = null
   nullable    = true
+
+  validation {
+    condition = (var.schedule_frequency == null
+      || !local.rule.trigger_by_schedule.enabled
+      || contains(["1h", "3h", "6h", "12h", "24h"], var.schedule_frequency)
+    )
+    error_message = "Valid values for `schedule_frequency` are `1h`, `3h`, `6h`, `12h`, `24h`."
+  }
 }
 
 variable "excluded_accounts" {
