@@ -43,10 +43,6 @@ resource "aws_macie2_account" "this" {
 
 # TODO: Cannot delete member account from AWS Organization
 # https://github.com/hashicorp/terraform-provider-aws/issues/26219
-# INFO: Not supported attributes
-# - `invite`
-# - `invitation_message`
-# - `invitation_disable_email_notification`
 resource "aws_macie2_member" "this" {
   for_each = {
     for account in var.member_accounts :

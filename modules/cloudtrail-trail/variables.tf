@@ -54,7 +54,7 @@ variable "delivery_channels" {
       (Required) `name` - The name of the S3 bucket used to publish log files.
       (Optional) `key_prefix` - The key prefix for the specified S3 bucket.
       (Optional) `integrity_validation_enabled` - To determine whether a log file was modified, deleted, or unchanged after AWS CloudTrail delivered it, use CloudTrail log file integrity validation. This feature is built using industry standard algorithms: SHA-256 for hashing and SHA-256 with RSA for digital signing. Defaults to `true`.
-      (Optional) `sse_kms_key` - The ARN of the AWS KMS key used to encrypt objects delivered by AWS Config. Must belong to the same Region as the destination S3 bucket.
+      (Optional) `sse_kms_key` - The ARN of the AWS KMS key used to encrypt objects delivered by CloudTrail. Must belong to the same Region as the destination S3 bucket.
     (Optional) `sns_topic` - A configuration for the SNS Topic notifications for log file delivery. CloudTrail stores multiple events in a log file. When you enable this option, Amazon SNS notifications are sent for every log file delivery to your S3 bucket, not for every event. `sns_topic` as defined below.
       (Optional) `enabled` - Whether to enable the SNS Topic notifications for log file delivery. Defaults to `false`.
       (Optional) `name` - The name of the SNS topic for notification of log file delivery.

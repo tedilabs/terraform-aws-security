@@ -249,7 +249,7 @@ variable "account_aggregations" {
 
 variable "organization_aggregation" {
   description = <<EOF
-  (Optional) A configuration to aggregate config data from organization accounts. `organization_aggregations` as defined below.
+  (Optional) A configuration to aggregate config data from organization accounts. `organization_aggregation` as defined below.
     (Optional) `enabled` - Whether to enable the organization aggregation. Defaults to `false`.
     (Optional) `name` - The name of the organization aggregation. Defaults to `organization`.
     (Optional) `regions` - A list of regions to aggregate data. Aggregate from all supported regions if `regions` is missing.

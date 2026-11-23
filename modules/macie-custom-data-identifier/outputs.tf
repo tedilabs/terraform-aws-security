@@ -4,7 +4,7 @@ output "region" {
 }
 
 output "arn" {
-  description = "The ARN (Amazon Resource Name) for the macie custom data identifier. For example: `arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5`."
+  description = "The ARN (Amazon Resource Name) for the macie custom data identifier. For example: `arn:aws:macie2:us-east-1:123456789012:custom-data-identifier/12g4aff9-8e22-4f2b-b3fd-3063eexample`."
   value       = aws_macie2_custom_data_identifier.this.arn
 }
 

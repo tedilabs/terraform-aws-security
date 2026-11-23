@@ -51,7 +51,7 @@ This module creates following resources.
 
 | Name | Description |
 | ---- | ----------- |
-| <a name="output_arn"></a> [arn](#output\_arn) | The ARN (Amazon Resource Name) for the macie custom data identifier. For example: `arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5`. |
+| <a name="output_arn"></a> [arn](#output\_arn) | The ARN (Amazon Resource Name) for the macie custom data identifier. For example: `arn:aws:macie2:us-east-1:123456789012:custom-data-identifier/12g4aff9-8e22-4f2b-b3fd-3063eexample`. |
 | <a name="output_created_at"></a> [created\_at](#output\_created\_at) | The date and time, in UTC and extended RFC 3339 format, when the Amazon Macie custom data identifier was created. |
 | <a name="output_description"></a> [description](#output\_description) | The description of the macie custom data identifier. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the macie custom data identifier. |
