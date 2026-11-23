@@ -86,7 +86,7 @@ variable "resource_id" {
 }
 
 variable "resource_tag" {
-  description = "(Optional) The tag that are applied to only those AWS resources that you want you want to trigger an evaluation for the rule. You can configure with only `key` or a set of `key` and `value`. Only need when `scope` is configured with value `TAGS`."
+  description = "(Optional) The tag that are applied to only those AWS resources that you want to trigger an evaluation for the rule. You can configure with only `key` or a set of `key` and `value`. Only need when `scope` is configured with value `TAGS`."
   type = object({
     key   = string
     value = optional(string)

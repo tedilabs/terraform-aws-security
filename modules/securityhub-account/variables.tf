@@ -62,10 +62,10 @@ variable "auto_enable_controls" {
 variable "control_finding" {
   description = <<EOF
   (Optional) A configuration for control finding of the SecurityHub account. `control_finding` as defined below.
-    (Optional) `consolidation_enabled` - Whether to enable control finding consolidation for the account. If `true`, Security Hub generates a single finding for a control check even when the check applies to multiple enabled standards. Defaults to `true`."
+    (Optional) `consolidation_enabled` - Whether to enable control finding consolidation for the account. If `true`, Security Hub generates a single finding for a control check even when the check applies to multiple enabled standards. Defaults to `true`.
     (Optional) `aggregator` - A configuration for finding aggregator of the account. `aggregator` as defined below.
       (Optional) `enabled` - Whether to enable finding aggregator for the account. Defaults to `false`. If `true`, a finding aggregator will be created to aggregate findings from other regions.
-      (Optional) `mode` - A linking mode for the finding aggregator. This decide which regions the finding aggregator will aggregate findings from. Valid values are `ALL_REGIONS`, `ALL_REGIONS_EXCEPT_SPECIFIED`, `SPECIFIED_REGIONS`, or `NO_REGIONS`. The selected `mode` also determines how to use `regions` provided. Defaults to `ALL_REGIONS`.
+      (Optional) `mode` - A linking mode for the finding aggregator. This decides which regions the finding aggregator will aggregate findings from. Valid values are `ALL_REGIONS`, `ALL_REGIONS_EXCEPT_SPECIFIED`, `SPECIFIED_REGIONS`, or `NO_REGIONS`. The selected `mode` also determines how to use `regions` provided. Defaults to `ALL_REGIONS`.
         `ALL_REGIONS` - Aggregates findings from all of the Regions where Security Hub CSPM is enabled. When you choose this option, Security Hub CSPM also automatically aggregates findings from new Regions as Security Hub CSPM supports them and you opt into them.
         `ALL_REGIONS_EXCEPT_SPECIFIED` - Aggregates findings from all of the Regions where Security Hub CSPM is enabled, except for the Regions listed in the Regions parameter. When you choose this option, Security Hub CSPM also automatically aggregates findings from new Regions as Security Hub CSPM supports them and you opt into them.
         `SPECIFIED_REGIONS` - Aggregates findings only from the Regions listed in the Regions parameter. Security Hub CSPM does not automatically aggregate findings from new Regions.

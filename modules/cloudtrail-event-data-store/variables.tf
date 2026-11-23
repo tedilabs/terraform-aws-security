@@ -195,7 +195,7 @@ variable "data_event_selectors" {
 
 variable "encryption" {
   description = <<EOF
-  (Optional) A configuration to encrypt the events delivered by CloudTrail. By default, the event data store is encrypted with a KMS key that AWS owns and manages.`encryption` as defined below.
+  (Optional) A configuration to encrypt the events delivered by CloudTrail. By default, the event data store is encrypted with a KMS key that AWS owns and manages. `encryption` as defined below.
     (Optional) `kms_key` - The ID of AWS KMS key to use to encrypt the events delivered by CloudTrail. The value can be an alias name prefixed by 'alias/', a fully specified ARN to an alias, a fully specified ARN to a key, or a globally unique identifier.
   EOF
   type = object({
