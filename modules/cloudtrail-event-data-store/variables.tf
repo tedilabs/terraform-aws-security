@@ -56,7 +56,7 @@ variable "event_type" {
 
 variable "management_event_selector" {
   description = <<EOF
-  (Optional) A configuration of management event selector to use to select the events for the event data store. Only used if `event_type` is `CLOUDTRAIL_EVENTS`. `management_event_selector` block as defined below.
+  (Required) A configuration of management event selector to use to select the events for the event data store. Only used if `event_type` is `CLOUDTRAIL_EVENTS`. `management_event_selector` block as defined below.
     (Optional) `enabled` - Whether to capture management events. Defaults to `false`.
     (Optional) `scope` - The type of events to log. Valid values are `ALL`, `READ` and `WRITE`. Defaults to `ALL`.
     (Optional) `exclude_event_sources` - A set of event sources to exclude. Valid values are `kms.amazonaws.com` and `rdsdata.amazonaws.com`. `management_event_selector.enabled` must be set to true to allow this.
@@ -228,7 +228,7 @@ variable "retention_in_days" {
       var.retention_in_days <= 2557,
       var.retention_in_days >= 7,
     ])
-    error_message = "The scope should be one of `REGIONAL`, `ALL`."
+    error_message = "Valid range for `retention_in_days` is between 7 and 2557."
   }
 }
 
